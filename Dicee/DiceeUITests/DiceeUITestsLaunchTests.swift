@@ -1,13 +1,13 @@
 //
-//  I_am_RichUITestsLaunchTests.swift
-//  I am RichUITests
+//  DiceeUITestsLaunchTests.swift
+//  DiceeUITests
 //
 //  Created by Yuunan kin on 2024/11/30.
 //
 
 import XCTest
 
-final class I_am_RichUITestsLaunchTests: XCTestCase {
+final class DiceeUITestsLaunchTests: XCTestCase {
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }

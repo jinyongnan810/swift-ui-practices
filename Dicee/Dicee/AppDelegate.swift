@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  I am Rich
+//  Dicee
 //
 //  Created by Yuunan kin on 2024/11/30.
 //
