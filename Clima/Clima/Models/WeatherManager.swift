@@ -11,9 +11,19 @@ struct WeatherManager {
 
     var url = "https://api.openweathermap.org/data/2.5/weather?appid=e0e154d6de04f7eb12b44c810c9fb69a&units=metric"
 
-    func fetch(_ name: String) {
-        let urlWithCity = "\(url)&q=\(name)"
-        guard let url = URL(string: urlWithCity) else {
+    func request(withName cityName: String) {
+        let urlWithCity = "\(url)&q=\(cityName)"
+        requestWeather(urlWithCity)
+    }
+
+    func request(withlat lat: Double, andLon lon: Double) {
+        let urlWithLatLon = "\(url)&lat=\(lat)&lon=\(lon)"
+        print("⭐️url:\(urlWithLatLon)")
+        requestWeather(urlWithLatLon)
+    }
+
+    private func requestWeather(_ url: String) {
+        guard let url = URL(string: url) else {
             return
         }
         let session = URLSession(configuration: .default)
