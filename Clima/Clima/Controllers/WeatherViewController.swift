@@ -13,10 +13,13 @@ class WeatherViewController: UIViewController {
     @IBOutlet var temperatureLabel: UILabel!
     @IBOutlet var conditionImage: UIImageView!
 
-    let weatherManager = WeatherManager()
+    var weatherManager = WeatherManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        weatherManager.delegate = self
+
         searchTextField.delegate = self
         searchTextField.clearsOnBeginEditing = false
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -48,5 +51,19 @@ extension WeatherViewController: UITextFieldDelegate {
             search(text)
         }
         return true
+    }
+}
+
+extension WeatherViewController: WeatherManagerDelegate {
+    func onWeatherFetched(_ weather: Weather) {
+        DispatchQueue.main.async {
+            self.cityLabel.text = weather.city
+            self.temperatureLabel.text = weather.temperatureString
+            self.conditionImage.image = .init(systemName: weather.icon)
+        }
+    }
+
+    func onFailed(_ error: any Error) {
+        print("Fetch failed: \(error.localizedDescription)")
     }
 }

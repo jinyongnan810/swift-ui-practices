@@ -7,6 +7,8 @@
 import Foundation
 
 struct WeatherManager {
+    var delegate: WeatherManagerDelegate?
+
     var url = "https://api.openweathermap.org/data/2.5/weather?appid=e0e154d6de04f7eb12b44c810c9fb69a&units=metric"
 
     func fetch(_ name: String) {
@@ -20,7 +22,7 @@ struct WeatherManager {
                 _,
                 error in
             if error != nil {
-                print("Error: \(error!.localizedDescription)")
+                delegate?.onFailed(error!)
                 return
             }
             guard let data = data else {
@@ -31,11 +33,14 @@ struct WeatherManager {
                     WeatherData.self,
                     from: data
                 )
-                print(
-                    "name: \(decoded.name), temp: \(decoded.main.temp), weather: \(decoded.weather.first?.description)"
+                let weather = Weather(
+                    weatherId: decoded.weather.first?.id ?? 0,
+                    city: decoded.name,
+                    temperature: decoded.main.temp
                 )
+                delegate?.onWeatherFetched(weather)
             } catch {
-                print("Error decoding: \(error.localizedDescription)")
+                delegate?.onFailed(error)
             }
         }
         task.resume()
