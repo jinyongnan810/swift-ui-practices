@@ -9,11 +9,8 @@
 import UIKit
 
 class RegisterViewController: UIViewController {
+    @IBOutlet var emailTextfield: UITextField!
+    @IBOutlet var passwordTextfield: UITextField!
 
-    @IBOutlet weak var emailTextfield: UITextField!
-    @IBOutlet weak var passwordTextfield: UITextField!
-    
-    @IBAction func registerPressed(_ sender: UIButton) {
-    }
-    
+    @IBAction func registerPressed(_: UIButton) {}
 }

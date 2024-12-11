@@ -9,12 +9,8 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    @IBOutlet var emailTextfield: UITextField!
+    @IBOutlet var passwordTextfield: UITextField!
 
-    @IBOutlet weak var emailTextfield: UITextField!
-    @IBOutlet weak var passwordTextfield: UITextField!
-    
-
-    @IBAction func loginPressed(_ sender: UIButton) {
-    }
-    
+    @IBAction func loginPressed(_: UIButton) {}
 }

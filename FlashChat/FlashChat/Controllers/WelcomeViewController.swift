@@ -9,14 +9,9 @@
 import UIKit
 
 class WelcomeViewController: UIViewController {
+    @IBOutlet var titleLabel: UILabel!
 
-    @IBOutlet weak var titleLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       
     }
-    
-
 }
