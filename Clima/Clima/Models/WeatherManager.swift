@@ -20,7 +20,6 @@ struct WeatherManager {
             return
         }
         url = url.replacingOccurrences(of: "YOUR_API_KEY", with: apiKey)
-
     }
 
     var url = "https://api.openweathermap.org/data/2.5/weather?appid=YOUR_API_KEY&units=metric"
