@@ -8,8 +8,22 @@ import Foundation
 
 struct WeatherManager {
     var delegate: WeatherManagerDelegate?
+    init() {
+        var keys: NSDictionary?
+        if let path = Bundle.main.path(forResource: "Keys", ofType: "plist") {
+            keys = NSDictionary(contentsOfFile: path)
+        }
+        guard let dict = keys else {
+            return
+        }
+        guard let apiKey = dict["WeatherAPIKey"] as? String else {
+            return
+        }
+        url = url.replacingOccurrences(of: "YOUR_API_KEY", with: apiKey)
 
-    var url = "https://api.openweathermap.org/data/2.5/weather?appid=e0e154d6de04f7eb12b44c810c9fb69a&units=metric"
+    }
+
+    var url = "https://api.openweathermap.org/data/2.5/weather?appid=YOUR_API_KEY&units=metric"
 
     func request(withName cityName: String) {
         let urlWithCity = "\(url)&q=\(cityName)"
