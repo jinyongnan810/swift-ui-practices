@@ -165,7 +165,7 @@
                     <connections>
                         <outlet property="emailTextfield" destination="uW9-5s-TEd" id="xAd-Pq-voQ"/>
                         <outlet property="passwordTextfield" destination="fru-L0-0Nu" id="36K-Xg-V8y"/>
-                        <segue destination="Tyn-SM-3HV" kind="show" identifier="registerToChat" id="Wco-jf-kXh"/>
+                        <segue destination="Tyn-SM-3HV" kind="show" identifier="RegisterToChat" id="Wco-jf-kXh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6WI-h7-Xup" sceneMemberID="firstResponder"/>
@@ -260,7 +260,7 @@
                     <connections>
                         <outlet property="emailTextfield" destination="cCm-xC-VGc" id="wkV-1m-dpQ"/>
                         <outlet property="passwordTextfield" destination="2mF-Wp-XXt" id="wvp-Zz-ws6"/>
-                        <segue destination="Tyn-SM-3HV" kind="show" identifier="loginToChat" id="vrH-bC-YBX"/>
+                        <segue destination="Tyn-SM-3HV" kind="show" identifier="LoginToChat" id="vrH-bC-YBX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dIk-nd-zce" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -339,7 +339,13 @@
                             <constraint firstItem="zy0-14-Urq" firstAttribute="top" secondItem="rPw-CG-Sdv" secondAttribute="bottom" id="el3-AD-xvv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="yBM-Mn-J7h"/>
+                    <navigationItem key="navigationItem" id="yBM-Mn-J7h">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="gg5-97-IOF">
+                            <connections>
+                                <action selector="logoutPressed:" destination="Tyn-SM-3HV" id="NDe-Ug-dew"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="messageTextfield" destination="53c-3k-mc7" id="D2L-Wc-WUL"/>
                         <outlet property="tableView" destination="rPw-CG-Sdv" id="wlA-BG-yRv"/>
@@ -369,7 +375,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vrH-bC-YBX"/>
+        <segue reference="Wco-jf-kXh"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
@@ -390,7 +396,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemTealColor">
-            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.18823529410000001" green="0.69019607839999997" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ChatViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
@@ -14,7 +15,17 @@ class ChatViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.hidesBackButton = true
+        title = "⚡️FlashChat"
     }
 
+    @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
+        do {
+            try Auth.auth().signOut()
+            navigationController?.popToRootViewController(animated: true)
+        } catch {
+            print("Failed to sign out: \(error.localizedDescription)")
+        }
+    }
     @IBAction func sendPressed(_: UIButton) {}
 }
