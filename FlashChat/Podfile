@@ -1,0 +1,20 @@
+platform :ios, '17.0'
+
+target 'FlashChat' do
+  use_frameworks!
+
+  # Pods for FlashChat
+
+  pod 'FirebaseAuth'
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '11.6.0'
+
+  target 'FlashChatTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'FlashChatUITests' do
+    # Pods for testing
+  end
+
+end
