@@ -20,12 +20,17 @@ class LoginViewController: UIViewController {
 
         Auth
             .auth()
-            .signIn(withEmail: email, password: password) { result, error in
+            .signIn(withEmail: email, password: password) {
+ result,
+ error in
             if let error = error {
                 print("Error signing in user: \(error.localizedDescription)")
                 self.showToast(message: error.localizedDescription)
             } else {
-                self.performSegue(withIdentifier: "LoginToChat", sender: self)
+                self.performSegue(
+                    withIdentifier: K.loginToCHatSegue,
+                    sender: self
+                )
             }
 
         }

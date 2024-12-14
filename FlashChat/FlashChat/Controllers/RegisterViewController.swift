@@ -18,12 +18,17 @@ class RegisterViewController: UIViewController {
             return
         }
 
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+        Auth.auth().createUser(withEmail: email, password: password) {
+ result,
+ error in
             if let error = error {
                 print("Error creating user: \(error.localizedDescription)")
                 self.showToast(message: error.localizedDescription)
             } else {
-                self.performSegue(withIdentifier: "RegisterToChat", sender: self)
+                self.performSegue(
+                    withIdentifier: K.registerToChatSegue,
+                    sender: self
+                )
             }
 
         }

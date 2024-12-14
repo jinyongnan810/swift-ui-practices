@@ -10,15 +10,12 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
-
-    let titleText = "⚡️FlashChat"
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         var charIndex = 0.0
 
-        for char in titleText {
+        for char in K.appName {
             DispatchQueue.main
                 .asyncAfter(deadline: .now() + 0.1 * charIndex) {
                     self.titleLabel.text?.append(char)
