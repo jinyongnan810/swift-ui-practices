@@ -15,16 +15,21 @@ class ChatViewController: UIViewController {
 
     let messages = [
         Message(sender: "sender1", body: "hi"),
-        Message(sender: "sender2", body: "hi too")
+        Message(sender: "sender2", body: "hi toohi toohi toohi toohi toohi too\nhi toohi toohi toohi toohi toohi too\n hi \n ok")
     ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
-        title = "⚡️FlashChat"
+        title = K.appName
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView
+            .register(
+                UINib(nibName: K.cellNibName, bundle: nil),
+                forCellReuseIdentifier: K.cellIdentifier
+            )
     }
 
     @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
@@ -48,14 +53,10 @@ extension ChatViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: K.cellIdentifier,
             for: indexPath
-        )
+        ) as! MessageCell
 
         let message = messages[indexPath.row]
-
-        var config = cell.defaultContentConfiguration()
-        config.text = message.body
-        config.secondaryText = message.sender
-        cell.contentConfiguration = config
+        cell.label.text = message.body
 
         return cell
     }
