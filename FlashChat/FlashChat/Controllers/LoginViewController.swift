@@ -6,8 +6,8 @@
 //  Copyright © 2019 Angela Yu. All rights reserved.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 class LoginViewController: UIViewController {
     @IBOutlet var emailTextfield: UITextField!
@@ -21,18 +21,17 @@ class LoginViewController: UIViewController {
         Auth
             .auth()
             .signIn(withEmail: email, password: password) {
- result,
- error in
-            if let error = error {
-                print("Error signing in user: \(error.localizedDescription)")
-                self.showToast(message: error.localizedDescription)
-            } else {
-                self.performSegue(
-                    withIdentifier: K.loginToCHatSegue,
-                    sender: self
-                )
+                _,
+                    error in
+                if let error {
+                    print("Error signing in user: \(error.localizedDescription)")
+                    self.showToast(message: error.localizedDescription)
+                } else {
+                    self.performSegue(
+                        withIdentifier: K.loginToCHatSegue,
+                        sender: self
+                    )
+                }
             }
-
-        }
     }
 }

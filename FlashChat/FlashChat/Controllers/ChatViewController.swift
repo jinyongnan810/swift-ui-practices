@@ -6,23 +6,18 @@
 //  Copyright © 2019 Angela Yu. All rights reserved.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 class ChatViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var messageTextfield: UITextField!
 
-    let messages = [
-        Message(sender: "sender1", body: "hi"),
-        Message(sender: "sender2", body: "hi toohi toohi toohi toohi toohi too\nhi toohi toohi toohi toohi toohi too\n hi \n ok")
-    ]
+    let messageBrain = MessageBrain()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.hidesBackButton = true
-        title = K.appName
-
+        messageBrain.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView
@@ -30,23 +25,36 @@ class ChatViewController: UIViewController {
                 UINib(nibName: K.cellNibName, bundle: nil),
                 forCellReuseIdentifier: K.cellIdentifier
             )
+
+        navigationItem.hidesBackButton = true
+        title = K.appName
+
+        messageBrain.startListenForMessageUpdates()
     }
 
-    @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
+    @IBAction func logoutPressed(_: UIBarButtonItem) {
         do {
             try Auth.auth().signOut()
             navigationController?.popToRootViewController(animated: true)
         } catch {
             print("Failed to sign out: \(error.localizedDescription)")
-            self.showToast(message: error.localizedDescription)
+            showToast(message: error.localizedDescription)
         }
     }
-    @IBAction func sendPressed(_: UIButton) {}
+
+    @IBAction func sendPressed(_: UIButton) {
+        guard let text = messageTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines), let email = Auth.auth().currentUser?.email else {
+            return
+        }
+        let message = Message(sender: email, body: text, date: Date.now)
+        messageBrain.sendMessage(message)
+        messageTextfield.text = ""
+    }
 }
 
 extension ChatViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        messageBrain.messages.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,20 +63,24 @@ extension ChatViewController: UITableViewDataSource {
             for: indexPath
         ) as! MessageCell
 
-        let message = messages[indexPath.row]
+        let message = messageBrain.messages[indexPath.row]
         cell.label.text = message.body
 
         return cell
     }
-
-
 }
 
 extension ChatViewController: UITableViewDelegate {
     func tableView(
-        _ tableView: UITableView,
+        _: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
         print("⭐️ selected row: \(indexPath.row)")
+    }
+}
+
+extension ChatViewController: MessageBrainDelegate {
+    func messagesUpdated() {
+        tableView.reloadData()
     }
 }

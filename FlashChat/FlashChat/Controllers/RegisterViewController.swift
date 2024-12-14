@@ -6,8 +6,8 @@
 //  Copyright © 2019 Angela Yu. All rights reserved.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 class RegisterViewController: UIViewController {
     @IBOutlet var emailTextfield: UITextField!
@@ -19,9 +19,9 @@ class RegisterViewController: UIViewController {
         }
 
         Auth.auth().createUser(withEmail: email, password: password) {
- result,
- error in
-            if let error = error {
+            _,
+                error in
+            if let error {
                 print("Error creating user: \(error.localizedDescription)")
                 self.showToast(message: error.localizedDescription)
             } else {
@@ -30,7 +30,6 @@ class RegisterViewController: UIViewController {
                     sender: self
                 )
             }
-
         }
     }
 }

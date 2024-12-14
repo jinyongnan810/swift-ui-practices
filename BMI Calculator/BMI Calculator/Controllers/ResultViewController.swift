@@ -18,7 +18,7 @@ class ResultViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let bmi = bmi else {
+        guard let bmi else {
             return
         }
         bmiLabel.text = bmi.getBmiString()

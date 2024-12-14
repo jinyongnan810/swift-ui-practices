@@ -7,7 +7,7 @@
 import UIKit
 
 struct CalculatorBrain {
-    var bmi: BMI? = nil
+    var bmi: BMI?
 
     mutating func calculate(_ height: Float, _ weight: Float) {
         let value = weight / pow(height, 2)

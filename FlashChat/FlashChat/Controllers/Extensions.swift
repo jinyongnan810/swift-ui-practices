@@ -8,11 +8,10 @@ import UIKit
 
 extension UIViewController {
     func showToast(message: String, duration: Double = 4.0) {
-
         let toastLabel = UILabel(
             frame: CGRect(
-                x: self.view.frame.size.width/2 - 150,
-                y: self.view.frame.size.height-100,
+                x: view.frame.size.width / 2 - 150,
+                y: view.frame.size.height - 100,
                 width: 300,
                 height: 50
             )
@@ -27,13 +26,13 @@ extension UIViewController {
         toastLabel.alpha = 1.0
         toastLabel.layer.cornerRadius = 10
         toastLabel.clipsToBounds = true
-        self.view.addSubview(toastLabel)
+        view.addSubview(toastLabel)
 
         UIView
             .animate(withDuration: 0.5, delay: duration, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }, completion: { (isCompleted) in
-            toastLabel.removeFromSuperview()
-        })
+                toastLabel.alpha = 0.0
+            }, completion: { _ in
+                toastLabel.removeFromSuperview()
+            })
     }
 }

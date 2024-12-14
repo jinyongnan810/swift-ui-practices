@@ -17,23 +17,23 @@ struct Weather {
     var icon: String {
         switch weatherId {
         case 200 ... 232:
-            return "cloud.bolt"
+            "cloud.bolt"
         case 300 ... 321:
-            return "cloud.drizzle"
+            "cloud.drizzle"
         case 500 ... 531:
-            return "cloud.rain"
+            "cloud.rain"
         case 600 ... 622:
-            return "cloud.snow"
+            "cloud.snow"
         case 701 ... 781:
-            return "cloud.fog"
+            "cloud.fog"
         case 800:
-            return "sun.max"
+            "sun.max"
         case 801 ... 802:
-            return "sun.min"
+            "sun.min"
         case 801 ... 804:
-            return "cloud"
+            "cloud"
         default:
-            return "cloud"
+            "cloud"
         }
     }
 }

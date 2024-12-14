@@ -8,10 +8,9 @@
 import UIKit
 
 class MessageCell: UITableViewCell {
-
-    @IBOutlet weak var messageBubble: UIView!
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet var messageBubble: UIView!
+    @IBOutlet var label: UILabel!
+    @IBOutlet var iconImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         messageBubble.layer.cornerRadius = messageBubble.frame.height / 5
@@ -22,5 +21,4 @@ class MessageCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }

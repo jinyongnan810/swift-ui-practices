@@ -48,7 +48,7 @@ struct WeatherManager {
                 delegate?.onFailed(error!)
                 return
             }
-            guard let data = data else {
+            guard let data else {
                 return
             }
             do {

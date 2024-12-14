@@ -1,2 +1,2 @@
 lint:
-	swiftformat .
+	swiftformat . --exclude Pods,Generated
