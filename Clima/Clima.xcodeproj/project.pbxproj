@@ -45,6 +45,9 @@
 			exceptions = (
 				3FAA1A392D03E88300E38CB3 /* Exceptions for "Clima" folder in "Clima" target */,
 			);
+			explicitFileTypes = {
+				Keys.plist = text.plist.xml;
+			};
 			path = Clima;
 			sourceTree = "<group>";
 		};

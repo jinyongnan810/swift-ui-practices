@@ -12,6 +12,6 @@ struct BMI {
     var color: UIColor
 
     func getBmiString() -> String {
-        return String(format: "%.1f", value)
+        String(format: "%.1f", value)
     }
 }
