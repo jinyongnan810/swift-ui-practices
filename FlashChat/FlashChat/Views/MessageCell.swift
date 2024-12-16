@@ -11,6 +11,7 @@ class MessageCell: UITableViewCell {
     @IBOutlet var messageBubble: UIView!
     @IBOutlet var label: UILabel!
     @IBOutlet var iconImage: UIImageView!
+    @IBOutlet weak var youIconImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         messageBubble.layer.cornerRadius = messageBubble.frame.height / 5

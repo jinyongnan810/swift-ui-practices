@@ -65,6 +65,22 @@ extension ChatViewController: UITableViewDataSource {
 
         let message = messageBrain.messages[indexPath.row]
         cell.label.text = message.body
+        if message.sender == Auth.auth().currentUser?.email {
+            cell.youIconImage.isHidden = true
+            cell.iconImage.isHidden = false
+            cell.messageBubble.backgroundColor = UIColor(
+                named: K.BrandColors.lightPurple
+            )
+            cell.label.textColor = UIColor(named: K.BrandColors.purple)
+        } else {
+            cell.youIconImage.isHidden = false
+            cell.iconImage.isHidden = true
+            cell.messageBubble.backgroundColor = UIColor(
+                named: K.BrandColors.purple
+            )
+            cell.label.textColor = UIColor(named: K.BrandColors.lightBlue)
+        }
+
 
         return cell
     }
@@ -82,5 +98,10 @@ extension ChatViewController: UITableViewDelegate {
 extension ChatViewController: MessageBrainDelegate {
     func messagesUpdated() {
         tableView.reloadData()
+        scrollToBottom()
+    }
+    func scrollToBottom() {
+        let indexPath = IndexPath(row: messageBrain.messages.count - 1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 }

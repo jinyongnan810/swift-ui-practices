@@ -186,7 +186,7 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textfield" translatesAutoresizingMaskIntoConstraints="NO" id="vfU-TG-b6w">
                                         <rect key="frame" x="0.0" y="20" width="402" height="137"/>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="yuunan.kin@gmail.com" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cCm-xC-VGc">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test@test.com" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cCm-xC-VGc">
                                         <rect key="frame" x="49" y="51" width="305" height="45"/>
                                         <color key="textColor" name="BrandBlue"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -276,11 +276,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rPw-CG-Sdv">
-                                <rect key="frame" x="0.0" y="106" width="402" height="674"/>
+                                <rect key="frame" x="0.0" y="106" width="402" height="654"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zy0-14-Urq">
-                                <rect key="frame" x="0.0" y="780" width="402" height="60"/>
+                                <rect key="frame" x="0.0" y="760" width="402" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write a message..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="53c-3k-mc7">
                                         <rect key="frame" x="20" y="20" width="302" height="40"/>
@@ -321,7 +321,7 @@
                         <color key="backgroundColor" name="BrandPurple"/>
                         <constraints>
                             <constraint firstItem="zy0-14-Urq" firstAttribute="leading" secondItem="J5t-Fd-CLc" secondAttribute="leading" id="9gJ-gn-iLd"/>
-                            <constraint firstItem="J5t-Fd-CLc" firstAttribute="bottom" secondItem="zy0-14-Urq" secondAttribute="bottom" id="LDq-fX-WDG"/>
+                            <constraint firstItem="J5t-Fd-CLc" firstAttribute="bottom" secondItem="zy0-14-Urq" secondAttribute="bottom" constant="20" id="LDq-fX-WDG"/>
                             <constraint firstItem="rPw-CG-Sdv" firstAttribute="top" secondItem="J5t-Fd-CLc" secondAttribute="top" id="MGv-Pw-uLt"/>
                             <constraint firstItem="rPw-CG-Sdv" firstAttribute="trailing" secondItem="J5t-Fd-CLc" secondAttribute="trailing" id="PtF-0k-h2Y"/>
                             <constraint firstItem="rPw-CG-Sdv" firstAttribute="leading" secondItem="J5t-Fd-CLc" secondAttribute="leading" id="aQn-Pn-qaa"/>
