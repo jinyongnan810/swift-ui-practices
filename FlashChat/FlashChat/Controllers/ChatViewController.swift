@@ -28,6 +28,7 @@ class ChatViewController: UIViewController {
 
         navigationItem.hidesBackButton = true
         title = K.appName
+        messageTextfield.delegate = self
 
         messageBrain.startListenForMessageUpdates()
     }
@@ -43,6 +44,10 @@ class ChatViewController: UIViewController {
     }
 
     @IBAction func sendPressed(_: UIButton) {
+        sendMessage()
+    }
+
+    private func sendMessage() {
         guard let text = messageTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines), let email = Auth.auth().currentUser?.email else {
             return
         }
@@ -103,5 +108,12 @@ extension ChatViewController: MessageBrainDelegate {
     func scrollToBottom() {
         let indexPath = IndexPath(row: messageBrain.messages.count - 1, section: 0)
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+}
+
+extension ChatViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.sendMessage()
+        return true
     }
 }
