@@ -7,11 +7,25 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class WelcomeViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if Auth.auth().currentUser != nil {
+            print("⭐️logged in as \(Auth.auth().currentUser!.email!)")
+            self.titleLabel.text = K.appName
+            if let viewController = storyboard?.instantiateViewController(withIdentifier: "ChatViewController") {
+                navigationController?.pushViewController(viewController, animated: true)
+            } else {
+                print("Error: ViewController is nil")
+            }
+            return
+        }
+        print("⭐️not logged in")
+        
 
         var charIndex = 0.0
 
