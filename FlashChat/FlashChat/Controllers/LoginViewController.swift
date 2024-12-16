@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
             .auth()
             .signIn(withEmail: email, password: password) {
                 _,
-                error in
+                    error in
                 if let error {
                     print("Error signing in user: \(error.localizedDescription)")
                     self.showToast(message: error.localizedDescription)
@@ -52,7 +52,7 @@ extension LoginViewController: UITextFieldDelegate {
         if textField == emailTextfield {
             passwordTextfield.becomeFirstResponder()
         } else {
-            self.login()
+            login()
         }
         return true
     }

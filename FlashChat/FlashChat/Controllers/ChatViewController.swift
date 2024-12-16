@@ -86,7 +86,6 @@ extension ChatViewController: UITableViewDataSource {
             cell.label.textColor = UIColor(named: K.BrandColors.lightBlue)
         }
 
-
         return cell
     }
 }
@@ -105,6 +104,7 @@ extension ChatViewController: MessageBrainDelegate {
         tableView.reloadData()
         scrollToBottom()
     }
+
     func scrollToBottom() {
         let indexPath = IndexPath(row: messageBrain.messages.count - 1, section: 0)
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
@@ -112,8 +112,8 @@ extension ChatViewController: MessageBrainDelegate {
 }
 
 extension ChatViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.sendMessage()
+    func textFieldShouldReturn(_: UITextField) -> Bool {
+        sendMessage()
         return true
     }
 }

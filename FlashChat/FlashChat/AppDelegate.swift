@@ -5,10 +5,10 @@
 //  Created by Yuunan kin on 2024/12/11.
 //
 
-import FirebaseCore
 import FirebaseAuth
-import UIKit
+import FirebaseCore
 import IQKeyboardManagerSwift
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

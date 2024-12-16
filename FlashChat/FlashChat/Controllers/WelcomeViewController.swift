@@ -6,8 +6,8 @@
 //  Copyright © 2019 Angela Yu. All rights reserved.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 class WelcomeViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
@@ -16,7 +16,7 @@ class WelcomeViewController: UIViewController {
 
         if Auth.auth().currentUser != nil {
             print("⭐️logged in as \(Auth.auth().currentUser!.email!)")
-            self.titleLabel.text = K.appName
+            titleLabel.text = K.appName
             if let viewController = storyboard?.instantiateViewController(withIdentifier: "ChatViewController") {
                 navigationController?.pushViewController(viewController, animated: true)
             } else {
@@ -25,7 +25,6 @@ class WelcomeViewController: UIViewController {
             return
         }
         print("⭐️not logged in")
-        
 
         var charIndex = 0.0
 

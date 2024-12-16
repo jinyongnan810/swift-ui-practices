@@ -31,7 +31,7 @@ class RegisterViewController: UIViewController {
 
         Auth.auth().createUser(withEmail: email, password: password) {
             _,
-            error in
+                error in
             if let error {
                 print("Error creating user: \(error.localizedDescription)")
                 self.showToast(message: error.localizedDescription)
@@ -43,8 +43,6 @@ class RegisterViewController: UIViewController {
             }
         }
     }
-
-    
 }
 
 extension RegisterViewController: UITextFieldDelegate {
@@ -52,7 +50,7 @@ extension RegisterViewController: UITextFieldDelegate {
         if textField == emailTextfield {
             passwordTextfield.becomeFirstResponder()
         } else {
-            self.signup()
+            signup()
         }
         return true
     }
