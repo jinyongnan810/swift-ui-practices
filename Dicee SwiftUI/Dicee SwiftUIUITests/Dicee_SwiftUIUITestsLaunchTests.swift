@@ -1,13 +1,13 @@
 //
-//  MyCardUITestsLaunchTests.swift
-//  MyCardUITests
+//  Dicee_SwiftUIUITestsLaunchTests.swift
+//  Dicee SwiftUIUITests
 //
 //  Created by Yuunan kin on 2024/12/21.
 //
 
 import XCTest
 
-final class MyCardUITestsLaunchTests: XCTestCase {
+final class Dicee_SwiftUIUITestsLaunchTests: XCTestCase {
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }

@@ -1,13 +1,13 @@
 //
-//  MyCardUITests.swift
-//  MyCardUITests
+//  Dicee_SwiftUIUITests.swift
+//  Dicee SwiftUIUITests
 //
 //  Created by Yuunan kin on 2024/12/21.
 //
 
 import XCTest
 
-final class MyCardUITests: XCTestCase {
+final class Dicee_SwiftUIUITests: XCTestCase {
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 

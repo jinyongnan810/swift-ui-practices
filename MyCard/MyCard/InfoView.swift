@@ -44,10 +44,8 @@ struct InfoView: View {
         //                    Text("yuunan.kin@gmail.com")
         //                }
         //            )
-        
     }
 }
-
 
 #Preview(traits: .sizeThatFitsLayout) {
     InfoView(text: "Hello World", imageName: "globe", showToast: .constant(false))

@@ -35,8 +35,8 @@ struct ContentView: View {
                     imageName: "phone",
                     showToast: $showToast
                 )
-                    .padding(.top)
-                InfoView(text: "yuunan.kin@gmail.com", imageName: "envelope",showToast: $showToast)
+                .padding(.top)
+                InfoView(text: "yuunan.kin@gmail.com", imageName: "envelope", showToast: $showToast)
             }
             .padding()
             if showToast {
@@ -52,7 +52,6 @@ struct ContentView: View {
                 .transition(.opacity)
             }
         }
-
     }
 }
 
