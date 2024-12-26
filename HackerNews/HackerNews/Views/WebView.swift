@@ -19,15 +19,15 @@ struct WebView: UIViewRepresentable {
             self.activityIndicator = activityIndicator
         }
 
-        func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        func webView(_: WKWebView, didStartProvisionalNavigation _: WKNavigation!) {
             activityIndicator.startAnimating()
         }
 
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        func webView(_: WKWebView, didFinish _: WKNavigation!) {
             activityIndicator.stopAnimating()
         }
 
-        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        func webView(_: WKWebView, didFail _: WKNavigation!, withError _: Error) {
             activityIndicator.stopAnimating()
         }
     }
@@ -55,7 +55,7 @@ struct WebView: UIViewRepresentable {
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
 
         return view
