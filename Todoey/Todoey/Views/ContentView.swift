@@ -20,6 +20,11 @@ struct ContentView: View {
         UINavigationBar.appearance().compactAppearance = appearance
     }
 
+    let itemsFilePath = FileManager.default.urls(
+        for: .documentDirectory,
+        in: .userDomainMask
+    ).first!.appendingPathComponent("items.plist")
+    let encoder = PropertyListEncoder()
     @State var items: [TodoItem] = []
 //    {
 //        didSet { save() }
@@ -32,10 +37,18 @@ struct ContentView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     func save() {
-        print("⭐️saveing")
-        if let encoded = try? JSONEncoder().encode(items) {
-            UserDefaults.standard.set(encoded, forKey: "items")
+        print("⭐️saving")
+//        if let encoded = try? JSONEncoder().encode(items) {
+//            UserDefaults.standard.set(encoded, forKey: "items")
+//        }
+        do {
+            print("path: \(itemsFilePath.path)")
+            let data = try encoder.encode(items)
+            try data.write(to: itemsFilePath)
+        } catch {
+            print("⭐️error saving: \(error.localizedDescription)")
         }
+
         print("⭐️saved")
     }
 
@@ -76,9 +89,15 @@ struct ContentView: View {
             }
             .onAppear() {
                 print("App appeared")
-                if let encoded = UserDefaults.standard.data(forKey: "items") {
-                    items = try! JSONDecoder().decode([TodoItem].self, from: encoded)
+//                if let encoded = UserDefaults.standard.data(forKey: "items") {
+//                    items = try! JSONDecoder().decode([TodoItem].self, from: encoded)
+//                }
+                if let data = try? Data(contentsOf: itemsFilePath) {
+                    if let parsed = try? PropertyListDecoder().decode([TodoItem].self, from: data) {
+                        items = parsed
+                    }
                 }
+
             }
             .onChange(of: scenePhase) { oldPhase, newPhase in
                 switch newPhase {
