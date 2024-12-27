@@ -5,6 +5,7 @@
 //  Created by Yuunan kin on 2024/12/23.
 //
 
+import CoreData
 import SwiftUI
 
 struct ContentView: View {
@@ -20,17 +21,13 @@ struct ContentView: View {
         UINavigationBar.appearance().compactAppearance = appearance
     }
 
-    let itemsFilePath = FileManager.default.urls(
-        for: .documentDirectory,
-        in: .userDomainMask
-    ).first!.appendingPathComponent("items.plist")
-    let encoder = PropertyListEncoder()
-    @State var items: [TodoItem] = []
-//    {
-//        didSet { save() }
-//    }
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \TodoItem.createdAt, ascending: false)],
+        animation: .default
+    )
+    private var items: FetchedResults<TodoItem>
 
-    @State private var multiSelection = Set<String>()
     @State private var showAlert = false
     @State private var newItem = ""
 
@@ -38,34 +35,52 @@ struct ContentView: View {
 
     func save() {
         print("⭐️saving")
-//        if let encoded = try? JSONEncoder().encode(items) {
-//            UserDefaults.standard.set(encoded, forKey: "items")
-//        }
-        do {
-            print("path: \(itemsFilePath.path)")
-            let data = try encoder.encode(items)
-            try data.write(to: itemsFilePath)
-        } catch {
-            print("⭐️error saving: \(error.localizedDescription)")
+        withAnimation {
+            if viewContext.hasChanges {
+                do {
+                    try viewContext.save()
+                } catch {
+                    let nsError = error as NSError
+                    print("⭐️save error \(nsError), \(nsError.userInfo)")
+                }
+            } else {
+                print("⭐️no changes")
+            }
         }
-
         print("⭐️saved")
+    }
+
+    func add(_ text: String) {
+        let newItem = TodoItem(context: viewContext)
+        newItem.title = text
+        newItem.id = UUID()
+        newItem.done = false
+        newItem.createdAt = Date()
+        save()
+    }
+
+    func updateDone(_ id: UUID) {
+        if let index = items.firstIndex(where: { $0.id == id }) {
+            let item = items[index]
+            item.done.toggle()
+            save()
+        }
     }
 
     var body: some View {
         NavigationView {
-            List(items) { item in
-                TodoItemView(item: item)
-                    .onTapGesture {
-                        if let index = items.firstIndex(where: { $0.id == item.id }) {
-                            items[index].toggleDone()
-                            // currently not supporting detect list item's change
-                            save()
+            List {
+                ForEach(items) { item in
+                    TodoItemView(item: item)
+                        .onTapGesture {
+                            if let id = item.id {
+                                updateDone(id)
+                            }
                         }
-
-                    }
+                }
             }
             .navigationTitle("Todoey")
+            .navigationBarTitleDisplayMode(.automatic)
             .toolbar {
                 HStack {
                     Button(
@@ -81,34 +96,24 @@ struct ContentView: View {
                 TextField("New item", text: $newItem)
                 Button("Add", action: {
                     print("Add tapped")
-                    items.append(TodoItem(id: UUID().uuidString ,title: newItem, done: false))
-                    save()
+                    add(newItem)
                     newItem = ""
                 })
                 Button("Cancel", role: .cancel, action: {})
             }
-            .onAppear() {
+            .onAppear {
                 print("App appeared")
-//                if let encoded = UserDefaults.standard.data(forKey: "items") {
-//                    items = try! JSONDecoder().decode([TodoItem].self, from: encoded)
-//                }
-                if let data = try? Data(contentsOf: itemsFilePath) {
-                    if let parsed = try? PropertyListDecoder().decode([TodoItem].self, from: data) {
-                        items = parsed
-                    }
-                }
-
             }
-            .onChange(of: scenePhase) { oldPhase, newPhase in
+            .onChange(of: scenePhase) { _, newPhase in
                 switch newPhase {
-                    case .active:
-                        print("App is active")
-                    case .inactive:
-                        print("App is inactive")
-                    case .background:
-                        print("App is in background")
-                    @unknown default:
-                        print("Unexpected phase.")
+                case .active:
+                    print("App is active")
+                case .inactive:
+                    print("App is inactive")
+                case .background:
+                    print("App is in background")
+                @unknown default:
+                    print("Unexpected phase.")
                 }
             }
         }
@@ -117,5 +122,8 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(
+            \.managedObjectContext,
+            PersistenceController.shared.container.viewContext
+        )
 }
-

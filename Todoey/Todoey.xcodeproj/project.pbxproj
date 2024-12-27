@@ -6,7 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3F07E3022D1E59DD00AF5191 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F07E3002D1E59DD00AF5191 /* DataModel.xcdatamodeld */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		3F07E3012D1E59DD00AF5191 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		3F4288DC2D18D6840063C026 /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -32,6 +37,7 @@
 		3F4288D32D18D6840063C026 = {
 			isa = PBXGroup;
 			children = (
+				3F07E3002D1E59DD00AF5191 /* DataModel.xcdatamodeld */,
 				3F4288DE2D18D6840063C026 /* Todoey */,
 				3F4288DD2D18D6840063C026 /* Products */,
 			);
@@ -119,6 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F07E3022D1E59DD00AF5191 /* DataModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +331,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3F07E3002D1E59DD00AF5191 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3F07E3012D1E59DD00AF5191 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 3F07E3012D1E59DD00AF5191 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3F4288D42D18D6840063C026 /* Project object */;
 }
