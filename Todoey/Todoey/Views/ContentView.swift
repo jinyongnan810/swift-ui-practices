@@ -20,7 +20,10 @@ struct ContentView: View {
         UINavigationBar.appearance().compactAppearance = appearance
     }
 
-    @State var items: [Item] = []
+    @State var items: [TodoItem] = []
+//    {
+//        didSet { save() }
+//    }
 
     @State private var multiSelection = Set<String>()
     @State private var showAlert = false
@@ -28,24 +31,30 @@ struct ContentView: View {
 
     @Environment(\.scenePhase) private var scenePhase
 
+    func save() {
+        print("⭐️saveing")
+        if let encoded = try? JSONEncoder().encode(items) {
+            UserDefaults.standard.set(encoded, forKey: "items")
+        }
+        print("⭐️saved")
+    }
+
     var body: some View {
         NavigationView {
-//            List {
-//                ForEach(items) { item in
-//                    /*@START_MENU_TOKEN@*/Text(item.text)/*@END_MENU_TOKEN@*/
-//                }.onDelete { index in
-//
-//                }.onMove { source, destination in
-//
-//                }
-//            }
-            List(items, selection: $multiSelection) { item in
-                TodoItem(item: item)
+            List(items) { item in
+                TodoItemView(item: item)
+                    .onTapGesture {
+                        if let index = items.firstIndex(where: { $0.id == item.id }) {
+                            items[index].toggleDone()
+                            // currently not supporting detect list item's change
+                            save()
+                        }
+
+                    }
             }
             .navigationTitle("Todoey")
             .toolbar {
                 HStack {
-                    EditButton().foregroundStyle(.white)
                     Button(
                         action: {
                             print("Add button tapped")
@@ -59,10 +68,8 @@ struct ContentView: View {
                 TextField("New item", text: $newItem)
                 Button("Add", action: {
                     print("Add tapped")
-                    items.append(Item(id: UUID().uuidString ,text: newItem))
-                    if let encoded = try? JSONEncoder().encode(items) {
-                        UserDefaults.standard.set(encoded, forKey: "items")
-                    }
+                    items.append(TodoItem(id: UUID().uuidString ,title: newItem, done: false))
+                    save()
                     newItem = ""
                 })
                 Button("Cancel", role: .cancel, action: {})
@@ -70,7 +77,7 @@ struct ContentView: View {
             .onAppear() {
                 print("App appeared")
                 if let encoded = UserDefaults.standard.data(forKey: "items") {
-                    items = try! JSONDecoder().decode([Item].self, from: encoded)
+                    items = try! JSONDecoder().decode([TodoItem].self, from: encoded)
                 }
             }
             .onChange(of: scenePhase) { oldPhase, newPhase in
@@ -93,7 +100,3 @@ struct ContentView: View {
     ContentView()
 }
 
-struct Item: Identifiable, Codable {
-    let id: String
-    let text: String
-}
