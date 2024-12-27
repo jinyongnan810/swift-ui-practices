@@ -20,15 +20,13 @@ struct ContentView: View {
         UINavigationBar.appearance().compactAppearance = appearance
     }
 
-    @State var items: [Item] = [
-        Item(text: "item1"),
-        Item(text: "item2"),
-        Item(text: "item3"),
-    ]
+    @State var items: [Item] = []
 
-    @State private var multiSelection = Set<UUID>()
+    @State private var multiSelection = Set<String>()
     @State private var showAlert = false
     @State private var newItem = ""
+
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         NavigationView {
@@ -61,10 +59,31 @@ struct ContentView: View {
                 TextField("New item", text: $newItem)
                 Button("Add", action: {
                     print("Add tapped")
-                    items.append(Item(text: newItem))
+                    items.append(Item(id: UUID().uuidString ,text: newItem))
+                    if let encoded = try? JSONEncoder().encode(items) {
+                        UserDefaults.standard.set(encoded, forKey: "items")
+                    }
                     newItem = ""
                 })
                 Button("Cancel", role: .cancel, action: {})
+            }
+            .onAppear() {
+                print("App appeared")
+                if let encoded = UserDefaults.standard.data(forKey: "items") {
+                    items = try! JSONDecoder().decode([Item].self, from: encoded)
+                }
+            }
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                switch newPhase {
+                    case .active:
+                        print("App is active")
+                    case .inactive:
+                        print("App is inactive")
+                    case .background:
+                        print("App is in background")
+                    @unknown default:
+                        print("Unexpected phase.")
+                }
             }
         }
     }
@@ -74,7 +93,7 @@ struct ContentView: View {
     ContentView()
 }
 
-struct Item: Identifiable {
-    let id = UUID()
+struct Item: Identifiable, Codable {
+    let id: String
     let text: String
 }

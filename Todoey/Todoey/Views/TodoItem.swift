@@ -20,5 +20,5 @@ struct TodoItem: View {
 }
 
 #Preview {
-    TodoItem(item: Item(text: "test"))
+    TodoItem(item: Item(id: "1", text: "test"))
 }
