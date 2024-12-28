@@ -67,6 +67,14 @@ struct ContentView: View {
         }
     }
 
+    func deleteItemAt(_ index: Int) {
+        if items.indices.contains(index) {
+            let item = items[index]
+            viewContext.delete(item)
+            save()
+        }
+    }
+
     var body: some View {
         NavigationView {
             List {
@@ -77,20 +85,22 @@ struct ContentView: View {
                                 updateDone(id)
                             }
                         }
+                }.onDelete { indexSet in
+                    for index in indexSet {
+                        deleteItemAt(index)
+                    }
                 }
             }
             .navigationTitle("Todoey")
             .navigationBarTitleDisplayMode(.automatic)
             .toolbar {
-                HStack {
-                    Button(
-                        action: {
-                            print("Add button tapped")
-                            showAlert = true
-                        }) {
-                            Image(systemName: "plus")
-                                .foregroundColor(.white)
-                        }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showAlert = true
+                    }) {
+                        Image(systemName: "plus")
+                            .foregroundColor(.white)
+                    }
                 }
             }.alert("Add new todo item", isPresented: $showAlert) {
                 TextField("New item", text: $newItem)
