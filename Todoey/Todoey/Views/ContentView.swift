@@ -31,6 +31,13 @@ struct ContentView: View {
     @State private var showAlert = false
     @State private var newItem = ""
 
+    private var searchedItems: [TodoItem] {
+        guard !searchText.isEmpty else { return Array(items) }
+        return items.filter { $0.title?.contains(searchText) == true }
+    }
+
+    @State private var searchText: String = ""
+
     @Environment(\.scenePhase) private var scenePhase
 
     func save() {
@@ -78,7 +85,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(items) { item in
+                ForEach(searchedItems) { item in
                     TodoItemView(item: item)
                         .onTapGesture {
                             if let id = item.id {
@@ -93,13 +100,13 @@ struct ContentView: View {
             }
             .navigationTitle("Todoey")
             .navigationBarTitleDisplayMode(.automatic)
+            .toolbarBackground(.clear, for: .automatic)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         showAlert = true
                     }) {
                         Image(systemName: "plus")
-                            .foregroundColor(.white)
                     }
                 }
             }.alert("Add new todo item", isPresented: $showAlert) {
@@ -127,6 +134,7 @@ struct ContentView: View {
                 }
             }
         }
+        .searchable(text: $searchText, prompt: "Search todos")
     }
 }
 
