@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct TodoListView: View {
-    init(_ category: String) {
-        self.category = category
-    }
-
-    let category: String
-
+    let category: TodoCategory
 
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \TodoItem.createdAt, ascending: false)],
-        animation: .default
-    )
-    private var items: FetchedResults<TodoItem>
+    var todoItemFetchRequest: FetchRequest<TodoItem>
+    private var items: FetchedResults<TodoItem> { todoItemFetchRequest.wrappedValue }
+
+    init(_ category: TodoCategory) {
+        self.category = category
+        todoItemFetchRequest = FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \TodoItem.createdAt, ascending: false)],
+                                            predicate: NSPredicate(format: "category == %@", category),
+                                            animation: .default)
+    }
 
     @State private var showAlert = false
     @State private var newItem = ""
@@ -55,6 +54,7 @@ struct TodoListView: View {
         newItem.id = UUID()
         newItem.done = false
         newItem.createdAt = Date()
+        newItem.category = category
         save()
     }
 
@@ -90,8 +90,8 @@ struct TodoListView: View {
                     }
                 }
             }
-            .navigationTitle(category)
-            .navigationBarItems( trailing: Button(action: {
+            .navigationTitle(category.name!)
+            .navigationBarItems(trailing: Button(action: {
                 showAlert = true
             }) {
                 Image(systemName: "plus")
@@ -99,21 +99,15 @@ struct TodoListView: View {
             .alert("Add new todo item", isPresented: $showAlert) {
                 TextField("New item", text: $newItem)
                 Button("Add", action: {
-                    print("Add tapped")
                     add(newItem)
                     newItem = ""
                 })
                 Button("Cancel", role: .cancel, action: {})
             }
         }
-        .searchable(text: $searchText, prompt: "Search todos")
+        .searchable(text: $searchText, prompt: "Search todos in \(category.name!)")
         .onSubmit(of: .search) {
             print("⭐️searched")
         }
     }
-
-}
-
-#Preview {
-    TodoListView("Some Category")
 }
