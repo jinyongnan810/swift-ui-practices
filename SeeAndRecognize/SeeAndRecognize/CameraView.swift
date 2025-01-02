@@ -4,6 +4,7 @@ import UIKit
 struct CameraView: UIViewControllerRepresentable {
     @Binding var isShown: Bool
     @Binding var image: Image?
+    @Binding var result: String
 
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         var parent: CameraView
@@ -12,28 +13,36 @@ struct CameraView: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        func imagePickerController(_: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
             if let uiImage = info[.originalImage] as? UIImage {
                 parent.image = Image(uiImage: uiImage)
+                parent.result = "Processing..."
+                let result = processImage(uiImage)
+                if let result {
+                    parent.result = result
+                } else {
+                    parent.result = "Couldn't process image"
+                }
             }
             parent.isShown = false
         }
 
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        func imagePickerControllerDidCancel(_: UIImagePickerController) {
             parent.isShown = false
         }
     }
 
     func makeCoordinator() -> Coordinator {
-        return Coordinator(parent: self)
+        Coordinator(parent: self)
     }
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<CameraView>) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
-        picker.sourceType = .camera
+//        picker.sourceType = .camera
+        picker.sourceType = .photoLibrary
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<CameraView>) {}
+    func updateUIViewController(_: UIImagePickerController, context _: UIViewControllerRepresentableContext<CameraView>) {}
 }

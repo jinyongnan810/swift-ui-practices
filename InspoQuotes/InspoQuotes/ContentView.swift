@@ -5,8 +5,8 @@
 //  Created by Yuunan kin on 2024/12/31.
 //
 
-import SwiftUI
 import StoreKit
+import SwiftUI
 
 struct ContentView: View {
     @State var showPremiumQuotes = false
@@ -16,7 +16,7 @@ struct ContentView: View {
         "It does not matter how slowly you go as long as you do not stop. – Confucius",
         "Everything you’ve ever wanted is on the other side of fear. — George Addair",
         "Success is not final, failure is not fatal: it is the courage to continue that counts. – Winston Churchill",
-        "Hardships often prepare ordinary people for an extraordinary destiny. – C.S. Lewis"
+        "Hardships often prepare ordinary people for an extraordinary destiny. – C.S. Lewis",
     ]
 
     let premiumQuotes = [
@@ -25,7 +25,7 @@ struct ContentView: View {
         "There is only one thing that makes a dream impossible to achieve: the fear of failure. ― Paulo Coelho",
         "It’s not whether you get knocked down. It’s whether you get up. – Vince Lombardi",
         "Your true success in life begins only when you make the commitment to become excellent at what you do. — Brian Tracy",
-        "Believe in yourself, take on your challenges, dig deep within yourself to conquer fears. Never let anyone bring you down. You got to keep going. – Chantal Sutherland"
+        "Believe in yourself, take on your challenges, dig deep within yourself to conquer fears. Never let anyone bring you down. You got to keep going. – Chantal Sutherland",
     ]
 
     var displayedQuotes: [Quote] {
@@ -35,7 +35,7 @@ struct ContentView: View {
         } else {
             quotes = basicQuotes
         }
-        return quotes.map { Quote(id: UUID().uuidString, quote: $0)}
+        return quotes.map { Quote(id: UUID().uuidString, quote: $0) }
     }
 
     let productId = "com.kinn.InspoQuotes.PremiumQuotes"
@@ -51,38 +51,37 @@ struct ContentView: View {
                 let result = try await product.purchase()
 
                 switch result {
-                    case .success(let verification):
-                        switch verification {
-                            case .verified(let transaction):
-                                // Handle successful purchase
-                                print("⭐️Purchase successful: \(transaction)")
-                                await transaction.finish()
-                            case .unverified(_, let error):
-                                // Handle failed verification
-                                print("Purchase verification failed: \(error)")
-                        }
-                    case .userCancelled:
-                        // Handle user cancellation
-                        print("Purchase cancelled by user")
-                    case .pending:
-                        // Handle pending purchase
-                        print("Purchase is pending")
-                    @unknown default:
-                        // Handle unknown case
-                        print("Unknown purchase result")
+                case let .success(verification):
+                    switch verification {
+                    case let .verified(transaction):
+                        // Handle successful purchase
+                        print("⭐️Purchase successful: \(transaction)")
+                        await transaction.finish()
+                    case let .unverified(_, error):
+                        // Handle failed verification
+                        print("Purchase verification failed: \(error)")
+                    }
+                case .userCancelled:
+                    // Handle user cancellation
+                    print("Purchase cancelled by user")
+                case .pending:
+                    // Handle pending purchase
+                    print("Purchase is pending")
+                @unknown default:
+                    // Handle unknown case
+                    print("Unknown purchase result")
                 }
             } catch {
                 // Handle error
                 print("Purchase failed: \(error)")
             }
         }
-
     }
 
     func checkPurchaseStatus() {
         Task {
             for await result in Transaction.currentEntitlements {
-                if case .verified(let transaction) = result {
+                if case let .verified(transaction) = result {
                     if transaction.productID == productId {
                         print("⭐️already purchased")
                         showPremiumQuotes = true
@@ -96,7 +95,7 @@ struct ContentView: View {
     func listenForTransactionUpdates() {
         Task {
             for await result in Transaction.updates {
-                if case .verified(let transaction) = result {
+                if case let .verified(transaction) = result {
                     if transaction.productID == productId {
                         print("⭐️transaction verified")
                         showPremiumQuotes = true
@@ -125,7 +124,6 @@ struct ContentView: View {
                 listenForTransactionUpdates()
             }
         }
-
     }
 }
 
@@ -134,8 +132,6 @@ struct Quote: Identifiable {
     var quote: String
 }
 
-
 #Preview {
     ContentView()
 }
-

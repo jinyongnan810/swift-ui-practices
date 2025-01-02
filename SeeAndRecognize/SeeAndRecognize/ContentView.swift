@@ -6,12 +6,11 @@
 //
 
 import SwiftUI
-import CoreML
-import Vision
 
 struct ContentView: View {
     @State private var isShowingCamera = false
     @State private var image: Image? = nil
+    @State private var description: String = "Take a photo"
 
     var body: some View {
         NavigationView {
@@ -20,21 +19,21 @@ struct ContentView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 300, height: 300)
+                Text(description)
             }
             .navigationTitle("See and Recognize")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Tack Photo") {
+                    Button("Take Photo") {
                         isShowingCamera = true
                     }
                     .sheet(isPresented: $isShowingCamera) {
-                        CameraView(isShown: self.$isShowingCamera, image: self.$image)
+                        CameraView(isShown: $isShowingCamera, image: $image,
+                                   result: $description)
                     }
                 }
             }
-
         }
-
     }
 }
 
