@@ -8,11 +8,15 @@
 import Cocoa
 import CreateML
 import TabularData
+import CoreML
+
+//MARK: - Make and train model
 
 enum DataError: Error {
     case failedToCreateURL
     case failedToLoadData
     case failedToCreateModel
+    case failedToLoadModel
 }
 
 let csvFileURL = URL(fileURLWithPath: "/Users/kin/Documents/GitHub/swift-ui-practices/TwitterSentimentModelMaker/TwitterSentimentModelMaker/twitter-sanders-apple3.csv")
@@ -39,12 +43,26 @@ let accuracy = (1.0 - evaluation.classificationError) * 100.0
 print("⭐️ accuracy: \(accuracy)%")
 
 let metadata = MLModelMetadata(author: "Yuunan kin")
-try sentimentClassifier.write(to: URL(fileURLWithPath: "/Users/kin/Documents/GitHub/swift-ui-practices/TwitterSentimentModelMaker/TwitterSentimentModelMaker/sentiment-classifier.mlmodel"), metadata: metadata)
+try sentimentClassifier.write(to: URL(fileURLWithPath: "/Users/kin/Documents/GitHub/swift-ui-practices/TwitterSentimentModelMaker/TwitterSentimentModelMaker/MySentimentClassifier.mlmodel"), metadata: metadata)
 print("⭐️ model saved.")
 
-let resultExpectPositive = try sentimentClassifier.prediction(from: "I think apple vision is a good product.")
-let resultExpectNegative = try sentimentClassifier.prediction(from: "I think apple vision is a bad product.")
-let resultExpectNeutral = try sentimentClassifier.prediction(from: "I think apple vision has few flaws, but overall ok.")
+let resultExpectPositive = try sentimentClassifier.prediction(from: "I think apple vision pro is a good product.")
+let resultExpectNegative = try sentimentClassifier.prediction(from: "I think apple vision pro is a bad product.")
+let resultExpectNeutral = try sentimentClassifier.prediction(from: "I think apple vision pro has few flaws, but overall ok.")
 print("resultExpectPositive: \(resultExpectPositive)")
 print("resultExpectNegative: \(resultExpectNegative)")
 print("resultExpectNeutral: \(resultExpectNeutral)")
+
+
+//MARK: - Load model and make predictions
+guard let loadedClassifier = try? MySentimentClassifier(configuration: .init()) else {
+    throw DataError.failedToLoadModel
+}
+
+let results = try? loadedClassifier.predictions(inputs: [
+    .init(text: "I think apple vision pro is a good product."),
+    .init(text: "I think apple vision pro is a bad product."),
+    .init(text: "I think apple vision pro has few flaws, but overall ok.")
+])
+print("⭐️ predictions when using loaded model:")
+results?.forEach { print($0.label) }
