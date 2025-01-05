@@ -6,11 +6,11 @@
 //
 
 import Cocoa
+import CoreML
 import CreateML
 import TabularData
-import CoreML
 
-//MARK: - Make and train model
+// MARK: - Make and train model
 
 enum DataError: Error {
     case failedToCreateURL
@@ -53,8 +53,8 @@ print("resultExpectPositive: \(resultExpectPositive)")
 print("resultExpectNegative: \(resultExpectNegative)")
 print("resultExpectNeutral: \(resultExpectNeutral)")
 
+// MARK: - Load model and make predictions
 
-//MARK: - Load model and make predictions
 guard let loadedClassifier = try? MySentimentClassifier(configuration: .init()) else {
     throw DataError.failedToLoadModel
 }
@@ -62,7 +62,7 @@ guard let loadedClassifier = try? MySentimentClassifier(configuration: .init()) 
 let results = try? loadedClassifier.predictions(inputs: [
     .init(text: "I think apple vision pro is a good product."),
     .init(text: "I think apple vision pro is a bad product."),
-    .init(text: "I think apple vision pro has few flaws, but overall ok.")
+    .init(text: "I think apple vision pro has few flaws, but overall ok."),
 ])
 print("⭐️ predictions when using loaded model:")
 results?.forEach { print($0.label) }
