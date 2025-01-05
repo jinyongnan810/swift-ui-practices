@@ -51,9 +51,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // downloaded from https://www.turbosquid.com/ja/3d-models/free-plastic-dice-3d-model/979691
         // converted to scene by: Editer->convert
         let scene = SCNScene(named: "art.scnassets/dice_scene.scn")!
+        let diceNode = scene.rootNode.childNode(withName: "Dice", recursively: true)!
+        diceNode.position = SCNVector3(0, 0, -0.1)
 
         // Set the scene to the view
-        sceneView.scene = scene
+        sceneView.scene.rootNode.addChildNode(diceNode)
         sceneView.scene.rootNode.addChildNode(node)
         sceneView.scene.rootNode.addChildNode(moonNode)
     }
