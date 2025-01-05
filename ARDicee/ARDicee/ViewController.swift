@@ -15,7 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.sceneView.debugOptions = [.showFeaturePoints]
+        sceneView.debugOptions = [.showFeaturePoints]
 
         // Set the view's delegate
         sceneView.delegate = self
@@ -52,12 +52,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Create a new scene
         // downloaded from https://www.turbosquid.com/ja/3d-models/free-plastic-dice-3d-model/979691
         // converted to scene by: Editer->convert
-        let scene = SCNScene(named: "art.scnassets/dice_scene.scn")!
-        let diceNode = scene.rootNode.childNode(withName: "Dice", recursively: true)!
-        diceNode.position = SCNVector3(0, 0, -0.1)
+//        let scene = SCNScene(named: "art.scnassets/dice_scene.scn")!
+//        let diceNode = scene.rootNode.childNode(withName: "Dice", recursively: true)!
+//        diceNode.position = SCNVector3(0, 0, -0.1)
 
         // Set the scene to the view
-        sceneView.scene.rootNode.addChildNode(diceNode)
+//        sceneView.scene.rootNode.addChildNode(diceNode)
         sceneView.scene.rootNode.addChildNode(node)
         sceneView.scene.rootNode.addChildNode(moonNode)
     }
@@ -104,7 +104,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
 
     func renderer(
-        _ renderer: any SCNSceneRenderer,
+        _: any SCNSceneRenderer,
         didAdd node: SCNNode,
         for anchor: ARAnchor
     ) {
@@ -126,7 +126,30 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let planeMaterial = SCNMaterial()
         planeMaterial.diffuse.contents = UIImage(named: "art.scnassets/grid.png")
         planeNode.geometry?.materials = [planeMaterial]
-        
+
         node.addChildNode(planeNode)
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
+        guard let touch = touches.first else {
+            return
+        }
+        let location = touch.location(in: sceneView)
+
+        let hitTestResults = sceneView.hitTest(
+            location,
+            types: .existingPlaneUsingExtent
+        )
+        if let hitTestResult = hitTestResults.first {
+            let worldTransform = hitTestResult.worldTransform
+            let scene = SCNScene(named: "art.scnassets/dice_scene.scn")!
+            let diceNode = scene.rootNode.childNode(withName: "Dice", recursively: true)!
+            diceNode.position = SCNVector3(
+                x: worldTransform.columns.3.x, y: worldTransform.columns.3.y + diceNode.boundingSphere.radius, z: worldTransform.columns.3.z
+            )
+            sceneView.scene.rootNode.addChildNode(diceNode)
+        } else {
+            print("touched outside of plane")
+        }
     }
 }
