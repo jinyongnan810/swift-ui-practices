@@ -15,6 +15,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.sceneView.debugOptions = [.showFeaturePoints]
+
         // Set the view's delegate
         sceneView.delegate = self
 
@@ -65,6 +67,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
 
         // Run the view's session
         sceneView.session.run(configuration)
@@ -98,5 +101,32 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     func sessionInterruptionEnded(_: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
+    }
+
+    func renderer(
+        _ renderer: any SCNSceneRenderer,
+        didAdd node: SCNNode,
+        for anchor: ARAnchor
+    ) {
+        guard let anchor = anchor as? ARPlaneAnchor else {
+            return
+        }
+
+        let plane = SCNPlane(
+            width: CGFloat(anchor.planeExtent.width),
+            height: CGFloat(anchor.planeExtent.height)
+        )
+
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.position = SCNVector3(
+            x: anchor.center.x, y: 0, z: anchor.center.z
+        )
+        planeNode.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
+
+        let planeMaterial = SCNMaterial()
+        planeMaterial.diffuse.contents = UIImage(named: "art.scnassets/grid.png")
+        planeNode.geometry?.materials = [planeMaterial]
+        
+        node.addChildNode(planeNode)
     }
 }
