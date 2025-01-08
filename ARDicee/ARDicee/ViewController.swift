@@ -148,6 +148,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 x: worldTransform.columns.3.x, y: worldTransform.columns.3.y + diceNode.boundingSphere.radius, z: worldTransform.columns.3.z
             )
             sceneView.scene.rootNode.addChildNode(diceNode)
+
+            let xRotation = Float(arc4random_uniform(16) + 1) * (Float.pi / 2)
+            let zRotation = Float(arc4random_uniform(16) + 1) * (Float.pi / 2)
+            diceNode
+                .runAction(
+                    SCNAction
+                        .rotateBy(
+                            x: CGFloat(xRotation),
+                            y: 0,
+                            z: CGFloat(zRotation),
+                            duration: 0.5
+                        )
+                )
         } else {
             print("touched outside of plane")
         }
