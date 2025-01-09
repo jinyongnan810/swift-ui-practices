@@ -30,6 +30,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XDp-tw-Rhu">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="TaC-F4-gzx">
+                            <connections>
+                                <action selector="onClearTapped:" destination="BV1-FR-VrT" id="H3n-m0-J13"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Roll" id="A3U-1x-jE0">
                             <connections>
                                 <action selector="onRollTapped:" destination="BV1-FR-VrT" id="tHF-w7-Bgc"/>

@@ -17,6 +17,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func onRollTapped(_ sender: UIBarButtonItem) {
         rollAll()
     }
+    @IBAction func onClearTapped(_ sender: UIBarButtonItem) {
+        for dice in dices {
+            dice.removeFromParentNode()
+        }
+        dices = []
+    }
 
     override func motionEnded(
         _ motion: UIEvent.EventSubtype,
