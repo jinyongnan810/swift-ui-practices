@@ -12,6 +12,19 @@ import UIKit
 class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
 
+    var dices: [SCNNode] = []
+
+    @IBAction func onRollTapped(_ sender: UIBarButtonItem) {
+        rollAll()
+    }
+
+    override func motionEnded(
+        _ motion: UIEvent.EventSubtype,
+        with event: UIEvent?
+    ) {
+        rollAll()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -148,21 +161,31 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 x: worldTransform.columns.3.x, y: worldTransform.columns.3.y + diceNode.boundingSphere.radius, z: worldTransform.columns.3.z
             )
             sceneView.scene.rootNode.addChildNode(diceNode)
-
-            let xRotation = Float(arc4random_uniform(16) + 1) * (Float.pi / 2)
-            let zRotation = Float(arc4random_uniform(16) + 1) * (Float.pi / 2)
-            diceNode
-                .runAction(
-                    SCNAction
-                        .rotateBy(
-                            x: CGFloat(xRotation),
-                            y: 0,
-                            z: CGFloat(zRotation),
-                            duration: 0.5
-                        )
-                )
+            dices.append(diceNode)
+            roll(diceNode)
         } else {
             print("touched outside of plane")
         }
+    }
+
+    private func rollAll() {
+        for dice in dices {
+            roll(dice)
+        }
+    }
+
+    private func roll (_ dice: SCNNode) {
+        let xRotation = Float(arc4random_uniform(16) + 1) * (Float.pi / 2)
+        let zRotation = Float(arc4random_uniform(16) + 1) * (Float.pi / 2)
+        dice
+            .runAction(
+                SCNAction
+                    .rotateBy(
+                        x: CGFloat(xRotation),
+                        y: 0,
+                        z: CGFloat(zRotation),
+                        duration: 0.5
+                    )
+            )
     }
 }
