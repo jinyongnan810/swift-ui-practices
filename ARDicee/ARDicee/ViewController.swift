@@ -14,10 +14,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     var dices: [SCNNode] = []
 
-    @IBAction func onRollTapped(_ sender: UIBarButtonItem) {
+    @IBAction func onRollTapped(_: UIBarButtonItem) {
         rollAll()
     }
-    @IBAction func onClearTapped(_ sender: UIBarButtonItem) {
+
+    @IBAction func onClearTapped(_: UIBarButtonItem) {
         for dice in dices {
             dice.removeFromParentNode()
         }
@@ -25,8 +26,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
 
     override func motionEnded(
-        _ motion: UIEvent.EventSubtype,
-        with event: UIEvent?
+        _: UIEvent.EventSubtype,
+        with _: UIEvent?
     ) {
         rollAll()
     }
@@ -180,7 +181,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
-    private func roll (_ dice: SCNNode) {
+    private func roll(_ dice: SCNNode) {
         let xRotation = Float(arc4random_uniform(16) + 1) * (Float.pi / 2)
         let zRotation = Float(arc4random_uniform(16) + 1) * (Float.pi / 2)
         dice

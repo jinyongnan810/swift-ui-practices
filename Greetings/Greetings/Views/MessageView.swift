@@ -9,7 +9,9 @@ import SwiftUI
 
 struct MessageView: View {
     let text: String
-    let color: Color
+    @State var color: Color
+
+    let randomColors: [Color] = [.green, .cyan, .red, .blue, .yellow, .purple, .orange, .pink, .gray, .black]
 
     var body: some View {
         Text(text)
@@ -18,10 +20,15 @@ struct MessageView: View {
             .padding()
             .background(color.opacity(0.7))
             .cornerRadius(20)
-            .shadow(color: color.opacity(0.5),radius: 5, x: 5, y: 5)
+            .shadow(color: color.opacity(0.5), radius: 5, x: 5, y: 5)
+            .onTapGesture {
+                withAnimation(.spring()) {
+                    guard let newColor = randomColors.randomElement() else { return }
+                    color = newColor
+                }
+            }
     }
 }
-
 
 #Preview {
     VStack {
