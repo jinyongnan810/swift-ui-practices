@@ -16,7 +16,6 @@ struct MessageView: View {
     var body: some View {
         Text(text)
             .fontWeight(.semibold)
-            .foregroundStyle(.white)
             .padding()
             .background(color.opacity(0.7))
             .cornerRadius(20)
