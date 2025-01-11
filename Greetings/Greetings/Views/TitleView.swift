@@ -8,6 +8,14 @@
 import SwiftUI
 
 struct TitleView: View {
+    @State private var subtitle = "Explore SwiftUI"
+    let subtitles = [
+        "Explore SwiftUI",
+        "SwiftUI is a powerful tool for building user interfaces.",
+        "SwiftUI is designed to be flexible and adaptable.",
+        "SwiftUI is designed to be efficient and performant."
+    ]
+
     let lineWidth: CGFloat = 15.0
     let circleSize: CGFloat = 70.0
     @State private var isRotated: Bool = false
@@ -24,9 +32,14 @@ struct TitleView: View {
                 Text("Greetings")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
-                Text("Explore SwiftUI")
+                Text(subtitle)
                     .font(.headline)
                     .fontWeight(.light)
+            }
+            .onTapGesture {
+                withAnimation(.spring()) {
+                    subtitle = subtitles.randomElement() ?? "Explore SwiftUI"
+                }
             }
             Spacer()
             Circle()
