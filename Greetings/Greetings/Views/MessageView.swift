@@ -22,10 +22,8 @@ struct MessageView: View {
             .cornerRadius(20)
             .shadow(color: color.opacity(0.5), radius: 5, x: 5, y: 5)
             .onTapGesture {
-                withAnimation(.spring()) {
-                    guard let newColor = randomColors.randomElement() else { return }
-                    color = newColor
-                }
+                guard let newColor = randomColors.randomElement() else { return }
+                color = newColor
             }
     }
 }
