@@ -13,7 +13,7 @@ struct GreetingsView: View {
             BackgroundView()
 
             VStack(alignment: .leading) {
-                TitleView()
+                TitleView(isPortrait: true)
                 Spacer()
                 MessagesView()
                 Spacer()
