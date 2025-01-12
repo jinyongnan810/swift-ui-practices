@@ -1,0 +1,117 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Are you there?" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "いるか？"
+          }
+        }
+      }
+    },
+    "Boom." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ブーン！"
+          }
+        }
+      }
+    },
+    "Explore SwiftUI" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SwiftUIを探索する"
+          }
+        }
+      }
+    },
+    "Greetings" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "こんにちは"
+          }
+        }
+      }
+    },
+    "Hello World" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ハローワールド"
+          }
+        }
+      }
+    },
+    "Key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キー"
+          }
+        }
+      }
+    },
+    "Start coding now." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コーディングを始めよう"
+          }
+        }
+      }
+    },
+    "SwiftUI is a powerful tool for building user interfaces." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SwiftUIはユーザインターフェースを作るためのいいツールだ。"
+          }
+        }
+      }
+    },
+    "SwiftUI is designed to be efficient and performant." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SwiftUIが効率を求めて設計されている。"
+          }
+        }
+      }
+    },
+    "SwiftUI is designed to be flexible and adaptable." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SwiftUIが自由度と適用性を重視している。"
+          }
+        }
+      }
+    },
+    "SwiftUI Rocks!!!!!!!!!!!!!!!!" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SwiftUIとてもいい！！！！！"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

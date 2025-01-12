@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TitleView: View {
-    @State private var subtitle = "Explore SwiftUI"
-    let subtitles = [
+    @State private var subtitle: LocalizedStringKey = "Explore SwiftUI"
+    let subtitles: [LocalizedStringKey] = [
         "Explore SwiftUI",
         "SwiftUI is a powerful tool for building user interfaces.",
         "SwiftUI is designed to be flexible and adaptable.",
@@ -38,7 +38,8 @@ struct TitleView: View {
             }
             .onTapGesture {
                 withAnimation(.spring()) {
-                    subtitle = subtitles.randomElement() ?? "Explore SwiftUI"
+                    subtitle = subtitles
+                        .randomElement() ?? LocalizedStringKey("Explore SwiftUI")
                 }
             }
             Spacer()

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MessageView: View {
-    let text: String
+    let text: LocalizedStringKey
     @State var color: Color
 
     let randomColors: [Color] = [.green, .cyan, .red, .blue, .yellow, .purple, .orange, .pink, .gray, .black]
