@@ -8,13 +8,24 @@
 import SwiftUI
 
 struct MessageView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    var isIPad: Bool {
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+    }
+
     let text: LocalizedStringKey
     @State var color: Color
 
     let randomColors: [Color] = [.green, .cyan, .red, .blue, .yellow, .purple, .orange, .pink, .gray, .black]
 
+    var font: Font {
+        isIPad ? .largeTitle : .body
+    }
+
     var body: some View {
         Text(text)
+            .font(font)
             .fontWeight(.semibold)
             .padding()
             .background(color.opacity(0.7))

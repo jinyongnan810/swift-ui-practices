@@ -12,9 +12,17 @@ struct MainView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
 
+    var isPortraitPhone: Bool {
+        horizontalSizeClass == .compact && verticalSizeClass == .regular
+    }
+
+    var isIPad: Bool {
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+    }
+
     var body: some View {
         // Portait mode(for iPhone)
-        if horizontalSizeClass == .compact && verticalSizeClass == .regular {
+        if isPortraitPhone || isIPad {
             GreetingsView()
         }
         // Landscape mode

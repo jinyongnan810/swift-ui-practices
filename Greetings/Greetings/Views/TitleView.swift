@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct TitleView: View {
-    var isPortrait: Bool
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+
+    var isPortraitPhone: Bool {
+        horizontalSizeClass == .compact && verticalSizeClass == .regular
+    }
+
+    var isIPad: Bool {
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+    }
 
     @State private var subtitle: LocalizedStringKey = "Explore SwiftUI"
     
 
     var body: some View {
-        if isPortrait {
+        if isPortraitPhone || isIPad {
             HStack {
                 GreetingsTextView(subtitle: $subtitle)
                 Spacer()
@@ -33,8 +42,8 @@ struct TitleView: View {
 
 #Preview {
     VStack {
-        TitleView(isPortrait: false).padding()
+        TitleView().padding()
         Spacer()
-        TitleView(isPortrait: true).padding()
+        TitleView().padding()
     }
 }

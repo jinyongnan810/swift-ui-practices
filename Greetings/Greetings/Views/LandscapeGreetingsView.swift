@@ -13,7 +13,7 @@ struct LandscapeGreetingsView: View {
             BackgroundView()
 
             HStack{
-                TitleView(isPortrait: false)
+                TitleView()
                 Spacer()
                 MessagesView()
             }.padding()
