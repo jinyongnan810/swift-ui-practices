@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct GreetingsApp: App {
+    @AppStorage("language") var language: String?
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(language: $language)
+                .environment(\.locale, language == nil ? .current : Locale(identifier: language!))
         }
     }
 }

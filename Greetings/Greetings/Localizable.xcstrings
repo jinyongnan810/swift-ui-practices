@@ -21,6 +21,9 @@
         }
       }
     },
+    "English" : {
+
+    },
     "Explore SwiftUI" : {
       "localizations" : {
         "ja" : {
@@ -111,6 +114,9 @@
           }
         }
       }
+    },
+    "日本語" : {
+
     }
   },
   "version" : "1.0"

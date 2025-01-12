@@ -20,18 +20,36 @@ struct MainView: View {
         horizontalSizeClass == .regular && verticalSizeClass == .regular
     }
 
+    @Binding var language: String?
+
     var body: some View {
         // Portait mode(for iPhone)
         if isPortraitPhone || isIPad {
-            GreetingsView()
+            NavigationStack {
+                GreetingsView()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            LanguageOptionView(language: $language)
+                        }
+                    }
+            }
+
         }
         // Landscape mode
         else {
-            LandscapeGreetingsView()
+            NavigationStack {
+                LandscapeGreetingsView()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            LanguageOptionView(language: $language)
+                        }
+                    }
+            }
+
         }
     }
 }
 
 #Preview {
-    MainView()
+    MainView(language: .constant("en"))
 }
