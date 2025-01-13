@@ -12,7 +12,7 @@ struct LandscapeGreetingsView: View {
         ZStack {
             BackgroundView()
 
-            HStack{
+            HStack {
                 TitleView()
                 Spacer()
                 MessagesView()

@@ -32,7 +32,6 @@ struct LanguageOptionView: View {
             Image(systemName: "gearshape.fill")
                 .foregroundColor(colorScheme == .dark ? .white : .black)
         }
-
     }
 }
 

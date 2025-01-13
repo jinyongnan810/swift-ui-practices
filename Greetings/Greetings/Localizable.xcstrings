@@ -115,6 +115,26 @@
         }
       }
     },
+    "Text will be generated automatically." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この文言はタップすると自動で変わります。"
+          }
+        }
+      }
+    },
+    "This is Greetings" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "こんにちはするアプリです"
+          }
+        }
+      }
+    },
     "日本語" : {
 
     }

@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  GreetingsView.swift
 //  Greetings
 //
 //  Created by Yuunan kin on 2025/01/09.

@@ -14,9 +14,11 @@ struct LogoView: View {
     var rotation: Angle {
         isRotated ? .zero : .degrees(360)
     }
+
     var angularGradient: AngularGradient {
         AngularGradient(gradient: Gradient(colors: [.orange, .pink, .purple, .blue, .green]), center: .center)
     }
+
     var body: some View {
         Circle()
             .strokeBorder(

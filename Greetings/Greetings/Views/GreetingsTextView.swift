@@ -14,7 +14,7 @@ struct GreetingsTextView: View {
         "Explore SwiftUI",
         "SwiftUI is a powerful tool for building user interfaces.",
         "SwiftUI is designed to be flexible and adaptable.",
-        "SwiftUI is designed to be efficient and performant."
+        "SwiftUI is designed to be efficient and performant.",
     ]
 
     var body: some View {

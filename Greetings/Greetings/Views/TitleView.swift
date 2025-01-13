@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct TitleView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -20,23 +21,25 @@ struct TitleView: View {
     }
 
     @State private var subtitle: LocalizedStringKey = "Explore SwiftUI"
-    
+
+    private var greetingsTip = GreetingsTip()
 
     var body: some View {
         if isPortraitPhone || isIPad {
             HStack {
                 GreetingsTextView(subtitle: $subtitle)
+                    .popoverTip(greetingsTip)
                 Spacer()
                 LogoView()
             }
         } else {
             VStack(alignment: .leading) {
                 GreetingsTextView(subtitle: $subtitle)
+                    .popoverTip(greetingsTip)
                 LogoView()
                 Spacer()
             }.padding(.vertical)
         }
-
     }
 }
 

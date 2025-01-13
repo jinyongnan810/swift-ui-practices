@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 @main
 struct GreetingsApp: App {
@@ -14,6 +15,15 @@ struct GreetingsApp: App {
         WindowGroup {
             MainView(language: $language)
                 .environment(\.locale, language == nil ? .current : Locale(identifier: language!))
+                .task {
+                    do {
+                        try Tips.resetDatastore()
+                        try Tips
+                            .configure()
+                    } catch {
+                        print("Error initializing TipKit \(error.localizedDescription)")
+                    }
+                }
         }
     }
 }

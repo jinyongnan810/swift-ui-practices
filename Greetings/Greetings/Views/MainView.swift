@@ -33,7 +33,6 @@ struct MainView: View {
                         }
                     }
             }
-
         }
         // Landscape mode
         else {
@@ -45,7 +44,6 @@ struct MainView: View {
                         }
                     }
             }
-
         }
     }
 }
