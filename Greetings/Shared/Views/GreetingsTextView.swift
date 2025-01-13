@@ -22,9 +22,14 @@ struct GreetingsTextView: View {
             Text("Greetings")
                 .font(.largeTitle)
                 .fontWeight(.semibold)
-            Text(subtitle)
-                .font(.headline)
-                .fontWeight(.light)
+            #if os(macOS)
+                Text(subtitle)
+                    .font(.title)
+            #elseif os(iOS)
+                Text(subtitle)
+                    .font(.headline)
+                    .fontWeight(.light)
+            #endif
         }
         .onTapGesture {
             withAnimation(.spring()) {

@@ -9,23 +9,18 @@ import SwiftUI
 import TipKit
 
 struct TitleView: View {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.verticalSizeClass) var verticalSizeClass
-
-    var isPortraitPhone: Bool {
-        horizontalSizeClass == .compact && verticalSizeClass == .regular
-    }
-
-    var isIPad: Bool {
-        horizontalSizeClass == .regular && verticalSizeClass == .regular
-    }
+    var useHorizontalLayout: Bool
 
     @State private var subtitle: LocalizedStringKey = "Explore SwiftUI"
 
     private var greetingsTip = GreetingsTip()
 
+    public init(useHorizontalLayout: Bool) {
+        self.useHorizontalLayout = useHorizontalLayout
+    }
+
     var body: some View {
-        if isPortraitPhone || isIPad {
+        if useHorizontalLayout {
             HStack {
                 GreetingsTextView(subtitle: $subtitle)
                     .popoverTip(greetingsTip)
@@ -45,8 +40,8 @@ struct TitleView: View {
 
 #Preview {
     VStack {
-        TitleView().padding()
+        TitleView(useHorizontalLayout: true).padding()
         Spacer()
-        TitleView().padding()
+        TitleView(useHorizontalLayout: false).padding()
     }
 }

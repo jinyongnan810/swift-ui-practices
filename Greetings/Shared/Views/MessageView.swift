@@ -20,7 +20,11 @@ struct MessageView: View {
     let randomColors: [Color] = [.green, .cyan, .red, .blue, .yellow, .purple, .orange, .pink, .gray, .black]
 
     var font: Font {
-        isIPad ? .largeTitle : .body
+        #if os(macOS)
+            .title
+        #else
+            isIPad ? .largeTitle : .body
+        #endif
     }
 
     var body: some View {
