@@ -14,6 +14,10 @@ struct ContentView: View {
                 NavigationLink("Navigation", destination: NameAndAgeInputView())
                 NavigationLink("View Modifier", destination: CustomViewModifierExample())
                 NavigationLink("Mesh Gradient & Timer & Animation", destination: MeshGradientExample())
+                NavigationLink(
+                    "Scroll Transition",
+                    destination: ScrollTransitionExample()
+                )
             }.navigationTitle("SwiftUI Practices")
         }
     }
