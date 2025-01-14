@@ -26,11 +26,12 @@ struct ScrollTransitionExample: View {
                             opacity = phase.isIdentity ? 1 : opacity
 
                             return content
-//                                .opacity(opacity)
+                                .opacity(opacity)
 //                                .scaleEffect(opacity)
 //                                .offset(y: 100 * phase.value)
                                 .offset(x: phase.value * -300)
-                                .brightness(0.3 * abs(phase.value))
+//                                .brightness(0.3 * abs(phase.value))
+                                .grayscale(abs(phase.value))
                         }
                         .clipShape(.rect(cornerRadius: 30))
                 }
