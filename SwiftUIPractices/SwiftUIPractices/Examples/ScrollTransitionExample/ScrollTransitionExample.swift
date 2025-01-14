@@ -22,11 +22,17 @@ struct ScrollTransitionExample: View {
 
                             // 0 ... 1
 //                            let opacity = cos((.pi/2) * value)
-                            let opacity = 1 - abs(value)
+                            var opacity = 1 - abs(value)
+                            opacity = phase.isIdentity ? 1 : opacity
 
                             return content
-                                .opacity(opacity)
+//                                .opacity(opacity)
+//                                .scaleEffect(opacity)
+//                                .offset(y: 100 * phase.value)
+                                .offset(x: phase.value * -300)
+                                .brightness(0.3 * abs(phase.value))
                         }
+                        .clipShape(.rect(cornerRadius: 30))
                 }
             }
         }
