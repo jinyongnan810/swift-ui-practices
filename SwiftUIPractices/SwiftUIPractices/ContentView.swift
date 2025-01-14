@@ -11,8 +11,8 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                NavigationLink("Navigation Example", destination: NameAndAgeInputView())
-
+                NavigationLink("Navigation", destination: NameAndAgeInputView())
+                NavigationLink("View Modifier", destination: CustomViewModifierExample())
             }.navigationTitle("SwiftUI Practices")
         }
     }
