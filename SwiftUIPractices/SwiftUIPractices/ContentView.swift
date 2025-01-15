@@ -22,6 +22,10 @@ struct ContentView: View {
                     "TabView",
                     destination: TabViewExample()
                 )
+                NavigationLink(
+                    "Effects",
+                    destination: EffectsExample()
+                )
             }.navigationTitle("SwiftUI Practices")
         }
     }
