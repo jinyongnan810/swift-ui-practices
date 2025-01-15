@@ -41,12 +41,7 @@ struct BlurExample: View {
                     .clipShape(.rect(cornerRadius: 30))
                     .padding()
 
-                Circle()
-                    .fill(.red)
-                    .frame(width: 100, height: 100)
-                    .offset(x: -100, y: 100)
-                    .blur(radius: redBlurRadius)
-                    .blendMode(blendMode)
+
 
                 VStack {
                     Spacer()
@@ -80,11 +75,16 @@ struct BlurExample: View {
                     }.padding()
                 }.padding()
 
-
+                Circle()
+                    .fill(.red)
+                    .frame(width: 200, height: 200)
+                    .offset(x: -50, y: 50)
+                    .blur(radius: redBlurRadius)
+                    .blendMode(blendMode)
                 Circle()
                     .fill(.blue)
-                    .frame(width: 100, height: 100)
-                    .offset(x: 100, y: -100)
+                    .frame(width: 200, height: 200)
+                    .offset(x: 50, y: -50)
                     .blur(radius: blueBlurRadius)
                     .blendMode(blendMode)
 
