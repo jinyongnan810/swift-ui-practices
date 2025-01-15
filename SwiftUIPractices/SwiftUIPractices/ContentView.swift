@@ -18,6 +18,10 @@ struct ContentView: View {
                     "Scroll Transition",
                     destination: ScrollTransitionExample()
                 )
+                NavigationLink(
+                    "TabView",
+                    destination: TabViewExample()
+                )
             }.navigationTitle("SwiftUI Practices")
         }
     }

@@ -15,5 +15,5 @@ let images: [String] = [
     "pizza",
     "tree",
     "wisdom",
-    "sunset"
-    ]
+    "sunset",
+]

@@ -15,6 +15,7 @@ struct MyImageView: View {
         self.name = name
         self.maxWidth = maxWidth
     }
+
     var body: some View {
         Image(name)
             .resizable()

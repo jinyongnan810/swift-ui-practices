@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct ScrollTransitionExample: View {
-    
-
     var body: some View {
         ScrollView(.horizontal) {
             HStack {

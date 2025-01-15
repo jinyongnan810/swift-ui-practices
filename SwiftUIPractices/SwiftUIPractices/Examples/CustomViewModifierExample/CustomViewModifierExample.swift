@@ -54,7 +54,6 @@ extension View {
     }
 }
 
-
 #Preview {
     CustomViewModifierExample()
 }
