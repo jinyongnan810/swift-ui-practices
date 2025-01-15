@@ -21,7 +21,7 @@ struct BlurExample: View {
         .screen,
         .overlay,
         .darken,
-        .lighten
+        .lighten,
     ]
     private var blendMode: BlendMode { blendModes[blendModeIndex] }
 
@@ -40,8 +40,6 @@ struct BlurExample: View {
                     .fill(.ultraThinMaterial)
                     .clipShape(.rect(cornerRadius: 30))
                     .padding()
-
-
 
                 VStack {
                     Spacer()
@@ -87,7 +85,6 @@ struct BlurExample: View {
                     .offset(x: 50, y: -50)
                     .blur(radius: blueBlurRadius)
                     .blendMode(blendMode)
-
             }
 
         }.onTapGesture {

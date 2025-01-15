@@ -11,21 +11,29 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                NavigationLink("Navigation", destination: NameAndAgeInputView())
-                NavigationLink("View Modifier", destination: CustomViewModifierExample())
-                NavigationLink("Mesh Gradient & Timer & Animation", destination: MeshGradientExample())
-                NavigationLink(
-                    "Scroll Transition",
-                    destination: ScrollTransitionExample()
-                )
-                NavigationLink(
-                    "TabView",
-                    destination: TabViewExample()
-                )
-                NavigationLink(
-                    "Effects",
-                    destination: EffectsExample()
-                )
+                Section(header: Text("Feature Demos")) {
+                    NavigationLink("Navigation", destination: NameAndAgeInputView())
+                    NavigationLink("View Modifier", destination: CustomViewModifierExample())
+                    NavigationLink("Mesh Gradient & Timer & Animation", destination: MeshGradientExample())
+                    NavigationLink(
+                        "Scroll Transition",
+                        destination: ScrollTransitionExample()
+                    )
+                    NavigationLink(
+                        "TabView",
+                        destination: TabViewExample()
+                    )
+                    NavigationLink(
+                        "Effects",
+                        destination: EffectsExample()
+                    )
+                }
+                Section(header: Text("User Interface Practices")) {
+                    NavigationLink(
+                        "Price Card",
+                        destination: PriceCardPractice()
+                    )
+                }
             }.navigationTitle("SwiftUI Practices")
         }
     }

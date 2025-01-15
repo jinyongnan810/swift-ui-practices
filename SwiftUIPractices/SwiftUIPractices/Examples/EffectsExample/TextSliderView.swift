@@ -15,7 +15,7 @@ struct TextSliderView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(title).font(.headline)
-            Slider(value: $value, in: min...max, step: 1)
+            Slider(value: $value, in: min ... max, step: 1)
         }
     }
 }
