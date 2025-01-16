@@ -33,6 +33,10 @@ struct ContentView: View {
                         "Price Card",
                         destination: PriceCardPractice()
                     )
+                    NavigationLink(
+                        "Custom Color Picker",
+                        destination: CustomColorPickerPractice()
+                    )
                 }
             }.navigationTitle("SwiftUI Practices")
         }

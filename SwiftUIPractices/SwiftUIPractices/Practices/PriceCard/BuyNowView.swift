@@ -34,7 +34,7 @@ struct BuyNowView: View {
                         }.rotationEffect(.degrees(-15))
                         .shadow(radius: 5)
                         .offset(y: -40)
-                        .frame(maxWidth: .infinity ,alignment:.trailing)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                 }
 
                 HStack {
@@ -48,7 +48,7 @@ struct BuyNowView: View {
                             Text("$\(price, specifier: "%.2f")")
                                 .strikethrough()
                                 .foregroundStyle(.white)
-                            Text("$\(priceAferDiscount, specifier: "%.2f" )")
+                            Text("$\(priceAferDiscount, specifier: "%.2f")")
                                 .font(.largeTitle)
                                 .fontWeight(.semibold)
                         } else {
