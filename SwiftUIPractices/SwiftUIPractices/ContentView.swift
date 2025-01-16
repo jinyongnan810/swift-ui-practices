@@ -27,6 +27,10 @@ struct ContentView: View {
                         "Effects",
                         destination: EffectsExample()
                     )
+                    NavigationLink(
+                        "Observation",
+                        destination: ObservationExample()
+                    )
                 }
                 Section(header: Text("User Interface Practices")) {
                     NavigationLink(
