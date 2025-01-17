@@ -47,6 +47,8 @@ struct SomeViewThatHasObservedProperties: View {
             }
             Divider()
             SomeViewThatCanAccessToInjectedViewModel()
+            Divider()
+            SomeOtherViewThatCanAccessToInjectedViewModel()
         }.environment(viewModel)
     }
 }
@@ -62,6 +64,25 @@ struct SomeViewThatCanAccessToInjectedViewModel: View {
                 viewModel.data1 = "Data1 After (from injected view)"
                 viewModel.data2 = "Data2 After (from injected view)"
             }
+        }
+    }
+}
+
+struct SomeOtherViewThatCanAccessToInjectedViewModel: View {
+    @Environment(SomeViewModel.self) var viewModel
+    var body: some View {
+        @Bindable var bindableViewModel = viewModel
+        VStack {
+            Text("View2 that can access to injected SomeViewModel")
+            Text(viewModel.data1)
+            Text(viewModel.data2)
+            Button("Change Data") {
+                viewModel.data1 = "Data1 After (from injected view2)"
+                viewModel.data2 = "Data2 After (from injected view2)"
+            }
+            Text("Change data1 manually")
+            TextField("data1" , text: $bindableViewModel.data1)
+                .textFieldStyle(.roundedBorder)
         }
     }
 }
