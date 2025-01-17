@@ -17,6 +17,7 @@ struct ObservationExample: View {
             Button("Generate Random Number") {
                     self.randomNumber = Int.random(in: 0...100)
             }
+            Divider()
 
             SomeViewThatHasObservedProperties().padding()
         }
@@ -25,7 +26,7 @@ struct ObservationExample: View {
 }
 
 // To support iOS version < 17
-// Checkout ObservableObject, @Published, @ObservedObject/@StateObject
+// Checkout ObservableObject, @Published, @ObservedObject/@StateObject/@EnvironmentObject
 @Observable
 class SomeViewModel {
     var data1: String = "Data1 Before"
@@ -37,11 +38,29 @@ struct SomeViewThatHasObservedProperties: View {
     @State var viewModel: SomeViewModel = .init()
     var body: some View {
         VStack {
+            Text("View that generates and injects SomeViewModel")
             Text(viewModel.data1)
             Text(viewModel.data2)
             Button("Change Data") {
                 viewModel.data1 = "Data1 After"
                 viewModel.data2 = "Data2 After"
+            }
+            Divider()
+            SomeViewThatCanAccessToInjectedViewModel()
+        }.environment(viewModel)
+    }
+}
+
+struct SomeViewThatCanAccessToInjectedViewModel: View {
+    @Environment(SomeViewModel.self) var viewModel
+    var body: some View {
+        VStack {
+            Text("View that can access to injected SomeViewModel")
+            Text(viewModel.data1)
+            Text(viewModel.data2)
+            Button("Change Data") {
+                viewModel.data1 = "Data1 After (from injected view)"
+                viewModel.data2 = "Data2 After (from injected view)"
             }
         }
     }
