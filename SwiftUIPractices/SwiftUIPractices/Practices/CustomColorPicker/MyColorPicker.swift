@@ -39,7 +39,6 @@ struct MyColorPicker: View {
 //                .overlay {
 //                    RoundedRectangle(cornerRadius: 20).stroke(Color.white)
 //                }
-
         }
     }
 }

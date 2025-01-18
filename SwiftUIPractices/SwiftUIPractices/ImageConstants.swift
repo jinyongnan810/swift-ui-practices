@@ -5,7 +5,7 @@
 //  Created by Yuunan kin on 2025/01/18.
 //
 
-enum ImagesForExploreExample: String, CaseIterable{
+enum ImagesForExploreExample: String, CaseIterable {
     case imgLightening1
     case imgNature
     case imgPurpleLightening

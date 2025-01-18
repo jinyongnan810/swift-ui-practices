@@ -5,8 +5,8 @@
 //  Created by Yuunan kin on 2025/01/16.
 //
 
-import SwiftUI
 import Observation
+import SwiftUI
 
 struct ObservationExample: View {
     @State var randomNumber: Int = 0
@@ -15,13 +15,12 @@ struct ObservationExample: View {
             Text("Random Number: \(randomNumber)")
 
             Button("Generate Random Number") {
-                    self.randomNumber = Int.random(in: 0...100)
+                randomNumber = Int.random(in: 0 ... 100)
             }
             Divider()
 
             SomeViewThatHasObservedProperties().padding()
         }
-
     }
 }
 
@@ -81,7 +80,7 @@ struct SomeOtherViewThatCanAccessToInjectedViewModel: View {
                 viewModel.data2 = "Data2 After (from injected view2)"
             }
             Text("Change data1 manually")
-            TextField("data1" , text: $bindableViewModel.data1)
+            TextField("data1", text: $bindableViewModel.data1)
                 .textFieldStyle(.roundedBorder)
         }
     }
