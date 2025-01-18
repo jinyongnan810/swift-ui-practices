@@ -13,6 +13,10 @@ struct EffectsExample: View {
             Tab("Blur & Blend mode", systemImage: "photo") {
                 BlurExample()
             }
+
+            Tab("Text with gradient", systemImage: "text.bubble") {
+                TextWithGradientExample()
+            }
         }.tabViewStyle(.sidebarAdaptable)
     }
 }
