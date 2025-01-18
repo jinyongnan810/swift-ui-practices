@@ -31,6 +31,10 @@ struct ContentView: View {
                         "Observation",
                         destination: ObservationExample()
                     )
+                    NavigationLink(
+                        "Image",
+                        destination: ImageExploreExample()
+                    )
                 }
                 Section(header: Text("User Interface Practices")) {
                     NavigationLink(
