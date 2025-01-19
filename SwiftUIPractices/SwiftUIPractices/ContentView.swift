@@ -35,6 +35,10 @@ struct ContentView: View {
                         "Image",
                         destination: ImageExploreExample()
                     )
+                    NavigationLink(
+                        "Animations",
+                        destination: AnimationExample()
+                    )
                 }
                 Section(header: Text("User Interface Practices")) {
                     NavigationLink(
