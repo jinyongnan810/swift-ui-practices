@@ -15,7 +15,7 @@ struct AsyncImageExample: View {
             switch phase {
             case .empty:
                 ProgressView()
-            case let .failure(error):
+            case .failure:
                 Image(systemName: "photo").imageScale(.large)
             case let .success(image):
                 image

@@ -15,6 +15,10 @@ struct AnimationExample: View {
                     "SF Symbol Animations",
                     destination: SFSymbolsAnimation()
                 )
+                NavigationLink(
+                    "Phase Animation",
+                    destination: PhaseAnimationExample()
+                )
             }
         }
     }
