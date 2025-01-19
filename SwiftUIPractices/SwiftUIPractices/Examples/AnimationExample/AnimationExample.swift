@@ -19,6 +19,10 @@ struct AnimationExample: View {
                     "Phase Animation",
                     destination: PhaseAnimationExample()
                 )
+                NavigationLink(
+                    "Key Frame Animation",
+                    destination: KeyFrameAnimationExample()
+                )
             }
         }
     }
