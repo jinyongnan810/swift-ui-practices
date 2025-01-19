@@ -7,6 +7,8 @@
 import SwiftUI
 
 struct NameAndAgeInputView: View {
+    @Namespace private var namespace
+
     @State var name: String = ""
     @State var age: String = ""
 
@@ -27,6 +29,9 @@ struct NameAndAgeInputView: View {
                 Spacer()
                 NavigationLink {
                     NameAndAgeDisplayView(name: name, age: age)
+                        .navigationTransition(
+                            .zoom(sourceID: "myId", in: namespace)
+                        )
 
                 } label: {
                     Text("Go")
@@ -37,6 +42,7 @@ struct NameAndAgeInputView: View {
                                 .stroke(style: StrokeStyle(lineWidth: 2))
                         }
                 }.disabled(navigationDisabled)
+                    .matchedTransitionSource(id: "myId", in: namespace)
             }
             .padding()
             .navigationTitle("Navigation Example")
