@@ -23,6 +23,9 @@ struct TextStylingExample: View {
                 NavigationLink("List Member styling & Measurement") {
                     ListMemberStyleExample()
                 }
+                NavigationLink("Date") {
+                    DateTextExample()
+                }
             }
         }
     }
