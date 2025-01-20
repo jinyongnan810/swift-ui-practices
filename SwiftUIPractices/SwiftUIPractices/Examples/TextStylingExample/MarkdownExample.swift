@@ -14,6 +14,19 @@ struct MarkdownExample: View {
         - [Apple](https://apple.com): Checkout Apple website.
         - [Udemy](https://udemy.com): Checkout Udemy.
     """
+
+    let gradient = LinearGradient(
+        colors: [.red, .yellow, .green, .blue, .purple],
+        startPoint: .leading,
+        endPoint: .trailing
+    )
+
+    var welcomeText: Text {
+        Text("*Welcome*").foregroundStyle(gradient)
+    }
+
+
+
     var body: some View {
         VStack {
             Text("""
@@ -30,6 +43,10 @@ struct MarkdownExample: View {
             Divider()
 
             Text(LocalizedStringKey(markdownText)).tint(.red).foregroundStyle(.cyan).padding()
+
+            Divider()
+
+            Text("\(welcomeText) to **SwiftUI**!")
         }
     }
 }
