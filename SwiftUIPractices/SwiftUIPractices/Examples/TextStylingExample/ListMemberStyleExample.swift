@@ -1,5 +1,5 @@
 //
-//  MeasurementsExample.swift
+//  ListMemberStyleExample.swift
 //  SwiftUIPractices
 //
 //  Created by Yuunan kin on 2025/01/20.
@@ -13,10 +13,10 @@ struct ListMemberStyleExample: View {
         "Big Bird",
         "Cookie Monster",
         "Oscar the Grouch",
-        "Abby Cadabby"
+        "Abby Cadabby",
     ]
 
-    let even = [0,2,4,6,8,10]
+    let even = [0, 2, 4, 6, 8, 10]
 
     let length = Measurement(value: 225, unit: UnitLength.centimeters)
 

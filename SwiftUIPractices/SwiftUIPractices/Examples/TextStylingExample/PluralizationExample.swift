@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PluralizationExample: View {
     @State private var count = 0
-    let nounList: [String] = [ "bread", "salt", "domino", "radius", "child", "foot", "tooth", "man", "woman", "goose", "focus", "matrix", "deer", "oasis", "fish", "index", "boom", "brush"]
+    let nounList: [String] = ["bread", "salt", "domino", "radius", "child", "foot", "tooth", "man", "woman", "goose", "focus", "matrix", "deer", "oasis", "fish", "index", "boom", "brush"]
 
     var body: some View {
         NavigationStack {
@@ -35,7 +35,6 @@ struct PluralizationExample: View {
             }
             .navigationTitle("Pluralization")
         }
-
     }
 }
 

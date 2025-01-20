@@ -13,7 +13,7 @@ struct DateTextExample: View {
     var body: some View {
         List {
             Section("Intervals") {
-                Text("Time duration: \(Date.now...Date.now.addingTimeInterval(120))")
+                Text("Time duration: \(Date.now ... Date.now.addingTimeInterval(120))")
                 Text("Date interval: \(dateInterval)")
             }
             Section("Time offset") {
@@ -29,8 +29,6 @@ struct DateTextExample: View {
                     format: .dateTime.hour().minute().second().year().month()
                 )
             }
-
-
         }
     }
 }

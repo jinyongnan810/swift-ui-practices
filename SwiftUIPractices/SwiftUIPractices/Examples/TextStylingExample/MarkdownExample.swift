@@ -33,11 +33,11 @@ struct MarkdownExample: View {
         ScrollView {
             VStack {
                 Text("""
-                ***Hello Markdown***
-                ~~Strike Through~~
-                - **[Apple](https://apple.com)**: Checkout Apple website.
-                - [Udemy](https://udemy.com): Checkout Udemy.
-            """).tint(.red).foregroundStyle(.cyan).padding()
+                    ***Hello Markdown***
+                    ~~Strike Through~~
+                    - **[Apple](https://apple.com)**: Checkout Apple website.
+                    - [Udemy](https://udemy.com): Checkout Udemy.
+                """).tint(.red).foregroundStyle(.cyan).padding()
 
                 Divider()
 
@@ -55,12 +55,12 @@ struct MarkdownExample: View {
 
                 VStack {
                     Text("**[Apple](https://apple.com)**: Checkout Apple website \(openedUrlTimes) times.")
-                        .environment(\.openURL, OpenURLAction {url in
+                        .environment(\.openURL, OpenURLAction { _ in
                             openedUrlTimes += 1
                             return .systemAction
                         })
                     Text("**[Blocked Site](https://some-blocked-site.com)**: this site is blocked.")
-                        .environment(\.openURL, OpenURLAction {url in
+                        .environment(\.openURL, OpenURLAction { _ in
                             showingAlert = true
                             return .handled
                         })
@@ -72,7 +72,6 @@ struct MarkdownExample: View {
                 Button("OK", role: .cancel) {}
             }
         }
-
     }
 }
 
