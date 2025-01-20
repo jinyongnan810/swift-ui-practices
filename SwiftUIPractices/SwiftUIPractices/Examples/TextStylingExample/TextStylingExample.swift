@@ -1,5 +1,5 @@
 //
-//  TextViewStylingExample.swift
+//  TextStylingExample.swift
 //  SwiftUIPractices
 //
 //  Created by Yuunan kin on 2025/01/20.
@@ -13,6 +13,9 @@ struct TextStylingExample: View {
             List {
                 NavigationLink("String Interpolation") {
                     StringInterpolationExample()
+                }
+                NavigationLink("Markdown") {
+                    MarkdownExample()
                 }
             }
         }

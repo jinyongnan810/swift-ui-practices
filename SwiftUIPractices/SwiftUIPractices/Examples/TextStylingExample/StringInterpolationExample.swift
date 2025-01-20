@@ -13,9 +13,9 @@ struct LineOfPoetry: Identifiable {
 
     var firstCharacter: String {
         if let firstCharacter = line.first {
-            return String(firstCharacter)
+            String(firstCharacter)
         } else {
-            return ""
+            ""
         }
     }
 
