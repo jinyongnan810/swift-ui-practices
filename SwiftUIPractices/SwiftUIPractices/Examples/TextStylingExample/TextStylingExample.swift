@@ -17,6 +17,9 @@ struct TextStylingExample: View {
                 NavigationLink("Markdown") {
                     MarkdownExample()
                 }
+                NavigationLink("Pluralization") {
+                    PluralizationExample()
+                }
             }
         }
     }
