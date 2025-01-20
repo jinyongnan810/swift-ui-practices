@@ -1,0 +1,24 @@
+//
+//  TextViewStylingExample.swift
+//  SwiftUIPractices
+//
+//  Created by Yuunan kin on 2025/01/20.
+//
+
+import SwiftUI
+
+struct TextStylingExample: View {
+    var body: some View {
+        NavigationStack {
+            List {
+                NavigationLink("String Interpolation") {
+                    StringInterpolationExample()
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    TextStylingExample()
+}

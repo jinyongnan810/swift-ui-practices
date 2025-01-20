@@ -43,6 +43,10 @@ struct ContentView: View {
                         "Gestures",
                         destination: GesturesExample()
                     )
+                    NavigationLink(
+                        "Text Styling",
+                        destination: TextStylingExample()
+                    )
                 }
                 Section(header: Text("User Interface Practices")) {
                     NavigationLink(
