@@ -26,6 +26,9 @@ struct TextStylingExample: View {
                 NavigationLink("Date") {
                     DateTextExample()
                 }
+                NavigationLink("Attributed String") {
+                    AttributedStringExample()
+                }
             }
         }
     }
