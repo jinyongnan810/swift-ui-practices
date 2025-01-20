@@ -27,6 +27,8 @@ struct MarkdownExample: View {
 
     @State private var openedUrlTimes: Int = 0
 
+    @State private var showingAlert: Bool = false
+
     var body: some View {
         ScrollView {
             VStack {
@@ -59,9 +61,15 @@ struct MarkdownExample: View {
                         })
                     Text("**[Blocked Site](https://some-blocked-site.com)**: this site is blocked.")
                         .environment(\.openURL, OpenURLAction {url in
+                            showingAlert = true
                             return .handled
                         })
                 }
+            }
+        }.alert("Blocked Site", isPresented: $showingAlert) {
+            VStack {
+                Text("This site is blocked.")
+                Button("OK", role: .cancel) {}
             }
         }
 
