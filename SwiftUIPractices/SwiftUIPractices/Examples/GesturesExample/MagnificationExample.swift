@@ -1,5 +1,5 @@
 //
-//  MagnificationBounceBackExample.swift
+//  MagnificationExample.swift
 //  SwiftUIPractices
 //
 //  Created by Yuunan kin on 2025/01/20.

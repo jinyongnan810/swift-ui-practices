@@ -38,7 +38,7 @@ struct RotationGestureExample: View {
                                 rotation1Current = .zero
                             }
                     )
-                    .onTapGesture{
+                    .onTapGesture {
                         withAnimation {
                             rotation1Current = .zero
                             rotation1Ended = .zero
@@ -71,7 +71,7 @@ struct RotationGestureExample: View {
                                 rotation3Ended = rotation3
                                 rotation3Current = .zero
                             }
-                    ).onTapGesture{
+                    ).onTapGesture {
                         withAnimation {
                             rotation3Current = .zero
                             rotation3Ended = .zero

@@ -23,6 +23,9 @@ struct GesturesExample: View {
                 NavigationLink("Rotation") {
                     RotationGestureExample(rotation3Ended: $rotateState)
                 }
+                NavigationLink("Simultaneous") {
+                    SimultaneousGestureExample()
+                }
             }.navigationTitle("Explore Gestures")
         }
     }

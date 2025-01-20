@@ -19,7 +19,7 @@ struct DragGestureExample: View {
 
     @State private var offset2: CGSize = .zero
 
-    @Binding  var storedOffsetEnded: CGSize
+    @Binding var storedOffsetEnded: CGSize
     @State private var offsetCurrent3: CGSize = .zero
     var offset3: CGSize {
         CGSize(
@@ -39,17 +39,16 @@ struct DragGestureExample: View {
                             .onChanged { value in
                                 offsetCurrent = value.translation
                             }
-                            .onEnded { value in
-                                offsetEnded =  offset1
+                            .onEnded { _ in
+                                offsetEnded = offset1
                                 offsetCurrent = .zero
                             }
                     )
-                    .onTapGesture{
+                    .onTapGesture {
                         withAnimation {
                             offsetEnded = .zero
                             offsetCurrent = .zero
                         }
-
                     }
                 Spacer()
                 MyTextView(text: "Bounce Back")
@@ -75,17 +74,16 @@ struct DragGestureExample: View {
                             .onChanged { value in
                                 offsetCurrent3 = value.translation
                             }
-                            .onEnded { value in
-                                storedOffsetEnded =  offset3
+                            .onEnded { _ in
+                                storedOffsetEnded = offset3
                                 offsetCurrent3 = .zero
                             }
                     )
-                    .onTapGesture{
+                    .onTapGesture {
                         withAnimation {
                             storedOffsetEnded = .zero
                             offsetCurrent3 = .zero
                         }
-
                     }
                 Spacer()
             }.navigationTitle("Drag")
