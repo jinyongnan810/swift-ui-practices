@@ -25,29 +25,46 @@ struct MarkdownExample: View {
         Text("*Welcome*").foregroundStyle(gradient)
     }
 
-
+    @State private var openedUrlTimes: Int = 0
 
     var body: some View {
-        VStack {
-            Text("""
+        ScrollView {
+            VStack {
+                Text("""
                 ***Hello Markdown***
                 ~~Strike Through~~
-                - [Apple](https://apple.com): Checkout Apple website.
+                - **[Apple](https://apple.com)**: Checkout Apple website.
                 - [Udemy](https://udemy.com): Checkout Udemy.
             """).tint(.red).foregroundStyle(.cyan).padding()
 
-            Divider()
+                Divider()
 
-            Text(markdownText).font(.caption).foregroundColor(.gray)
+                Text(markdownText).font(.caption).foregroundColor(.gray)
 
-            Divider()
+                Divider()
 
-            Text(LocalizedStringKey(markdownText)).tint(.red).foregroundStyle(.cyan).padding()
+                Text(LocalizedStringKey(markdownText)).tint(.red).foregroundStyle(.cyan).padding()
 
-            Divider()
+                Divider()
 
-            Text("\(welcomeText) to **SwiftUI**!")
+                Text("\(welcomeText) to **SwiftUI**!")
+
+                Divider()
+
+                VStack {
+                    Text("**[Apple](https://apple.com)**: Checkout Apple website \(openedUrlTimes) times.")
+                        .environment(\.openURL, OpenURLAction {url in
+                            openedUrlTimes += 1
+                            return .systemAction
+                        })
+                    Text("**[Blocked Site](https://some-blocked-site.com)**: this site is blocked.")
+                        .environment(\.openURL, OpenURLAction {url in
+                            return .handled
+                        })
+                }
+            }
         }
+
     }
 }
 
