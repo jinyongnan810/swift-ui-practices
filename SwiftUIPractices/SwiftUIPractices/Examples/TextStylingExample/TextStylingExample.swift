@@ -20,6 +20,9 @@ struct TextStylingExample: View {
                 NavigationLink("Pluralization") {
                     PluralizationExample()
                 }
+                NavigationLink("List Member styling & Measurement") {
+                    ListMemberStyleExample()
+                }
             }
         }
     }
