@@ -26,6 +26,9 @@ struct GesturesExample: View {
                 NavigationLink("Simultaneous") {
                     SimultaneousGestureExample()
                 }
+                NavigationLink("@GestureState") {
+                    GestureStateExample()
+                }
             }.navigationTitle("Explore Gestures")
         }
     }

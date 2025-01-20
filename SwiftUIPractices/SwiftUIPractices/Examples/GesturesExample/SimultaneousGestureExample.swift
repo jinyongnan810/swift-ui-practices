@@ -37,7 +37,6 @@ struct SimultaneousGestureExample: View {
                                 withAnimation {
                                     draggingOffsetCurrent = value.translation
                                 }
-
                             }
                             .onEnded { _ in
                                 draggingOffsetEnded = offset
@@ -53,7 +52,6 @@ struct SimultaneousGestureExample: View {
                             withAnimation {
                                 rotationCurrent = value.rotation
                             }
-
                         }
                         .onEnded { _ in
                             rotationEnded = rotation
