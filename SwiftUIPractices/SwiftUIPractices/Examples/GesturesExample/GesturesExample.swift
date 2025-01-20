@@ -10,6 +10,7 @@ import SwiftUI
 struct GesturesExample: View {
     @State private var magnificationState: CGFloat = 1.0
     @State private var dragState: CGSize = .zero
+    @State private var rotateState: Angle = .zero
     var body: some View {
         NavigationStack {
             List {
@@ -18,6 +19,9 @@ struct GesturesExample: View {
                 }
                 NavigationLink("Drag") {
                     DragGestureExample(storedOffsetEnded: $dragState)
+                }
+                NavigationLink("Rotation") {
+                    RotationGestureExample(rotation3Ended: $rotateState)
                 }
             }.navigationTitle("Explore Gestures")
         }
