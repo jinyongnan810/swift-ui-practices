@@ -25,6 +25,7 @@ struct LineOfPoetry: Identifiable {
 }
 
 struct StringInterpolationExample: View {
+    let image: Image = .init(systemName: "star")
     let poem: [LineOfPoetry] = [
         .init(line: "Dancing in the moonlight, free,"),
         .init(line: "Reaching for the stars, we see."),
@@ -43,7 +44,7 @@ struct StringInterpolationExample: View {
 
     private func formatPoemLine(_ line: LineOfPoetry) -> some View {
         Text(
-            "\(Text(line.firstCharacter).foregroundStyle(.blue).font(.title).fontWeight(.bold))\(line.remainingCharacters)"
+            "\(image) \(Text(line.firstCharacter).foregroundStyle(.blue).font(.title).fontWeight(.bold))\(line.remainingCharacters)"
         )
     }
 }
