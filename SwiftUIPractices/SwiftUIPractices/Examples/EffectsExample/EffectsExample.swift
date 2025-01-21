@@ -10,6 +10,10 @@ import SwiftUI
 struct EffectsExample: View {
     var body: some View {
         TabView {
+            Tab("Ripple Effect", systemImage: "drop") {
+                RipperEffectExample()
+            }
+            
             Tab("Blur & Blend mode", systemImage: "photo") {
                 BlurExample()
             }
