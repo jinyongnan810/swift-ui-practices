@@ -17,7 +17,7 @@ struct TextWithGradientExample: View {
         .orange,
         .indigo,
         .purple,
-        .red
+        .red,
     ]
     @State var randomColorIndex1: Int = 0
     @State var randomColorIndex2: Int = 1
@@ -34,8 +34,8 @@ struct TextWithGradientExample: View {
         }
         .onTapGesture {
             withAnimation {
-                randomColorIndex1 = Int.random(in: 0..<colors.count)
-                randomColorIndex2 = Int.random(in: 0..<colors.count)
+                randomColorIndex1 = Int.random(in: 0 ..< colors.count)
+                randomColorIndex2 = Int.random(in: 0 ..< colors.count)
             }
         }
     }

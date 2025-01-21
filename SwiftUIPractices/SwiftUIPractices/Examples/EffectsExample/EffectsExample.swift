@@ -13,7 +13,7 @@ struct EffectsExample: View {
             Tab("Ripple Effect", systemImage: "drop") {
                 RipperEffectExample()
             }
-            
+
             Tab("Blur & Blend mode", systemImage: "photo") {
                 BlurExample()
             }

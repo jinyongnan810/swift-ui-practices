@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RipperEffectExample: View {
     @State var counter: Int = 0
-        @State var origin: CGPoint = .init(x: 0.5, y: 0.5)
+    @State var origin: CGPoint = .init(x: 0.5, y: 0.5)
     var body: some View {
         VStack {
             Text("Ripple Effect")
