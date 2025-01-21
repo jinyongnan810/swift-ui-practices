@@ -13,7 +13,6 @@ struct TodoItemView: View {
     var body: some View {
         HStack {
             Text(item.title ?? "")
-                .foregroundStyle(Color.black)
             Spacer()
             if item.done {
                 Image(systemName: "checkmark")
