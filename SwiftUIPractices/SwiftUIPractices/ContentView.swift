@@ -57,6 +57,10 @@ struct ContentView: View {
                         "Custom Color Picker",
                         destination: CustomColorPickerPractice()
                     )
+                    NavigationLink(
+                        "Progress Bar",
+                        destination: ProgressBarPractice()
+                    )
                 }
             }.navigationTitle("SwiftUI Practices")
         }
