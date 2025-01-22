@@ -14,8 +14,26 @@ struct ProgressBarPractice: View {
 
     @State var progress: Double = 0
     var progressWidth: CGFloat {
-        max(width * progress, cornerRadius)
+        width * progress
     }
+
+    var progressHeight: CGFloat {
+        if progressWidth < cornerRadius {
+            let a = cornerRadius - progressWidth
+            let b = cornerRadius
+            return sqrt(b * b - a * a) * 2
+        }
+        return height
+    }
+
+    // not sure what to do with this
+    var leftProgressBarCornerRadius: CGFloat {
+        if progressWidth < cornerRadius {
+            return progressHeight * 0.5
+        }
+        return cornerRadius
+    }
+
     var rightProgressBarCornerRadius: CGFloat {
         progressWidth > cornerRadius * 2 ? cornerRadius : (
             progressWidth - cornerRadius
@@ -24,29 +42,34 @@ struct ProgressBarPractice: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(.gray)
-                .frame(width: width, height: height)
-                .overlay(alignment: .leading) {
+            VStack {
+                // MARK: - version 1
+
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(.gray)
+                    .frame(width: width, height: height)
+                    .overlay(alignment: .leading) {
                         LinearGradient(
                             colors: [.blue, .red],
                             startPoint: .leading,
                             endPoint: .trailing
-                        ).frame(width: progressWidth, height: height)
-                        .clipShape(
-                            .rect(
-                                cornerRadii: .init(
-                                    topLeading: cornerRadius,
-                                    bottomLeading: cornerRadius,
-                                    bottomTrailing: rightProgressBarCornerRadius,
-                                    topTrailing: rightProgressBarCornerRadius
+                        ).frame(width: progressWidth, height: progressHeight)
+                            .clipShape(
+                                .rect(
+                                    cornerRadii: .init(
+                                        topLeading: leftProgressBarCornerRadius,
+                                        bottomLeading: leftProgressBarCornerRadius,
+                                        bottomTrailing: rightProgressBarCornerRadius,
+                                        topTrailing: rightProgressBarCornerRadius
+                                    )
                                 )
                             )
-                        )
-                }
+                    }
+            }
+
             VStack {
                 Spacer()
-                Slider(value: $progress, in: 0...1)
+                Slider(value: $progress, in: 0 ... 1)
                     .padding()
             }
         }

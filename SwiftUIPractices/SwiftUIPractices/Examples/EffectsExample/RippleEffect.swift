@@ -1,5 +1,5 @@
 //
-//  RipperEffect.swift
+//  RippleEffect.swift
 //  SwiftUIPractices
 //
 //  Created by きんゆうなん on 2025/01/21.
