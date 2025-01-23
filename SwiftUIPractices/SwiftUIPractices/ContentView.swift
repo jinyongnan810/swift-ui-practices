@@ -61,6 +61,10 @@ struct ContentView: View {
                         "Progress Bar",
                         destination: ProgressBarPractice()
                     )
+                    NavigationLink(
+                        "Drag and Z-index",
+                        destination: DragPractice()
+                    )
                 }
             }.navigationTitle("SwiftUI Practices")
         }
