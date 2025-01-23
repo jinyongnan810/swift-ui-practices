@@ -16,11 +16,12 @@ struct NameAndAgeInputView: View {
         name.isEmpty || age.isEmpty
     }
 
-    init() {
-        UINavigationBar.appearance().largeTitleTextAttributes = [
-            .foregroundColor: UIColor.orange,
-        ]
-    }
+//    init() {
+//        // this will effect entire app
+//        UINavigationBar.appearance().largeTitleTextAttributes = [
+//            .foregroundColor: UIColor.orange,
+//        ]
+//    }
 
     var body: some View {
         NavigationStack {
@@ -52,6 +53,11 @@ struct NameAndAgeInputView: View {
             }
             .padding()
             .navigationTitle("Navigation Example")
+//            .onDisappear() {
+//                UINavigationBar.appearance().largeTitleTextAttributes = [
+//                    .foregroundColor: Color.black,
+//                ]
+//            }
         }
     }
 }
