@@ -16,6 +16,12 @@ struct NameAndAgeInputView: View {
         name.isEmpty || age.isEmpty
     }
 
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+            .foregroundColor: UIColor.orange,
+        ]
+    }
+
     var body: some View {
         NavigationStack {
             VStack {
