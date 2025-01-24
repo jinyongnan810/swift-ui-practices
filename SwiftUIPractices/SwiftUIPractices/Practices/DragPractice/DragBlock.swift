@@ -19,10 +19,10 @@ struct DragBlock: View {
     var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
-                    dragAmount = value.translation
-                    data = .init(image: data.image, color: data.color, zIndex: 1)
+                dragAmount = value.translation
+                data = .init(image: data.image, color: data.color, zIndex: 1)
             }
-            .onEnded { value in
+            .onEnded { _ in
                 withAnimation {
                     dragAmount = .zero
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -54,7 +54,6 @@ struct DragBlock: View {
             .offset(dragAmount)
             .scaleEffect(isTapping ? 1.1 : 1)
             .animation(.spring, value: isTapping)
-
             .gesture(dragGesture)
             .onTapGesture {
                 isTapping = true

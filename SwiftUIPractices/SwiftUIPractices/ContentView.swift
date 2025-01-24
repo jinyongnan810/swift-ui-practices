@@ -65,6 +65,10 @@ struct ContentView: View {
                         "Drag and Z-index",
                         destination: DragPractice()
                     )
+                    NavigationLink(
+                        "Segmented Border",
+                        destination: SegmentedBorderPractice()
+                    )
                 }
             }.navigationTitle("SwiftUI Practices")
         }

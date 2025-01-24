@@ -28,13 +28,12 @@ struct DragPractice: View {
                     .zIndex(100)
                 Spacer()
                 Grid {
-                    ForEach(0..<datas.count, id: \.self) { i in
+                    ForEach(0 ..< datas.count, id: \.self) { i in
                         GridRow {
-                            ForEach(0..<datas[i].count, id: \.self) { j in
+                            ForEach(0 ..< datas[i].count, id: \.self) { j in
                                 DragBlock(data: $datas[i][j])
                             }
                         }
-
                     }
                 }
 
@@ -42,9 +41,9 @@ struct DragPractice: View {
 
                 Button {
                     withAnimation {
-                        datas = datas.shuffled().map({ row in
+                        datas = datas.shuffled().map { row in
                             row.shuffled()
-                        })
+                        }
                     }
                 } label: {
                     Text("Shuffle")
@@ -53,18 +52,17 @@ struct DragPractice: View {
                         .background(
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(.black.gradient)
-
                         )
                 }
 
             }.padding()
         }
-        .onChange(of: datas) { oldValue, newValue in
+        .onChange(of: datas) { _, newValue in
             print("⭐️")
             for row in newValue {
-                print(row.map({ data in
+                print(row.map { data in
                     data.zIndex
-                }))
+                })
             }
         }
     }

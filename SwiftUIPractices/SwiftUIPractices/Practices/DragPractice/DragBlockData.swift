@@ -8,7 +8,7 @@ import SwiftUI
 
 let colors: [Color] = [.red, .green, .yellow, .blue, .orange, .purple]
 struct DragBlockData: Identifiable, Equatable {
-    let id: UUID = UUID()
+    let id: UUID = .init()
     let image: String
     let color: Color
     let zIndex: Double
@@ -19,15 +19,15 @@ struct DragBlockData: Identifiable, Equatable {
         self.zIndex = zIndex
     }
 
-    init (image: String, color: Color) {
+    init(image: String, color _: Color) {
         self.image = image
-        self.color = .blue
-        self.zIndex = 0
+        color = .blue
+        zIndex = 0
     }
 
-    init (image: String) {
+    init(image: String) {
         self.image = image
-        self.color = colors.randomElement() ?? .red
-        self.zIndex = 0
+        color = colors.randomElement() ?? .red
+        zIndex = 0
     }
 }
