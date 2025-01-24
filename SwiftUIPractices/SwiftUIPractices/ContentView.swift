@@ -69,6 +69,10 @@ struct ContentView: View {
                         "Segmented Border",
                         destination: SegmentedBorderPractice()
                     )
+                    NavigationLink(
+                        "Custom Tooltip",
+                        destination: CustomToolTipPractice()
+                    )
                 }
             }.navigationTitle("SwiftUI Practices")
         }
