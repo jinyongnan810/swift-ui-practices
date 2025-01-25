@@ -73,6 +73,10 @@ struct ContentView: View {
                         "Custom Tooltip",
                         destination: CustomToolTipPractice()
                     )
+                    NavigationLink(
+                        "Chocolate View",
+                        destination: ChocolateViewPractice()
+                    )
                 }
             }.navigationTitle("SwiftUI Practices")
         }
