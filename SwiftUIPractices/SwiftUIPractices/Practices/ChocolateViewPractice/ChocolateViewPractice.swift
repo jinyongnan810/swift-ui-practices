@@ -53,7 +53,6 @@ struct ChocolateViewPractice: View {
                     //                    height: UIScreen.main.bounds.height
                     //                )
                 }
-
             }
 
         }.ignoresSafeArea()

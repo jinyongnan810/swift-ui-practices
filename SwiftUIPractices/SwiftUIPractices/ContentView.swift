@@ -10,73 +10,81 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationStack {
-            List {
-                Section(header: Text("Feature Demos")) {
-                    NavigationLink("Navigation", destination: NameAndAgeInputView())
-                    NavigationLink("View Modifier", destination: CustomViewModifierExample())
-                    NavigationLink("Mesh Gradient & Timer & Animation", destination: MeshGradientExample())
-                    NavigationLink(
-                        "Scroll Transition",
-                        destination: ScrollTransitionExample()
-                    )
-                    NavigationLink(
-                        "TabView",
-                        destination: TabViewExample()
-                    )
-                    NavigationLink(
-                        "Effects",
-                        destination: EffectsExample()
-                    )
-                    NavigationLink(
-                        "Observation",
-                        destination: ObservationExample()
-                    )
-                    NavigationLink(
-                        "Image",
-                        destination: ImageExploreExample()
-                    )
-                    NavigationLink(
-                        "Animations",
-                        destination: AnimationExample()
-                    )
-                    NavigationLink(
-                        "Gestures",
-                        destination: GesturesExample()
-                    )
-                    NavigationLink(
-                        "Text Styling",
-                        destination: TextStylingExample()
-                    )
+            TabView {
+                Tab("Feature Demos", systemImage: "house") {
+                    List {
+                        NavigationLink("Navigation", destination: NameAndAgeInputView())
+                        NavigationLink("View Modifier", destination: CustomViewModifierExample())
+                        NavigationLink("Mesh Gradient & Timer & Animation", destination: MeshGradientExample())
+                        NavigationLink(
+                            "Scroll Transition",
+                            destination: ScrollTransitionExample()
+                        )
+                        NavigationLink(
+                            "TabView",
+                            destination: TabViewExample()
+                        )
+                        NavigationLink(
+                            "Effects",
+                            destination: EffectsExample()
+                        )
+                        NavigationLink(
+                            "Observation",
+                            destination: ObservationExample()
+                        )
+                        NavigationLink(
+                            "Image",
+                            destination: ImageExploreExample()
+                        )
+                        NavigationLink(
+                            "Animations",
+                            destination: AnimationExample()
+                        )
+                        NavigationLink(
+                            "Gestures",
+                            destination: GesturesExample()
+                        )
+                        NavigationLink(
+                            "Text Styling",
+                            destination: TextStylingExample()
+                        )
+                    }
                 }
-                Section(header: Text("User Interface Practices")) {
-                    NavigationLink(
-                        "Price Card",
-                        destination: PriceCardPractice()
-                    )
-                    NavigationLink(
-                        "Custom Color Picker",
-                        destination: CustomColorPickerPractice()
-                    )
-                    NavigationLink(
-                        "Progress Bar",
-                        destination: ProgressBarPractice()
-                    )
-                    NavigationLink(
-                        "Drag and Z-index",
-                        destination: DragPractice()
-                    )
-                    NavigationLink(
-                        "Segmented Border",
-                        destination: SegmentedBorderPractice()
-                    )
-                    NavigationLink(
-                        "Custom Tooltip",
-                        destination: CustomToolTipPractice()
-                    )
-                    NavigationLink(
-                        "Chocolate View",
-                        destination: ChocolateViewPractice()
-                    )
+                Tab("User Interface Practices", systemImage: "person") {
+                    List {
+                        NavigationLink(
+                            "Price Card",
+                            destination: PriceCardPractice()
+                        )
+                        NavigationLink(
+                            "Custom Color Picker",
+                            destination: CustomColorPickerPractice()
+                        )
+                        NavigationLink(
+                            "Progress Bar",
+                            destination: ProgressBarPractice()
+                        )
+                        NavigationLink(
+                            "Drag and Z-index",
+                            destination: DragPractice()
+                        )
+                        NavigationLink(
+                            "Segmented Border",
+                            destination: SegmentedBorderPractice()
+                        )
+                        NavigationLink(
+                            "Custom Tooltip",
+                            destination: CustomToolTipPractice()
+                        )
+                        NavigationLink(
+                            "Chocolate View",
+                            destination: ChocolateViewPractice()
+                        )
+                        NavigationLink(
+                            "Custom Label Style",
+                            destination: CustomLabelStylePractice()
+                        )
+                    }
                 }
             }.navigationTitle("SwiftUI Practices")
         }
