@@ -30,6 +30,9 @@ struct SegmentedBorderPractice: View {
             Capsule()
                 .fill(.cyan.opacity(0.2))
             ForEach(0 ..< numberOfPeople, id: \.self) { i in
+                // animation does not work in here, because these won't work
+                // from: 0.8, to: 1.1
+                // from: 0.8, to: 0.1
                 Capsule()
                     .trim(from: Double(i) * sizeForEach, to: Double(1 + i) * sizeForEach)
                     .stroke(colors[i % colors.count], lineWidth: 10)
