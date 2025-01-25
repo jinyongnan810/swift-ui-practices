@@ -84,6 +84,10 @@ struct ContentView: View {
                             "Custom Label Style",
                             destination: CustomLabelStylePractice()
                         )
+                        NavigationLink(
+                            "TextField",
+                            destination: TextFieldPractice()
+                        )
                     }
                 }
             }.navigationTitle("SwiftUI Practices")
