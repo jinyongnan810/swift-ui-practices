@@ -88,6 +88,10 @@ struct ContentView: View {
                             "TextField",
                             destination: TextFieldPractice()
                         )
+                        NavigationLink(
+                            "Toast",
+                            destination: ToastPractice()
+                        )
                     }
                 }
             }.navigationTitle("SwiftUI Practices")

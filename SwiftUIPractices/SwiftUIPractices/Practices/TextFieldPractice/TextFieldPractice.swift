@@ -21,6 +21,7 @@ struct TextFieldPractice: View {
         }
     }
 }
+
 #Preview {
     TextFieldPractice()
 }
