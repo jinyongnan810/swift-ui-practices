@@ -7,15 +7,18 @@
 
 import SwiftUI
 
+// original design by: https://dribbble.com/shots/14709020-Calculator
+
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            Color.background.ignoresSafeArea()
+            VStack {
+                LightModeSwicher()
+                InputAndResultView()
+                ButtonsView()
+            }
         }
-        .padding()
     }
 }
 
