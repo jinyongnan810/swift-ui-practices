@@ -14,7 +14,7 @@ struct ContentView: View {
         ZStack {
             Color.background.ignoresSafeArea()
             VStack {
-                LightModeSwicher()
+                LightModeSwicherView()
                 InputAndResultView()
                 ButtonsView()
             }
