@@ -17,21 +17,21 @@ struct ButtonsView: View {
                 ActionButtonView(text: "divide", color: .red)
             }
             GridRow {
-                ActionButtonView(text: "7", color: .black)
-                ActionButtonView(text: "8", color: .black)
-                ActionButtonView(text: "9", color: .black)
+                ActionButtonView(text: "7", color: .text)
+                ActionButtonView(text: "8", color: .text)
+                ActionButtonView(text: "9", color: .text)
                 ActionButtonView(text: "x", color: .red)
             }
             GridRow {
-                ActionButtonView(text: "4", color: .black)
-                ActionButtonView(text: "5", color: .black)
-                ActionButtonView(text: "6", color: .black)
+                ActionButtonView(text: "4", color: .text)
+                ActionButtonView(text: "5", color: .text)
+                ActionButtonView(text: "6", color: .text)
                 ActionButtonView(text: "-", color: .red)
             }
             GridRow {
-                ActionButtonView(text: "1", color: .black)
-                ActionButtonView(text: "2", color: .black)
-                ActionButtonView(text: "3", color: .black)
+                ActionButtonView(text: "1", color: .text)
+                ActionButtonView(text: "2", color: .text)
+                ActionButtonView(text: "3", color: .text)
                 ActionButtonView(text: "+", color: .red)
             }
             GridRow {
