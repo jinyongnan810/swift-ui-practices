@@ -13,29 +13,28 @@ enum RenderType: String, CaseIterable {
 }
 
 struct LightModeSwicherView: View {
-    @AppStorage("mode") var mode: RenderType = .light
+    @Binding var darkMode: Bool
 
     var body: some View {
         HStack {
             Image(systemName: "sun.max")
                 .imageScale(.large)
                 .fontWeight(.bold)
-                .foregroundStyle(mode == .light ? .text : .disabled)
+                .foregroundStyle(darkMode ? .disabled : .text)
                 .padding(.trailing)
                 .onTapGesture {
                     withAnimation {
-                        mode = .light
+                        darkMode = false
                     }
-
                 }
             Image(systemName: "moon")
                 .imageScale(.large)
                 .fontWeight(.bold)
-                .foregroundStyle(mode == .dark ? .text : .disabled)
+                .foregroundStyle(darkMode ? .text : .disabled)
                 .padding(.leading)
                 .onTapGesture {
                     withAnimation {
-                        mode = .dark
+                        darkMode = true
                     }
                 }
         }
@@ -47,5 +46,5 @@ struct LightModeSwicherView: View {
 }
 
 #Preview {
-    LightModeSwicherView()
+    LightModeSwicherView(darkMode: .constant(true))
 }

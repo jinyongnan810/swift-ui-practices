@@ -10,11 +10,12 @@ import SwiftUI
 // original design by: https://dribbble.com/shots/14709020-Calculator
 
 struct ContentView: View {
+    @Binding var darkMode: Bool
     var body: some View {
         ZStack {
             Color.background.ignoresSafeArea()
             VStack {
-                LightModeSwicherView()
+                LightModeSwicherView(darkMode: $darkMode)
                 InputAndResultView()
                 ButtonsView()
             }
@@ -23,5 +24,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(darkMode: .constant(false))
 }
