@@ -35,9 +35,9 @@ struct ButtonsView: View {
                 ActionButtonView(text: "+", color: .red)
             }
             GridRow {
-                ActionButtonView(text: "refresh", color: .black)
-                ActionButtonView(text: "0", color: .black)
-                ActionButtonView(text: ".", color: .black)
+                ActionButtonView(text: "refresh", color: .text)
+                ActionButtonView(text: "0", color: .text)
+                ActionButtonView(text: ".", color: .text)
                 ActionButtonView(text: "=", color: .red)
             }
         }.background(RoundedRectangle(cornerRadius: 20).fill(
