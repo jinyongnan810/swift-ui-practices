@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ActionButtonView: View {
     @State var isPressed: Bool = false
-    let text: String
+    let buttonType: CalcButton
     let color: Color
     var textOpacity: Double {
         isPressed ? 0.4 : 1
@@ -17,8 +17,16 @@ struct ActionButtonView: View {
     var backgroundColor: Color {
         isPressed ? Color.gray : Color.buttonBacground
     }
+    var buttonContent: AnyView {
+        if buttonType.rawValue.contains("IMG") {
+            let systemName = buttonType.rawValue.replacingOccurrences(of: "IMG_", with: "")
+            return AnyView(Image(systemName: systemName))
+        }
+        return AnyView(Text(buttonType.rawValue))
+    }
+
     var body: some View {
-        Text(text)
+        buttonContent
             .foregroundStyle(color)
             .font(.title)
             .fontWeight(.semibold)
@@ -43,5 +51,5 @@ struct ActionButtonView: View {
 }
 
 #Preview {
-    ActionButtonView(text: "=", color: .red)
+    ActionButtonView(buttonType: .equal, color: .red)
 }

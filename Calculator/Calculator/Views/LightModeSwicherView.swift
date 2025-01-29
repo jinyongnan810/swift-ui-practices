@@ -16,32 +16,25 @@ struct LightModeSwicherView: View {
     @Binding var darkMode: Bool
 
     var body: some View {
-        HStack {
+        HStack(spacing: 30) {
             Image(systemName: "sun.max")
                 .imageScale(.large)
                 .fontWeight(.bold)
                 .foregroundStyle(darkMode ? .disabled : .text)
-                .padding(.trailing)
-                .onTapGesture {
-                    withAnimation {
-                        darkMode = false
-                    }
-                }
             Image(systemName: "moon")
                 .imageScale(.large)
                 .fontWeight(.bold)
                 .foregroundStyle(darkMode ? .text : .disabled)
-                .padding(.leading)
-                .onTapGesture {
-                    withAnimation {
-                        darkMode = true
-                    }
-                }
         }
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 20).fill(.buttonsAreaBackground)
         )
+        .onTapGesture {
+            withAnimation {
+                darkMode.toggle()
+            }
+        }
     }
 }
 

@@ -11,13 +11,15 @@ import SwiftUI
 
 struct ContentView: View {
     @Binding var darkMode: Bool
+    @State var computation: String = ""
+    @State var result: String = "0"
     var body: some View {
         ZStack {
             Color.background.ignoresSafeArea()
             VStack {
                 LightModeSwicherView(darkMode: $darkMode)
-                InputAndResultView()
-                ButtonsView()
+                InputAndResultView(computation: computation, result: result)
+                ButtonsView(computation: $computation, result: $result)
             }
         }
     }

@@ -8,37 +8,39 @@
 import SwiftUI
 
 struct ButtonsView: View {
+    @Binding var computation: String
+    @Binding var result: String
     var body: some View {
         Grid {
             GridRow {
-                ActionButtonView(text: "AC", color: .cyan)
-                ActionButtonView(text: "+/-", color: .cyan)
-                ActionButtonView(text: "%", color: .cyan)
-                ActionButtonView(text: "divide", color: .red)
+                ActionButtonView(buttonType: .clear, color: .cyan)
+                ActionButtonView(buttonType: .negative, color: .cyan)
+                ActionButtonView(buttonType: .percent, color: .cyan)
+                ActionButtonView(buttonType: .divide, color: .red)
             }
             GridRow {
-                ActionButtonView(text: "7", color: .text)
-                ActionButtonView(text: "8", color: .text)
-                ActionButtonView(text: "9", color: .text)
-                ActionButtonView(text: "x", color: .red)
+                ActionButtonView(buttonType: .seven, color: .text)
+                ActionButtonView(buttonType: .eight, color: .text)
+                ActionButtonView(buttonType: .nine, color: .text)
+                ActionButtonView(buttonType: .multiply, color: .red)
             }
             GridRow {
-                ActionButtonView(text: "4", color: .text)
-                ActionButtonView(text: "5", color: .text)
-                ActionButtonView(text: "6", color: .text)
-                ActionButtonView(text: "-", color: .red)
+                ActionButtonView(buttonType: .four, color: .text)
+                ActionButtonView(buttonType: .five, color: .text)
+                ActionButtonView(buttonType: .six, color: .text)
+                ActionButtonView(buttonType: .subtract, color: .red)
             }
             GridRow {
-                ActionButtonView(text: "1", color: .text)
-                ActionButtonView(text: "2", color: .text)
-                ActionButtonView(text: "3", color: .text)
-                ActionButtonView(text: "+", color: .red)
+                ActionButtonView(buttonType: .one, color: .text)
+                ActionButtonView(buttonType: .two, color: .text)
+                ActionButtonView(buttonType: .three, color: .text)
+                ActionButtonView(buttonType: .add, color: .red)
             }
             GridRow {
-                ActionButtonView(text: "refresh", color: .text)
-                ActionButtonView(text: "0", color: .text)
-                ActionButtonView(text: ".", color: .text)
-                ActionButtonView(text: "=", color: .red)
+                ActionButtonView(buttonType: .undo, color: .text)
+                ActionButtonView(buttonType: .zero, color: .text)
+                ActionButtonView(buttonType: .decimal, color: .text)
+                ActionButtonView(buttonType: .equal, color: .red)
             }
         }.background(RoundedRectangle(cornerRadius: 20).fill(
             Color.buttonsAreaBackground
@@ -47,5 +49,5 @@ struct ButtonsView: View {
 }
 
 #Preview {
-    ButtonsView()
+    ButtonsView(computation: .constant(""), result: .constant("0"))
 }
