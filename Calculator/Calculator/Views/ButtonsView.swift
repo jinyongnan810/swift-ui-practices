@@ -78,6 +78,10 @@ struct ButtonsView: View {
                 computation = calculationResult
             }
         case .decimal:
+            if computation.isEmpty {
+                computation += "0."
+                break
+            }
             if !lastCharIsDigit(str: computation) {
                 break
             }

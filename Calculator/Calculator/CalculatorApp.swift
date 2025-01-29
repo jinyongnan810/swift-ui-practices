@@ -13,7 +13,7 @@ struct CalculatorApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(darkMode: $darkMode)
+            CalculatorView(darkMode: $darkMode)
                 .environment(\.colorScheme, darkMode ? .dark : .light)
         }
     }

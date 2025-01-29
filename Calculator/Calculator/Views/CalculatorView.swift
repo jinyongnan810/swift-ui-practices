@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  CalculatorView.swift
 //  Calculator
 //
 //  Created by Yuunan kin on 2025/01/27.
@@ -9,7 +9,7 @@ import SwiftUI
 
 // original design by: https://dribbble.com/shots/14709020-Calculator
 
-struct ContentView: View {
+struct CalculatorView: View {
     @Binding var darkMode: Bool
     @State var computation: String = ""
     @State var result: String = "0"
@@ -27,5 +27,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(darkMode: .constant(false))
+    CalculatorView(darkMode: .constant(false))
 }
