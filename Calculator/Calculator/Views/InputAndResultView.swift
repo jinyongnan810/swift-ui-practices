@@ -26,11 +26,8 @@ struct InputAndResultView: View {
                     .fontWeight(.bold)
                     .minimumScaleFactor(0.1)
             }
-
-
         }
-            .padding()
-
+        .padding()
     }
 }
 
@@ -39,5 +36,4 @@ struct InputAndResultView: View {
         InputAndResultView(computation: "11 + 22 + 33", result: "66")
         InputAndResultView(computation: "111.11 + 222.22", result: "333.33")
     }
-
 }

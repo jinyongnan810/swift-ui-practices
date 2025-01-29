@@ -18,6 +18,7 @@ struct ContentView: View {
             Color.background.ignoresSafeArea()
             VStack {
                 LightModeSwicherView(darkMode: $darkMode)
+                Spacer()
                 InputAndResultView(computation: computation, result: result)
                 ButtonsView(computation: $computation, result: $result)
             }

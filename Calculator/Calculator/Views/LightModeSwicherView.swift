@@ -1,5 +1,5 @@
 //
-//  LightModeSwicher.swift
+//  LightModeSwicherView.swift
 //  Calculator
 //
 //  Created by Yuunan kin on 2025/01/27.

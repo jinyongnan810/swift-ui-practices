@@ -5,7 +5,7 @@ enum Operation {
     case add, subtract, multiply, divide, equal, none
 }
 
-enum CalcButton: String {
+enum CalcButtonType: String {
     case one = "1"
     case two = "2"
     case three = "3"
@@ -28,9 +28,9 @@ enum CalcButton: String {
     case undo = "IMG_arrow.counterclockwise"
 }
 
-let enumOperators: [CalcButton] = [.subtract, .add, .divide, .multiply]
+let enumOperators: [CalcButtonType] = [.subtract, .add, .divide, .multiply]
 
-let multiplySymbol: String = CalcButton.multiply.rawValue
-let divisionSymbol: String = CalcButton.divide.rawValue
+let multiplySymbol: String = CalcButtonType.multiply.rawValue
+let divisionSymbol: String = CalcButtonType.divide.rawValue
 
 let operators: String = "+-\(multiplySymbol)\(divisionSymbol)"

@@ -1,5 +1,5 @@
 //
-//  ActionButton.swift
+//  ActionButtonView.swift
 //  Calculator
 //
 //  Created by Yuunan kin on 2025/01/27.
@@ -8,15 +8,8 @@
 import SwiftUI
 
 struct ActionButtonView: View {
-    @State var isPressed: Bool = false
-    let buttonType: CalcButton
+    let buttonType: CalcButtonType
     let color: Color
-    var textOpacity: Double {
-        isPressed ? 0.4 : 1
-    }
-    var backgroundColor: Color {
-        isPressed ? Color.gray : Color.buttonBacground
-    }
     var buttonContent: AnyView {
         if buttonType.rawValue.contains("IMG") {
             let systemName = buttonType.rawValue.replacingOccurrences(of: "IMG_", with: "")
@@ -25,28 +18,18 @@ struct ActionButtonView: View {
         return AnyView(Text(buttonType.rawValue))
     }
 
+    let buttonDimension: CGFloat = UIScreen.main.bounds.width / 5
+
     var body: some View {
         buttonContent
             .foregroundStyle(color)
             .font(.title)
             .fontWeight(.semibold)
-            .opacity(textOpacity)
-            .frame(width: 60, height: 60)
+            .frame(width: buttonDimension, height: buttonDimension)
             .background(
-                RoundedRectangle(cornerRadius: 12).fill(backgroundColor)
-            ).padding()
-            .onTapGesture {
-                withAnimation {
-                    isPressed = true
-                }
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                    withAnimation {
-                        isPressed = false
-                    }
-                })
-            }
-
+                RoundedRectangle(cornerRadius: 12).fill(Color.buttonBacground)
+            )
+            .shadow(color: Color.text.opacity(0.06), radius: 2)
     }
 }
 
