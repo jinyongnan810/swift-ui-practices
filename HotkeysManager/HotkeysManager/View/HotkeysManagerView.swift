@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct HotkeysManagerView: View {
+    @State private var viewModel: HotkeyCategoryViewModel = .init()
+    @State private var query = ""
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                ForEach(viewModel.categories) { category in
+                    Section(category.name) {
+                        ForEach(category.hotkeys) { hotkey in
+                            HotkeyView(hotkey: hotkey)
+                        }
+                    }
+                }
+            }
+            .searchable(text: $query, prompt: "Search...")
+            .navigationTitle("XCode Hotkeys")
         }
-        .padding()
     }
 }
 

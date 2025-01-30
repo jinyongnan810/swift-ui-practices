@@ -11,7 +11,7 @@ import Observation
 @Observable
 class HotkeyCategoryViewModel {
     let categories: [HotkeyCategoryModel]
-    init(categories: [HotkeyCategoryModel]) {
+    init() {
         let productCategory: HotkeyCategoryModel = .init(
             name: "Product",
             hotkeys: [

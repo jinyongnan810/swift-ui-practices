@@ -13,6 +13,6 @@ struct HotkeyModel: Identifiable {
     let text: String
 
     var description: String {
-        "\(modifiers.map(\.rawValue).joined(separator: " ")) \(character)"
+        "\(modifiers.map(\.rawValue).joined(separator: " + ")) + \(character)"
     }
 }
