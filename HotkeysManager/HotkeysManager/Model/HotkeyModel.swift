@@ -8,11 +8,11 @@ import Foundation
 
 struct HotkeyModel: Identifiable {
     let id: UUID = .init()
-    let modifiers: [String]
+    let modifiers: [HotkeyModifier]
     let character: String
     let text: String
 
     var description: String {
-        "\(modifiers.joined(separator: " ")) \(character)"
+        "\(modifiers.map(\.rawValue).joined(separator: " ")) \(character)"
     }
 }
