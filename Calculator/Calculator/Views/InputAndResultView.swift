@@ -11,27 +11,29 @@ struct InputAndResultView: View {
     let computation: String
     let result: String
     var body: some View {
-        VStack(alignment: .trailing) {
-            HStack {
-                Spacer()
-                Text(computation)
-                    .font(
-                        isIpad ? .title : .headline
-                    )
-                    .fontWeight(.semibold)
-                    .minimumScaleFactor(0.1)
-                    .padding(.vertical)
+        GeometryReader { geometry in
+            VStack(alignment: .trailing) {
+                HStack {
+                    Spacer()
+                    Text(computation)
+                        .font(
+                            isIpad ? .title : .headline
+                        )
+                        .fontWeight(.semibold)
+                        .minimumScaleFactor(0.1)
+                        .padding(.vertical)
+                }
+                HStack {
+                    Text(result)
+                        .font(
+                            isIpad ? .largeTitle : .title
+                        )
+                        .fontWeight(.bold)
+                        .minimumScaleFactor(0.1)
+                }
             }
-            HStack {
-                Text(result)
-                    .font(
-                        isIpad ? .largeTitle : .title
-                    )
-                    .fontWeight(.bold)
-                    .minimumScaleFactor(0.1)
-            }
+            .padding(.horizontal, isIpad ? geometry.size.width * 0.15 : 16)
         }
-        .padding(.horizontal, isIpad ? UIScreen.main.bounds.width * 0.15 : 16)
     }
 }
 
