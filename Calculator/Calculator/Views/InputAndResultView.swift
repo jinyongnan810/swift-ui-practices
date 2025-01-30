@@ -15,19 +15,23 @@ struct InputAndResultView: View {
             HStack {
                 Spacer()
                 Text(computation)
-                    .font(.headline)
+                    .font(
+                        isIpad ? .title : .headline
+                    )
                     .fontWeight(.semibold)
                     .minimumScaleFactor(0.1)
                     .padding(.vertical)
             }
             HStack {
                 Text(result)
-                    .font(.title)
+                    .font(
+                        isIpad ? .largeTitle : .title
+                    )
                     .fontWeight(.bold)
                     .minimumScaleFactor(0.1)
             }
         }
-        .padding()
+        .padding(.horizontal, isIpad ? UIScreen.main.bounds.width * 0.15 : 16)
     }
 }
 

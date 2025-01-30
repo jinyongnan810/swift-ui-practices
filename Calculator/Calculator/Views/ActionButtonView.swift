@@ -18,13 +18,15 @@ struct ActionButtonView: View {
         return AnyView(Text(buttonType.rawValue))
     }
 
-    let buttonDimension: CGFloat = UIScreen.main.bounds.width / 5
+    let buttonDimension: CGFloat = isIpad ?
+        UIScreen.main.bounds.width / 6 :
+        UIScreen.main.bounds.width / 5
 
     var body: some View {
         buttonContent
             .foregroundStyle(color)
-            .font(.title)
-            .fontWeight(.semibold)
+            .font(isIpad ? .largeTitle : .title)
+            .fontWeight(isIpad ? .heavy : .semibold)
             .frame(width: buttonDimension, height: buttonDimension)
             .background(
                 RoundedRectangle(cornerRadius: 12).fill(Color.buttonBacground)

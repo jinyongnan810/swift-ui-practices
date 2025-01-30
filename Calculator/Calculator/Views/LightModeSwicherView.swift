@@ -18,14 +18,14 @@ struct LightModeSwicherView: View {
     var body: some View {
         HStack(spacing: 30) {
             Image(systemName: "sun.max")
-                .imageScale(.large)
-                .fontWeight(.bold)
+
                 .foregroundStyle(darkMode ? .disabled : .text)
             Image(systemName: "moon")
-                .imageScale(.large)
-                .fontWeight(.bold)
                 .foregroundStyle(darkMode ? .text : .disabled)
         }
+        .imageScale(.large)
+        .font(isIpad ? .title : .headline)
+        .fontWeight(isIpad ? .bold : .semibold)
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 20).fill(.buttonsAreaBackground)
