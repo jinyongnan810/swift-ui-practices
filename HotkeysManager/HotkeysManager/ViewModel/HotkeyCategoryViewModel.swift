@@ -163,4 +163,18 @@ class HotkeyCategoryViewModel {
 
         self.categories = categories
     }
+
+    func filteredWith(searchTerm: String) -> [HotkeyCategoryModel] {
+        guard !searchTerm.isEmpty else {
+            return categories
+        }
+        
+        return categories.map { category in
+            let hotkeys = category.hotkeys.filter {
+                $0.text.lowercased().contains(searchTerm.lowercased()) ||
+                $0.description.lowercased().contains(searchTerm.lowercased())
+            }
+            return HotkeyCategoryModel.init(name: category.name, hotkeys: hotkeys)
+        }
+    }
 }

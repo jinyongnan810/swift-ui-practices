@@ -12,10 +12,10 @@ struct HotkeyView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(hotkey.text)
-                .font(.caption)
+                .font(.subheadline)
             Text(hotkey.description)
                 .font(.caption)
-
+                .foregroundStyle(.gray)
         }
     }
 }

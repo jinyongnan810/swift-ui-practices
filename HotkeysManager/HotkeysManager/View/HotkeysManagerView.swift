@@ -10,14 +10,22 @@ import SwiftUI
 struct HotkeysManagerView: View {
     @State private var viewModel: HotkeyCategoryViewModel = .init()
     @State private var query = ""
+
+    private var hotKeysToDisplay: [HotkeyCategoryModel] {
+        viewModel.filteredWith(searchTerm: query)
+    }
+
     var body: some View {
         NavigationStack {
             List {
-                ForEach(viewModel.categories) { category in
-                    Section(category.name) {
+                ForEach(hotKeysToDisplay) { category in
+                    Section {
                         ForEach(category.hotkeys) { hotkey in
                             HotkeyView(hotkey: hotkey)
                         }
+                    } header: {
+                        Text(category.name)
+                            .font(.headline)
                     }
                 }
             }
