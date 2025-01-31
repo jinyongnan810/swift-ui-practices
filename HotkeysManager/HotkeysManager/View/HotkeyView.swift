@@ -10,7 +10,7 @@ import SwiftUI
 struct HotkeyView: View {
     let hotkey: HotkeyModel
     var body: some View {
-        VStack(alignment: .leading) {
+        Theme.hotkeyItemLayout {
             Text(hotkey.text)
                 .font(.subheadline)
             Text(hotkey.description)

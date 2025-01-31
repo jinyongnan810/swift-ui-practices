@@ -32,9 +32,10 @@ struct HotkeysManagerView: View {
 
                 }
             }
+            .listStyle(Theme.listStyle)
             .searchable(text: $query, prompt: "Search...")
             .navigationTitle("XCode Hotkeys")
-        }
+        }.frame(minWidth: Theme.minWidth, minHeight: Theme.minHeight)
     }
 }
 
