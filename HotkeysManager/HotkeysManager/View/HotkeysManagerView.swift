@@ -19,14 +19,17 @@ struct HotkeysManagerView: View {
         NavigationStack {
             List {
                 ForEach(hotKeysToDisplay) { category in
-                    Section {
-                        ForEach(category.hotkeys) { hotkey in
-                            HotkeyView(hotkey: hotkey)
+                    if !category.hotkeys.isEmpty {
+                        Section {
+                            ForEach(category.hotkeys) { hotkey in
+                                HotkeyView(hotkey: hotkey)
+                            }
+                        } header: {
+                            Text(category.name)
+                                .font(.headline)
                         }
-                    } header: {
-                        Text(category.name)
-                            .font(.headline)
                     }
+
                 }
             }
             .searchable(text: $query, prompt: "Search...")
