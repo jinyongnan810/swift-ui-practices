@@ -12,7 +12,7 @@ struct GameModel {
     var volume: Float = 0.5
 
     var answer: Int = 7
-    var alternatives: [Int] = [5,6,7,8]
+    var alternatives: [Int] = [5, 6, 7, 8]
 
     var gameCompleted: Bool {
         currentTurn >= maxTurns
@@ -27,7 +27,7 @@ struct GameModel {
     }
 
     mutating func generateNewTurn() {
-        alternatives = Array(0...99).shuffled().prefix(4).map(\.self)
+        alternatives = Array(0 ... 99).shuffled().prefix(4).map(\.self)
         answer = alternatives.first!
         alternatives.shuffle()
     }

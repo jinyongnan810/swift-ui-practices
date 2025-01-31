@@ -15,6 +15,9 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
+                .onTapGesture {
+                    viewModel.playSuccessSound()
+                }
             Text("Hello, world!")
                 .onTapGesture {
                     viewModel.speak(text: "二十二")
@@ -22,7 +25,6 @@ struct ContentView: View {
         }
         .padding()
     }
-    
 }
 
 #Preview {
