@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var viewModel: GameViewModel = .init()
+    @Environment(GameViewModel.self) var viewModel: GameViewModel
 
     var body: some View {
         VStack {
@@ -29,4 +29,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(GameViewModel())
 }
