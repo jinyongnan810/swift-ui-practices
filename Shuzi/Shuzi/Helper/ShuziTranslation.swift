@@ -5,8 +5,7 @@
 //  Created by Yuunan kin on 2025/02/01.
 //
 
-
-let chineseDigitsWithPinyin: [(chinese: String, pinyin: String)] = [
+let chineseDigitsWithPinyin: [ShuziWithPinyin] = [
     ("零", "líng"),
     ("一", "yī"),
     ("二", "èr"),
@@ -21,29 +20,29 @@ let chineseDigitsWithPinyin: [(chinese: String, pinyin: String)] = [
 ]
 
 extension Int {
-    func toShuzi() -> (chinese: String, pinyin: String) {
+    func toShuzi() -> ShuziWithPinyin {
         switch self {
-            case 0 ... 10:
-                return chineseDigitsWithPinyin[self]
-            case 11 ... 19:
-                let unit = self % 10
-                let chinese = "十 " + (chineseDigitsWithPinyin[unit].chinese)
-                let pinyin = "shí " + (chineseDigitsWithPinyin[unit].pinyin)
+        case 0 ... 10:
+            return chineseDigitsWithPinyin[self]
+        case 11 ... 19:
+            let unit = self % 10
+            let chinese = "十 " + (chineseDigitsWithPinyin[unit].chinese)
+            let pinyin = "shí " + (chineseDigitsWithPinyin[unit].pinyin)
+            return (chinese, pinyin)
+        case 20 ... 99:
+            let tenth = self / 10
+            if self % 10 == 0 {
+                let chinese = chineseDigitsWithPinyin[tenth].chinese + " 十"
+                let pinyin = chineseDigitsWithPinyin[tenth].pinyin + " shí"
                 return (chinese, pinyin)
-            case 20 ... 99:
-                let tenth = self / 10
-                if self % 10 == 0 {
-                    let chinese = chineseDigitsWithPinyin[tenth].chinese + " 十"
-                    let pinyin = chineseDigitsWithPinyin[tenth].pinyin + " shí"
-                    return (chinese, pinyin)
-                }
+            }
 
-                let unit = self % 10
-                let chinese = chineseDigitsWithPinyin[tenth].chinese + " 十 " + chineseDigitsWithPinyin[unit].chinese
-                let pinyin = chineseDigitsWithPinyin[tenth].pinyin + " shí " + chineseDigitsWithPinyin[unit].pinyin
-                return (chinese, pinyin)
-            default:
-                return (chinese: "", pinyin: "")
+            let unit = self % 10
+            let chinese = chineseDigitsWithPinyin[tenth].chinese + " 十 " + chineseDigitsWithPinyin[unit].chinese
+            let pinyin = chineseDigitsWithPinyin[tenth].pinyin + " shí " + chineseDigitsWithPinyin[unit].pinyin
+            return (chinese, pinyin)
+        default:
+            return (chinese: "", pinyin: "")
         }
     }
 }

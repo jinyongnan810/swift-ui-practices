@@ -13,9 +13,12 @@ let failSounds: [String] = ["incorrectAnswer", "OhNo", "weak"]
 
 @Observable
 final class GameViewModel {
-    var gameModel = GameModel()
+    var game = GameModel()
     let synthesizer = AVSpeechSynthesizer()
     var audioPlayer: AVAudioPlayer?
+    init() {
+        game.generateNewTurn()
+    }
 
     func speak(text: String) {
         let utterance = AVSpeechUtterance(string: text)
@@ -30,7 +33,7 @@ final class GameViewModel {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.prepareToPlay()
-            audioPlayer?.volume = gameModel.volume
+            audioPlayer?.volume = game.volume
             audioPlayer?.play()
         } catch {
             print("⭐️ Error playing sound: \(error.localizedDescription)")

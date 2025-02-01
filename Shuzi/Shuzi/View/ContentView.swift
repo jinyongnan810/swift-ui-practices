@@ -9,19 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(GameViewModel.self) var viewModel: GameViewModel
+    @State private var showPinyin = false
 
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-                .onTapGesture {
-                    viewModel.playSuccessSound()
-                }
-            Text("Hello, world!")
-                .onTapGesture {
-                    viewModel.speak(text: "二十二")
-                }
+            Text(
+                "Score: \(viewModel.game.score) out of \(viewModel.game.maxTurns)"
+            )
+            .font(.largeTitle)
+            Toggle("Show Pinyin", isOn: $showPinyin)
+            Spacer()
+            ShuziDisplayView(
+                number: viewModel.game.answer,
+                showPinyin: showPinyin
+            )
+            Spacer()
+            AlternativeButtonsView()
         }
         .padding()
     }
