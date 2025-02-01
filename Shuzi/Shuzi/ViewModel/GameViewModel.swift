@@ -39,6 +39,11 @@ final class GameViewModel {
         speak(text: String(game.answer))
     }
 
+    func reset() {
+        game.reset()
+        speak(text: String(game.answer))
+    }
+
     func speak(text: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             let utterance = AVSpeechUtterance(string: text)

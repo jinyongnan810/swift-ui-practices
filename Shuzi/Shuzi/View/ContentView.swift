@@ -10,6 +10,10 @@ import SwiftUI
 struct ContentView: View {
     @Environment(GameViewModel.self) var viewModel: GameViewModel
     @State private var showSettings = false
+    @State private var showGameOver = false
+    private var gameOver: Bool {
+        viewModel.game.currentTurn >= viewModel.game.maxTurns
+    }
 
     var body: some View {
         
@@ -30,6 +34,14 @@ struct ContentView: View {
             Text("showSettings: \(showSettings)")
         }.sheet(isPresented: $showSettings) {
             SettingsView()
+        }
+        .fullScreenCover(isPresented: $showGameOver) {
+            GameOverView()
+        }
+        .onChange(of: gameOver) { oldValue, newValue in
+            withAnimation {
+                showGameOver = newValue
+            }
         }
     }
 }

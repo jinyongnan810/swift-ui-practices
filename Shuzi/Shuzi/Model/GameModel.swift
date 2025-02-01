@@ -33,4 +33,10 @@ struct GameModel {
         answer = alternatives.first!
         alternatives.shuffle()
     }
+
+    mutating func reset() {
+        score = 0
+        currentTurn = 0
+        generateNewTurn()
+    }
 }
