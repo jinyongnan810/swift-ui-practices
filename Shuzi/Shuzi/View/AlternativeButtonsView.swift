@@ -10,35 +10,16 @@ import SwiftUI
 struct AlternativeButtonsView: View {
     @Environment(GameViewModel.self) var viewModel
     var body: some View {
-        let game = viewModel.game
+        let alternatives = viewModel.game.alternatives
+
         Grid {
             GridRow {
-                Button {} label: {
-                    AlternativeButtonView(
-                        text: String(game.alternatives[0]),
-                        color: .blue
-                    )
-                }
-                Button {} label: {
-                    AlternativeButtonView(
-                        text: String(game.alternatives[1]),
-                        color: .red
-                    )
-                }
+                AlternativeButtonView(number: alternatives[0], color: .blue)
+                AlternativeButtonView(number: alternatives[1], color: .red)
             }
             GridRow {
-                Button {} label: {
-                    AlternativeButtonView(
-                        text: String(game.alternatives[2]),
-                        color: .orange
-                    )
-                }
-                Button {} label: {
-                    AlternativeButtonView(
-                        text: String(game.alternatives[3]),
-                        color: .purple
-                    )
-                }
+                AlternativeButtonView(number: alternatives[2], color: .green)
+                AlternativeButtonView(number: alternatives[3], color: .purple)
             }
         }
     }

@@ -9,24 +9,28 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(GameViewModel.self) var viewModel: GameViewModel
-    @State private var showPinyin = false
+    @State private var showSettings = false
 
     var body: some View {
-        VStack {
-            Text(
-                "Score: \(viewModel.game.score) out of \(viewModel.game.maxTurns)"
-            )
-            .font(.largeTitle)
-            Toggle("Show Pinyin", isOn: $showPinyin)
-            Spacer()
-            ShuziDisplayView(
-                number: viewModel.game.answer,
-                showPinyin: showPinyin
-            )
-            Spacer()
-            AlternativeButtonsView()
+        
+        ZStack {
+            GearButtonView(showSettings: $showSettings)
+            VStack {
+                ScoreView()
+                Spacer()
+                ShuziDisplayView(
+                    number: viewModel.game.answer,
+                    showPinyin:
+                        viewModel.game.showPinyin
+                )
+                Spacer()
+                AlternativeButtonsView()
+            }
+            .padding()
+            Text("showSettings: \(showSettings)")
+        }.sheet(isPresented: $showSettings) {
+            SettingsView()
         }
-        .padding()
     }
 }
 

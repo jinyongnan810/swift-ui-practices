@@ -9,7 +9,9 @@ struct GameModel {
     var score: Int = 0
     var currentTurn: Int = 0
     var maxTurns: Int = 5
+
     var volume: Float = 0.5
+    var showPinyin: Bool = false
 
     var answer: Int = 7
     var alternatives: [Int] = [5, 6, 7, 8]

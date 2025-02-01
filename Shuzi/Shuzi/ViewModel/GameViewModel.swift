@@ -18,14 +18,36 @@ final class GameViewModel {
     var audioPlayer: AVAudioPlayer?
     init() {
         game.generateNewTurn()
+        speak(text: String(game.answer))
+    }
+
+    func selectAnswer(_ number: Int) {
+        let correct = number == game.answer
+        if correct {
+            playSuccessSound()
+            game.incrementScore()
+        } else {
+            playFailSound()
+        }
+        game.incrementTurn()
+        if game.maxTurns <= game.currentTurn {
+            // game end
+            return
+        }
+
+        game.generateNewTurn()
+        speak(text: String(game.answer))
     }
 
     func speak(text: String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.rate = 0.5
-        utterance.volume = 0.6
-        utterance.voice = AVSpeechSynthesisVoice(language: "zh-CN")
-        synthesizer.speak(utterance)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let utterance = AVSpeechUtterance(string: text)
+            utterance.rate = 0.5
+            utterance.volume = self.game.volume
+            utterance.voice = AVSpeechSynthesisVoice(language: "zh-CN")
+            self.synthesizer.speak(utterance)
+        }
+
     }
 
     private func playSound(name: String) {
