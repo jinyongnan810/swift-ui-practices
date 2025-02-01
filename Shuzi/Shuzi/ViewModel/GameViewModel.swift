@@ -52,7 +52,6 @@ final class GameViewModel {
             utterance.voice = AVSpeechSynthesisVoice(language: "zh-CN")
             self.synthesizer.speak(utterance)
         }
-
     }
 
     private func playSound(name: String) {

@@ -14,20 +14,19 @@ struct SettingsView: View {
         GeometryReader { geometry in
             VStack {
                 Text("Settings").padding(.vertical)
-                
+
                 Text("Volume: \(bindableViewModel.game.volume)")
                 Slider(value: $bindableViewModel.game.volume) {
                     Text("Volume")
                 }
-                
+
                 Toggle(
                     "Show Pinyin",
                     isOn: $bindableViewModel.game.showPinyin.animation()
                 )
                 Spacer()
-            }.frame(maxHeight: geometry.size.height/2)
+            }.frame(maxHeight: geometry.size.height / 2)
                 .padding()
-
         }
     }
 }

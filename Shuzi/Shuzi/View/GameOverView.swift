@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
+
+let images: [ImageResource] = [.china1, .china2, .china3, .china4, .china5, .china6, .china7]
 struct GameOverView: View {
     @Environment(GameViewModel.self) var gameViewModel
+    @Environment(ProverbViewModel.self) var proverbViewModel
+    @State var randomIndex: Int = .random(in: 0 ..< images.count)
+
     var body: some View {
         ZStack {
-            Image(
-                [.china1, .china2, .china3, .china4, .china5, .china6, .china7].randomElement() ?? .china1
-            )
-            .resizable()
-            .scaledToFill()
-            .ignoresSafeArea()
+            Image(images[randomIndex])
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
             VStack {
                 Text("Game Over")
                     .font(.largeTitle)
@@ -23,9 +26,21 @@ struct GameOverView: View {
                 Text(
                     "Score: \(gameViewModel.game.score) out of \(gameViewModel.game.maxTurns)"
                 )
-                    .font(.headline)
-                    .padding()
+                .font(.headline)
+                .padding()
 
+                if let proverb = proverbViewModel.proverb {
+                    VStack {
+                        Text(proverb)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Text(proverbViewModel.translation ?? "")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }.padding()
+                } else {
+                    ProgressView()
+                }
             }
             .padding()
             .background(
@@ -35,6 +50,8 @@ struct GameOverView: View {
 
         }.onTapGesture {
             gameViewModel.reset()
+        }.onAppear {
+            proverbViewModel.fetchProverb()
         }
     }
 }

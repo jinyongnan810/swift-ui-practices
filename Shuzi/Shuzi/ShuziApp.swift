@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct ShuziApp: App {
-    @State private var viewModel: GameViewModel = .init()
+    @State private var gameViewModel: GameViewModel = .init()
+    @State private var proverbViewModel: ProverbViewModel = .init()
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(viewModel)
+                .environment(gameViewModel)
+                .environment(proverbViewModel)
         }
     }
 }

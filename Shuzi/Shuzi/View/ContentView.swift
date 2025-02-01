@@ -16,7 +16,6 @@ struct ContentView: View {
     }
 
     var body: some View {
-        
         ZStack {
             GearButtonView(showSettings: $showSettings)
             VStack {
@@ -25,20 +24,19 @@ struct ContentView: View {
                 ShuziDisplayView(
                     number: viewModel.game.answer,
                     showPinyin:
-                        viewModel.game.showPinyin
+                    viewModel.game.showPinyin
                 )
                 Spacer()
                 AlternativeButtonsView()
             }
             .padding()
-            Text("showSettings: \(showSettings)")
         }.sheet(isPresented: $showSettings) {
             SettingsView()
         }
         .fullScreenCover(isPresented: $showGameOver) {
             GameOverView()
         }
-        .onChange(of: gameOver) { oldValue, newValue in
+        .onChange(of: gameOver) { _, newValue in
             withAnimation {
                 showGameOver = newValue
             }
