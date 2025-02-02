@@ -29,7 +29,6 @@ struct HotkeysManagerView: View {
                                 .font(.headline)
                         }
                     }
-
                 }
             }
             .listStyle(Theme.listStyle)
