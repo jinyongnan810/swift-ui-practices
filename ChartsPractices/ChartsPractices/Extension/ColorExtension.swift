@@ -300,8 +300,12 @@ extension Color {
         var theRandomColors: [Color] = []
 
         for _ in 0 ..< n {
+            var color = Color.random
+            while theRandomColors.contains(color) {
+                color = Color.random
+            }
             theRandomColors
-                .append(Color.random)
+                .append(color)
         }
 
         return theRandomColors
