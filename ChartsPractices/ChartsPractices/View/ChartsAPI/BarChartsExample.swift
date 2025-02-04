@@ -78,6 +78,8 @@ enum TabType: String, CaseIterable {
     case area
 }
 
+private let barColors: [Color] = data.map { $0.color }
+
 struct BarChartsExample: View {
     @State private var isLegendVisible: Bool = true
     @State private var tabType: TabType = .bar
@@ -99,6 +101,7 @@ struct BarChartsExample: View {
                             y: .value("Sales", 50))
                         .foregroundStyle(by: .value("Month", "Jan #2"))
                 }
+                .chartForegroundStyleScale(range: barColors)
                 .onTapGesture {
                     withAnimation {
                         isLegendVisible.toggle()
@@ -124,6 +127,7 @@ struct BarChartsExample: View {
                             }
                     }
                 }
+                .chartForegroundStyleScale(range: barColors)
                 .onTapGesture {
                     withAnimation {
                         isLegendVisible.toggle()
