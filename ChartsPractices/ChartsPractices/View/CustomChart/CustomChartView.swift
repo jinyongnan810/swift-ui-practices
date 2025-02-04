@@ -14,7 +14,7 @@ struct CustomChartData: Identifiable {
 }
 
 let colors: [Color] = Color.randomColorsN(n: 7)
-let data: [CustomChartData] = [
+private let data: [CustomChartData] = [
     .init(number: 100, color: colors[0]),
     .init(number: 30, color: colors[1]),
     .init(number: 50, color: colors[2]),
