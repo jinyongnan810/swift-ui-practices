@@ -22,6 +22,14 @@ struct BarChartsExample: View {
     @State private var isEditing: Bool = false
     @State private var currentDraggingItemKey: String? = nil
 
+    var selectedItem: BarChartData? {
+        if let key = currentDraggingItemKey {
+            return viewModel.data
+                .first { $0.label == key }
+        }
+        return nil
+    }
+
     var body: some View {
         NavigationStack {
             TabView {
@@ -41,6 +49,13 @@ struct BarChartsExample: View {
                                 y: .value("Sales", 50))
                             .foregroundStyle(by: .value("Month", "Jan #2"))
                         RuleMarkView(color: .cyan, value: viewModel.averageSales)
+                        if selectedItem != nil {
+                            RuleMarkView(
+                                color: selectedItem!.color,
+                                value: selectedItem!.value
+                            )
+                        }
+
                     }
                     .chartForegroundStyleScale(range: viewModel.barColors)
                     .chartOverlay(
