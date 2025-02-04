@@ -8,16 +8,8 @@
 import Charts
 import SwiftUI
 
-enum TabType: String, CaseIterable {
-    case bar
-    case barRotated
-    case line
-    case area
-}
-
 struct BarChartsExample: View {
     @State private var isLegendVisible: Bool = true
-    @State private var tabType: TabType = .bar
     @State private var viewModel: BarChartsViewModel = .init()
     @State private var isEditing: Bool = false
     @State private var currentDraggingItemKey: String? = nil
@@ -33,7 +25,7 @@ struct BarChartsExample: View {
     var body: some View {
         NavigationStack {
             TabView {
-                Tab(TabType.bar.rawValue, systemImage: "chart.bar.xaxis") {
+                Tab("Bar", systemImage: "chart.bar.xaxis") {
                     Chart {
                         ForEach(viewModel.data) { item in
                             BarMark(x: .value("Month", item.label),
@@ -77,7 +69,7 @@ struct BarChartsExample: View {
                     //            .chartLegend(position: .leading)
                     .padding()
                 }
-                Tab(TabType.barRotated.rawValue, systemImage: "chart.bar.yaxis") {
+                Tab("Horizontal Bar", systemImage: "chart.bar.yaxis") {
                     Chart {
                         ForEach(viewModel.data) { item in
                             BarMark(x: .value("Sales", item.value),
@@ -115,36 +107,34 @@ struct BarChartsExample: View {
                     .padding()
                 }
 
-                Tab(TabType.line.rawValue, systemImage: "chart.line.uptrend.xyaxis") {
+                Tab("Line And Area", systemImage: "chart.line.uptrend.xyaxis") {
                     Chart {
                         ForEach(viewModel.data) { item in
                             LineMark(x: .value("Month", item.label),
                                      y: .value("Sales", item.value))
+                                .symbol {
+                                    Image(systemName: "square.and.pencil")
+                                        .imageScale(.large)
+                                }
+
+                            AreaMark(x: .value("Month", item.label),
+                                     y: .value("Sales", item.value))
+                                .foregroundStyle(.blue.opacity(0.2))
                         }
                         RuleMarkView(color: .cyan, value: viewModel.averageSales)
+                        if selectedItem != nil {
+                            RuleMarkView(
+                                color: selectedItem!.color,
+                                value: selectedItem!.value
+                            )
+                        }
                     }.modifier(
                         ChartDragModifier(
                             currentDraggingItemKey: $currentDraggingItemKey,
                             isEditing: $isEditing,
                             viewModel: $viewModel
                         )
-                    )
-                }
-                Tab(TabType.area.rawValue, systemImage: "chart.line.uptrend.xyaxis") {
-                    Chart {
-                        ForEach(viewModel.data) { item in
-                            AreaMark(x: .value("Month", item.label),
-                                     y: .value("Sales", item.value))
-                        }
-                        RuleMarkView(color: .cyan, value: viewModel.averageSales)
-                    }
-                    .modifier(
-                        ChartDragModifier(
-                            currentDraggingItemKey: $currentDraggingItemKey,
-                            isEditing: $isEditing,
-                            viewModel: $viewModel
-                        )
-                    )
+                    ).padding()
                 }
             }
             .toolbar {
