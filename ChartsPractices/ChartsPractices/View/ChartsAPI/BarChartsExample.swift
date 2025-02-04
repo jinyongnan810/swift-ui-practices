@@ -71,36 +71,85 @@ private let data: [BarChartData] = [
     ),
 ]
 
+enum TabType: String, CaseIterable {
+    case bar
+    case barRotated
+    case line
+    case area
+}
+
 struct BarChartsExample: View {
     @State private var isLegendVisible: Bool = true
+    @State private var tabType: TabType = .bar
     var body: some View {
-        Chart {
-            ForEach(data) { item in
-                BarMark(x: .value("Month", item.label),
-                        y: .value("Sales", item.value))
-//                .foregroundStyle(item.color)
-                    .foregroundStyle(by: .value("Month", item.label))
-                    .annotation {
-                        Image(systemName: item.systemImage)
-                            .foregroundStyle(item.color)
+        TabView {
+            Tab(TabType.bar.rawValue, systemImage: "chart.bar.xaxis") {
+                Chart {
+                    ForEach(data) { item in
+                        BarMark(x: .value("Month", item.label),
+                                y: .value("Sales", item.value))
+                            //                .foregroundStyle(item.color)
+                            .foregroundStyle(by: .value("Month", item.label))
+                            .annotation {
+                                Image(systemName: item.systemImage)
+                                    .foregroundStyle(item.color)
+                            }
                     }
+                    BarMark(x: .value("Month", "January"),
+                            y: .value("Sales", 50))
+                        .foregroundStyle(by: .value("Month", "Jan #2"))
+                }
+                .onTapGesture {
+                    withAnimation {
+                        isLegendVisible.toggle()
+                    }
+                }
+                .chartYScale(domain: 0.0 ... 300.0)
+                //            .chartXAxis {
+                //                AxisMarks(position: .top)
+                //            }
+                .chartLegend(isLegendVisible ? .visible : .hidden)
+                //            .chartLegend(position: .leading)
+                .padding()
             }
-            BarMark(x: .value("Month", "January"),
-                    y: .value("Sales", 50))
-                .foregroundStyle(by: .value("Month", "Jan #2"))
-        }
-        .onTapGesture {
-            withAnimation {
-                isLegendVisible.toggle()
+            Tab(TabType.barRotated.rawValue, systemImage: "chart.bar.yaxis") {
+                Chart {
+                    ForEach(data) { item in
+                        BarMark(x: .value("Sales", item.value),
+                                y: .value("Month", item.label))
+                            .foregroundStyle(by: .value("Month", item.label))
+                            .annotation(position: .trailing) {
+                                Image(systemName: item.systemImage)
+                                    .foregroundStyle(item.color)
+                            }
+                    }
+                }
+                .onTapGesture {
+                    withAnimation {
+                        isLegendVisible.toggle()
+                    }
+                }
+                .chartLegend(isLegendVisible ? .visible : .hidden)
+                .padding()
+            }
+
+            Tab(TabType.line.rawValue, systemImage: "chart.line.uptrend.xyaxis") {
+                Chart {
+                    ForEach(data) { item in
+                        LineMark(x: .value("Month", item.label),
+                                 y: .value("Sales", item.value))
+                    }
+                }
+            }
+            Tab(TabType.area.rawValue, systemImage: "chart.line.uptrend.xyaxis") {
+                Chart {
+                    ForEach(data) { item in
+                        AreaMark(x: .value("Month", item.label),
+                                 y: .value("Sales", item.value))
+                    }
+                }
             }
         }
-        .chartYScale(domain: 0.0 ... 300.0)
-//            .chartXAxis {
-//                AxisMarks(position: .top)
-//            }
-        .chartLegend(isLegendVisible ? .visible : .hidden)
-//            .chartLegend(position: .leading)
-        .padding()
     }
 }
 
