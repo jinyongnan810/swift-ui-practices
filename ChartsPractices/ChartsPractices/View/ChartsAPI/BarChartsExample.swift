@@ -55,37 +55,15 @@ struct BarChartsExample: View {
                                 value: selectedItem!.value
                             )
                         }
-
                     }
                     .chartForegroundStyleScale(range: viewModel.barColors)
-                    .chartOverlay(
-                        content: { chartProxy in
-                            if isEditing {
-                                Rectangle()
-                                    .fill(.gray.opacity(0.2))
-                                    .gesture(
-                                        DragGesture()
-                                            .onChanged { value in
-                                                let location = value.location
-                                                let (selectedMonth, updatedValue) = chartProxy.value(at: location, as: (String, Double).self) ?? ("", 0.0)
-                                                if selectedMonth.isEmpty {
-                                                    return
-                                                } else if currentDraggingItemKey == nil {
-                                                    currentDraggingItemKey = selectedMonth
-                                                }
-                                                viewModel
-                                                    .updateDataFor(
-                                                        key: currentDraggingItemKey ?? "",
-                                                        value: updatedValue
-                                                    )
-                                            }
-                                            .onEnded { _ in
-                                                currentDraggingItemKey = nil
-                                            }
-                                    )
-                            }
-
-                        })
+                    .modifier(
+                        ChartDragModifier(
+                            currentDraggingItemKey: $currentDraggingItemKey,
+                            isEditing: $isEditing,
+                            viewModel: $viewModel
+                        )
+                    )
                     .onTapGesture {
                         withAnimation {
                             isLegendVisible.toggle()
@@ -111,13 +89,28 @@ struct BarChartsExample: View {
                                 }
                         }
                         RuleMarkView(color: .cyan, value: viewModel.averageSales, isVertical: true)
+                        if selectedItem != nil {
+                            RuleMarkView(
+                                color: selectedItem!.color,
+                                value: selectedItem!.value,
+                                isVertical: true
+                            )
+                        }
                     }
                     .chartForegroundStyleScale(range: viewModel.barColors)
+                    .modifier(
+                        ChartDragHorizontalModifier(
+                            currentDraggingItemKey: $currentDraggingItemKey,
+                            isEditing: $isEditing,
+                            viewModel: $viewModel
+                        )
+                    )
                     .onTapGesture {
                         withAnimation {
                             isLegendVisible.toggle()
                         }
                     }
+                    .chartXScale(domain: 0.0 ... 300.0)
                     .chartLegend(isLegendVisible ? .visible : .hidden)
                     .padding()
                 }
@@ -129,7 +122,13 @@ struct BarChartsExample: View {
                                      y: .value("Sales", item.value))
                         }
                         RuleMarkView(color: .cyan, value: viewModel.averageSales)
-                    }
+                    }.modifier(
+                        ChartDragModifier(
+                            currentDraggingItemKey: $currentDraggingItemKey,
+                            isEditing: $isEditing,
+                            viewModel: $viewModel
+                        )
+                    )
                 }
                 Tab(TabType.area.rawValue, systemImage: "chart.line.uptrend.xyaxis") {
                     Chart {
@@ -139,6 +138,13 @@ struct BarChartsExample: View {
                         }
                         RuleMarkView(color: .cyan, value: viewModel.averageSales)
                     }
+                    .modifier(
+                        ChartDragModifier(
+                            currentDraggingItemKey: $currentDraggingItemKey,
+                            isEditing: $isEditing,
+                            viewModel: $viewModel
+                        )
+                    )
                 }
             }
             .toolbar {
