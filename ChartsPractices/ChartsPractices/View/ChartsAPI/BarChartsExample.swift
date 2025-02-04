@@ -78,11 +78,15 @@ enum TabType: String, CaseIterable {
     case area
 }
 
-private let barColors: [Color] = data.map { $0.color }
+private let barColors: [Color] = data.map(\.color)
 
 struct BarChartsExample: View {
     @State private var isLegendVisible: Bool = true
     @State private var tabType: TabType = .bar
+    private var averageSales: Double {
+        data.map(\.value).reduce(0.0, +) / Double(data.count)
+    }
+
     var body: some View {
         TabView {
             Tab(TabType.bar.rawValue, systemImage: "chart.bar.xaxis") {
@@ -100,6 +104,7 @@ struct BarChartsExample: View {
                     BarMark(x: .value("Month", "January"),
                             y: .value("Sales", 50))
                         .foregroundStyle(by: .value("Month", "Jan #2"))
+                    RuleMarkView(color: .cyan, value: averageSales)
                 }
                 .chartForegroundStyleScale(range: barColors)
                 .onTapGesture {
@@ -126,6 +131,7 @@ struct BarChartsExample: View {
                                     .foregroundStyle(item.color)
                             }
                     }
+                    RuleMarkView(color: .cyan, value: averageSales, isVertical: true)
                 }
                 .chartForegroundStyleScale(range: barColors)
                 .onTapGesture {
@@ -143,6 +149,7 @@ struct BarChartsExample: View {
                         LineMark(x: .value("Month", item.label),
                                  y: .value("Sales", item.value))
                     }
+                    RuleMarkView(color: .cyan, value: averageSales)
                 }
             }
             Tab(TabType.area.rawValue, systemImage: "chart.line.uptrend.xyaxis") {
@@ -151,6 +158,7 @@ struct BarChartsExample: View {
                         AreaMark(x: .value("Month", item.label),
                                  y: .value("Sales", item.value))
                     }
+                    RuleMarkView(color: .cyan, value: averageSales)
                 }
             }
         }
