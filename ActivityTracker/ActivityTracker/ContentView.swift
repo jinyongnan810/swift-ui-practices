@@ -45,6 +45,7 @@ struct ContentView: View {
                             activities,
                             id: \.id
                         ) { activity in
+                            let isSelected = selectedActivity?.id == activity.id
                             SectorMark(
                                 angle:
                                 .value(
@@ -57,7 +58,7 @@ struct ContentView: View {
                                 ),
                                 outerRadius:
                                 .ratio(
-                                    selectedActivity?.id == activity.id ? 1.25 : 0.95
+                                    isSelected ? 1.25 : 0.95
                                 ),
                                 angularInset: 1
                             )
@@ -65,10 +66,23 @@ struct ContentView: View {
                                 12
                             )
                             .foregroundStyle(
-                                .blue
+                                by: .value("activity", activity.name)
                             )
+                            .opacity(isSelected ? 1 : 0.7)
                         }
-                    }.chartAngleSelection(value: $selectCount)
+                    }
+                    .chartAngleSelection(value: $selectCount)
+                    .onChange(of: selectCount) { _, newValue in
+                        if let value = newValue {
+                            var total = 0.0
+                            if let activity = activities.first(where: {
+                                total += $0.hoursPerDay
+                                return total >= Double(value)
+                            }) {
+                                selectActivity(activity)
+                            }
+                        }
+                    }
                 }
 
                 List {
@@ -76,18 +90,7 @@ struct ContentView: View {
                         ActivityItem(activity: activity)
                             .listRowBackground(selectedActivity?.name == activity.name ? Color.blue.opacity(0.1) : Color.clear)
                             .onTapGesture {
-                                withAnimation {
-                                    if selectedActivity == activity {
-                                        selectedActivity = nil
-                                        selectedHoursPerDay = 0
-                                        selectedName = ""
-                                        return
-                                    }
-
-                                    selectedActivity = activity
-                                    selectedHoursPerDay = activity.hoursPerDay
-                                    selectedName = activity.name
-                                }
+                                selectActivity(activity)
                             }
                     }
                     .onDelete(perform: removeActivity)
@@ -178,6 +181,21 @@ struct ContentView: View {
         selectedName = ""
         selectedHoursPerDay = 0
         selectedActivity = nil
+    }
+
+    private func selectActivity(_ activity: Activity) {
+        withAnimation {
+            if selectedActivity == activity {
+                selectedActivity = nil
+                selectedHoursPerDay = 0
+                selectedName = ""
+                return
+            }
+
+            selectedActivity = activity
+            selectedHoursPerDay = activity.hoursPerDay
+            selectedName = activity.name
+        }
     }
 
     private func addActivity() {
