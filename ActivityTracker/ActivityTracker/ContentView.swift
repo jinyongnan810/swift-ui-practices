@@ -83,6 +83,17 @@ struct ContentView: View {
                             }
                         }
                     }
+                    .chartBackground { _ in
+                        VStack {
+                            Image(systemName: "figure.walk")
+                                .imageScale(.large)
+                                .foregroundStyle(.blue)
+                            if let currentActivity = selectedActivity {
+                                Text("\(currentActivity.name)")
+                                    .font(.headline)
+                            }
+                        }
+                    }
                 }
 
                 List {
