@@ -134,7 +134,7 @@ struct ContentView: View {
                     }
                 }) {
                     Image(systemName: "plus")
-                }
+                }.disabled(remainingHours <= 0)
                 EditButton()
             }
             .sheet(isPresented: $showAddSheet) {
@@ -153,7 +153,7 @@ struct ContentView: View {
 
                     Slider(
                         value: $selectedHoursPerDay,
-                        in: 0 ... maxHoursOfSelectedActivity,
+                        in: 0 ... remainingHours,
                         step: 0.25
                     )
                     Button("Add") {
