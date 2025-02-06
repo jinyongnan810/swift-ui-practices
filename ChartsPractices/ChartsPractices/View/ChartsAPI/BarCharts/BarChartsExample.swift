@@ -7,7 +7,7 @@
 
 import Charts
 import SwiftUI
-
+// official reference: https://www.youtube.com/watch?v=5jzLaxQwbBU
 struct BarChartsExample: View {
     @State private var isLegendVisible: Bool = true
     @State private var viewModel: BarChartsViewModel = .init()
@@ -117,11 +117,12 @@ struct BarChartsExample: View {
                                 .symbol {
                                     Image(systemName: "square.and.pencil")
                                         .imageScale(.large)
-                                }
+                                }.interpolationMethod(.catmullRom)
 
                             AreaMark(x: .value("Month", item.label),
                                      y: .value("Sales", item.value))
                                 .foregroundStyle(.blue.opacity(0.2))
+                                .interpolationMethod(.catmullRom)
                         }
                         RuleMarkView(color: .cyan, value: viewModel.averageSales)
                         if selectedItem != nil {
