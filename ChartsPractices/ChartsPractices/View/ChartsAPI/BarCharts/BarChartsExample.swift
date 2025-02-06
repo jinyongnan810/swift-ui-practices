@@ -36,6 +36,8 @@ struct BarChartsExample: View {
                                     Image(systemName: item.systemImage)
                                         .foregroundStyle(item.color)
                                 }
+                                .accessibilityLabel(item.label)
+                                .accessibilityValue(Text("\(item.value) sales"))
                         }
                         BarMark(x: .value("Month", "January"),
                                 y: .value("Sales", 50))
