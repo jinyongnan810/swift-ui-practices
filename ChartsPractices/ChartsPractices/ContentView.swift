@@ -13,6 +13,7 @@ struct ContentView: View {
             List {
                 NavigationLink("Custom Charts", destination: CustomChartView())
                 NavigationLink("Bar Chart", destination: BarChartsExample())
+                NavigationLink("Line Plot", destination: LinePlotExample())
             }.navigationTitle("Chart Practices")
         }
     }
