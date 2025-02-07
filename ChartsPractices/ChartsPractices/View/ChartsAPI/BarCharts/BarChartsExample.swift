@@ -7,6 +7,7 @@
 
 import Charts
 import SwiftUI
+
 // official reference: https://www.youtube.com/watch?v=5jzLaxQwbBU
 struct BarChartsExample: View {
     @State private var isLegendVisible: Bool = true
