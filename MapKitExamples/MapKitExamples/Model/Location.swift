@@ -19,7 +19,24 @@ struct MyLocation: Identifiable {
     }
 }
 
-let locations: [MyLocation] = [
-    .init(name: "Apple Inc.", latitude: 37.33182, longitude: -122.03118, address: "1 Infinite Loop, Cupertino, CA 95014"),
-    .init(name: "Google Inc.", latitude: 37.42202, longitude: -122.08407, address: "1600 Amphitheatre Parkway, Mountain View, CA 94043"),
-]
+extension MyLocation {
+    static let appleHeadquarters: MyLocation = .init(
+        name: "Apple Inc.",
+        latitude: 37.33182,
+        longitude: -122.03118,
+        address: "1 Infinite Loop, Cupertino, CA 95014"
+    )
+    static let googleHeadquarters: MyLocation = .init(
+        name: "Google Inc.",
+        latitude: 37.42202,
+        longitude: -122.08407,
+        address: "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+    )
+    static let microsoftHeadquarters: MyLocation = .init(
+        name: "Microsoft Corporation",
+        latitude: 37.4324,
+        longitude: -122.0311,
+        address: "One Microsoft Way, Redmond, WA 98052"
+    )
+    static let locations: [MyLocation] = [appleHeadquarters, googleHeadquarters, microsoftHeadquarters]
+}

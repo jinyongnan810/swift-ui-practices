@@ -11,13 +11,20 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         Map {
-            ForEach(locations) { location in
+            ForEach(MyLocation.locations) { location in
                 Marker(
                     location.name,
                     coordinate: location.coordinate
                 )
                 .tint(.black)
             }
+            MapPolyline(coordinates: [
+                MyLocation.appleHeadquarters.coordinate,
+                MyLocation.googleHeadquarters.coordinate,
+                MyLocation.microsoftHeadquarters
+                    .coordinate,
+                MyLocation.appleHeadquarters.coordinate,
+            ]).stroke(.black, lineWidth: 3)
         }
     }
 }
