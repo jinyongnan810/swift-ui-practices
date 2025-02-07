@@ -19,6 +19,12 @@ struct MyLocation: Identifiable {
     }
 }
 
+extension Array where Element == MyLocation {
+    var coordinates: [CLLocationCoordinate2D] {
+        map(\.coordinate)
+    }
+}
+
 extension MyLocation {
     static let appleHeadquarters: MyLocation = .init(
         name: "Apple Inc.",

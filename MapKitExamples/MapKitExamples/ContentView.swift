@@ -18,13 +18,15 @@ struct ContentView: View {
                 )
                 .tint(.black)
             }
-            MapPolyline(coordinates: [
-                MyLocation.appleHeadquarters.coordinate,
-                MyLocation.googleHeadquarters.coordinate,
-                MyLocation.microsoftHeadquarters
-                    .coordinate,
-                MyLocation.appleHeadquarters.coordinate,
-            ]).stroke(.black, lineWidth: 3)
+            MapPolyline(coordinates: MyLocation.locations.coordinates).stroke(
+                Gradient(colors: [.purple, .blue, .pink, .red]),
+                style: .init(
+                    lineWidth: 2,
+                    lineCap: .round,
+                    lineJoin: .round,
+                    dash: [5, 10, 2, 3]
+                )
+            )
         }
     }
 }
