@@ -54,6 +54,7 @@ struct MapView: View {
             MapCompass()
             MapPitchToggle()
         }
+
         .onChange(
             of: zoom)
         {
