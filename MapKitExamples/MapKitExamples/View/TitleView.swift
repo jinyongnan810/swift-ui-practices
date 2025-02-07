@@ -9,17 +9,18 @@ import SwiftUI
 
 struct TitleView: View {
     var body: some View {
-        LinearGradient(
-            colors: [.blue, .purple, .pink, .red],
-            startPoint: .leading,
-            endPoint: .trailing
-        ).mask {
-            Text("MapKit Example")
-                .font(.largeTitle)
-        }.background(
-            Material.ultraThin,
-            in: RoundedRectangle(cornerRadius: 10)
-        ).frame(width: 300, height: 100)
+        Text("MapKit Example")
+            .font(.largeTitle)
+            .fontWeight(.bold)
+            .padding()
+            .foregroundStyle(LinearGradient(
+                colors: [.blue, .purple, .pink, .red],
+                startPoint: .leading,
+                endPoint: .trailing
+            )).background(
+                Material.ultraThin
+            )
+            .clipShape(.rect(cornerRadius: 10))
             .shadow(radius: 5)
     }
 }

@@ -11,8 +11,23 @@ import SwiftUI
 struct MapView: View {
     @Binding var zoom: Double
 
+    @State private var cameraPosition: MapCameraPosition = .automatic
+//    .userLocation(
+//        fallback: .automatic
+//    )
+
+    var span: MKCoordinateSpan {
+        .init(latitudeDelta: zoom, longitudeDelta: zoom)
+    }
+
+    let initialCenter: CLLocationCoordinate2D = .init(latitude: 37.33182, longitude: -122.03118)
+
+    var region: MKCoordinateRegion {
+        MKCoordinateRegion(center: initialCenter, span: span)
+    }
+
     var body: some View {
-        Map {
+        Map(position: $cameraPosition) {
             ForEach(MyLocation.locations) { location in
                 Marker(
                     location.name,
@@ -29,6 +44,35 @@ struct MapView: View {
                     dash: [5, 10, 2, 3]
                 )
             )
+        }
+        .mapControls {
+            MapScaleView()
+            MapCompass()
+            MapPitchToggle()
+        }
+        .onChange(
+            of: zoom)
+        {
+            _,
+                _ in
+            if let currentRegion = cameraPosition.region {
+                cameraPosition = .region(
+                    MKCoordinateRegion(
+                        center: currentRegion.center,
+                        span: span
+                    )
+                )
+            } else {
+                cameraPosition = .region(
+                    MKCoordinateRegion(
+                        center: initialCenter,
+                        span: span
+                    )
+                )
+            }
+        }
+        .onAppear {
+            cameraPosition = .region(region)
         }
     }
 }

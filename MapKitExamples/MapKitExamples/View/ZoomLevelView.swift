@@ -10,15 +10,16 @@ import SwiftUI
 struct ZoomLevelView: View {
     @Binding var zoom: Double
     @Binding var pinned: Bool
+    let minZoom: Double = 0.05
+    let maxZoom: Double = 0.3
     var body: some View {
         VStack {
             Text("Zoom Level")
             HStack {
-                Text("\(0.05.formatted())")
-                Slider(value: $zoom, in: 0.05 ... 0.3).padding()
-                Text("\(0.3.formatted())")
-
-            }.foregroundStyle(.gray)
+                Text("\(minZoom.formatted())")
+                Slider(value: $zoom, in: minZoom ... maxZoom).padding()
+                Text("\(maxZoom.formatted())")
+            }
             Button(action: {
                 withAnimation {
                     pinned.toggle()
@@ -28,11 +29,13 @@ struct ZoomLevelView: View {
                     .foregroundStyle(pinned ? .blue : .gray)
             }
         }
+        .foregroundStyle(.gray)
         .padding()
         .background(
-            Material.ultraThin,
-            in: RoundedRectangle(cornerRadius: 10)
+            Material.ultraThin
         )
+        .clipShape(.rect(cornerRadius: 10))
+        .shadow(radius: 5)
     }
 }
 

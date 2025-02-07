@@ -16,7 +16,7 @@ struct ContentView: View {
             MapView(zoom: $zoom)
 
             VStack {
-                TitleView()
+//                TitleView()
                 Spacer()
             }
 
