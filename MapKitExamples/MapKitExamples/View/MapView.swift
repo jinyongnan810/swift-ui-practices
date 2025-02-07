@@ -11,6 +11,7 @@ import SwiftUI
 struct MapView: View {
     @Binding var zoom: Double
 
+    @State private var mapStyle: MapStyle = .hybrid
     @State private var cameraPosition: MapCameraPosition = .automatic
 //    .userLocation(
 //        fallback: .automatic
@@ -27,7 +28,9 @@ struct MapView: View {
     }
 
     var body: some View {
-        Map(position: $cameraPosition) {
+        Map(position: $cameraPosition
+//            ,interactionModes: [.pan, .zoom]
+        ) {
             ForEach(MyLocation.locations) { location in
                 Marker(
                     location.name,
@@ -45,6 +48,7 @@ struct MapView: View {
                 )
             )
         }
+        .mapStyle(mapStyle)
         .mapControls {
             MapScaleView()
             MapCompass()
