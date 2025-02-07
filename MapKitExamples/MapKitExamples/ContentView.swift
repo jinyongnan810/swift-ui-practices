@@ -9,24 +9,18 @@ import MapKit
 import SwiftUI
 
 struct ContentView: View {
+    @State private var zoom: Double = 0.05
+
     var body: some View {
-        Map {
-            ForEach(MyLocation.locations) { location in
-                Marker(
-                    location.name,
-                    coordinate: location.coordinate
-                )
-                .tint(.black)
+        ZStack {
+            MapView(zoom: $zoom)
+
+            VStack {
+                TitleView()
+                Spacer()
             }
-            MapPolyline(coordinates: MyLocation.locations.coordinates).stroke(
-                Gradient(colors: [.purple, .blue, .pink, .red]),
-                style: .init(
-                    lineWidth: 2,
-                    lineCap: .round,
-                    lineJoin: .round,
-                    dash: [5, 10, 2, 3]
-                )
-            )
+
+            ZoomLevelOverlay(zoom: $zoom)
         }
     }
 }
