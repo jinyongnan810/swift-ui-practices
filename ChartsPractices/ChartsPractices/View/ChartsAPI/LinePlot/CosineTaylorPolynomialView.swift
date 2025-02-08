@@ -14,7 +14,7 @@ func taylorSeries(x: Double, n: Double) -> Double {
 
     for i in 1 ... Int(n) {
         result += (pow(-1, Double(i)) / Double(factorial(i * 2)))
-        * pow(x, Double(i * 2))
+            * pow(x, Double(i * 2))
     }
     return result
 }
