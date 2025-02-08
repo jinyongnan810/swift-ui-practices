@@ -27,6 +27,8 @@ struct MapView: View {
         MKCoordinateRegion(center: initialCenter, span: span)
     }
 
+    @State private var visibleRegion: MKCoordinateRegion?
+
     var body: some View {
         Map(position: $cameraPosition
 //            ,interactionModes: [.pan, .zoom]
@@ -54,27 +56,21 @@ struct MapView: View {
             MapCompass()
             MapPitchToggle()
         }
+        .onMapCameraChange { context in
+            visibleRegion = context.region
+        }
 
         .onChange(
             of: zoom)
         {
             _,
                 _ in
-            if let currentRegion = cameraPosition.region {
-                cameraPosition = .region(
-                    MKCoordinateRegion(
-                        center: currentRegion.center,
-                        span: span
-                    )
+            cameraPosition = .region(
+                MKCoordinateRegion(
+                    center: visibleRegion?.center ?? initialCenter,
+                    span: span
                 )
-            } else {
-                cameraPosition = .region(
-                    MKCoordinateRegion(
-                        center: initialCenter,
-                        span: span
-                    )
-                )
-            }
+            )
         }
         .onAppear {
             cameraPosition = .region(region)

@@ -17,6 +17,9 @@ struct MainView: View {
                 NavigationLink("Look AroundView") {
                     LookAroundView()
                 }
+                NavigationLink("Trip Planner") {
+                    TripPlannerView()
+                }
             }.navigationTitle("MapKit Examples")
         }
     }
