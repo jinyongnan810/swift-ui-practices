@@ -15,13 +15,16 @@ struct TripPlannerView: View {
     @State private var visibleRegion: MKCoordinateRegion?
 
     @State private var searchResults: [MKMapItem] = []
+    @State private var selectedSearchResult: MKMapItem?
+//    @State private var selectedSearchResult: Int?
+    @State private var lookAroundPreviewScene: MKLookAroundScene?
     var body: some View {
-        Map(position: $position) {
+        Map(position: $position, selection: $selectedSearchResult) {
             Marker(
                 "Apple Inc.",
                 systemImage: "apple.logo",
                 coordinate: MyLocation.appleHeadquarters.coordinate
-            )
+            ) // .tag(1)
             Annotation(
                 "Sign-in",
                 coordinate: MyLocation.googleHeadquarters.coordinate
@@ -32,7 +35,7 @@ struct TripPlannerView: View {
                     .foregroundStyle(.white)
                     .background(.blue)
                     .clipShape(.circle)
-            }
+            } // .tag(2)
             MapCircle(center: MyLocation.appleHeadquarters.coordinate, radius: 10000)
                 .foregroundStyle(.orange.opacity(0.6))
 
@@ -44,6 +47,11 @@ struct TripPlannerView: View {
                 edge: .bottom,
                 content: {
                     VStack {
+                        if lookAroundPreviewScene != nil {
+                            LookAroundPreview(scene: $lookAroundPreviewScene)
+                                .frame(maxHeight: 100)
+                                .clipShape(.rect(cornerRadius: 10))
+                        }
                         HStack {
                             Spacer()
                             Button("Parks") {
@@ -82,12 +90,23 @@ struct TripPlannerView: View {
                         }
                     }
                     .padding()
-                    .background(.thinMaterial)
+                    .background(.ultraThinMaterial)
                 }
             )
 //            .onChange(of: searchResults) { _, _ in
 //                position = .automatic
 //            }
+            .onChange(of: selectedSearchResult) { _, newValue in
+                Task {
+                    if let newValue {
+                        await getScene(of: newValue.placemark.coordinate)
+                    } else {
+                        withAnimation {
+                            lookAroundPreviewScene = nil
+                        }
+                    }
+                }
+            }
             .onMapCameraChange(
                 //                frequency: .continuous
                 frequency: .onEnd
@@ -109,6 +128,16 @@ struct TripPlannerView: View {
             let search = MKLocalSearch(request: request)
             let response = try? await search.start()
             searchResults = response?.mapItems ?? []
+        }
+    }
+
+    func getScene(of coordinate: CLLocationCoordinate2D) async {
+        lookAroundPreviewScene = nil
+        let request = MKLookAroundSceneRequest(
+            coordinate: coordinate
+        )
+        if let scene = try? await request.scene {
+            lookAroundPreviewScene = scene
         }
     }
 }
