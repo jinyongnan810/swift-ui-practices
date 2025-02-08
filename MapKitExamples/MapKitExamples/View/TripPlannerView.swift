@@ -18,8 +18,20 @@ struct TripPlannerView: View {
     @State private var selectedSearchResult: MKMapItem?
 //    @State private var selectedSearchResult: Int?
     @State private var lookAroundPreviewScene: MKLookAroundScene?
+
+    @State private var route: MKRoute?
+    private var travelTime: String? {
+        guard let route else { return nil }
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .abbreviated
+        formatter.allowedUnits = [.hour, .minute]
+        return formatter.string(from: route.expectedTravelTime)
+    }
+
     var body: some View {
         Map(position: $position, selection: $selectedSearchResult) {
+            UserAnnotation()
+
             Marker(
                 "Apple Inc.",
                 systemImage: "apple.logo",
@@ -42,15 +54,37 @@ struct TripPlannerView: View {
             ForEach(searchResults, id: \.self) { item in
                 Marker(item: item)
             }
+            if let route {
+                MapPolyline(route)
+                    .stroke(
+                        Gradient(colors: [.purple, .blue, .pink, .red]),
+                        style: .init(
+                            lineWidth: 2,
+                            lineCap: .round,
+                            lineJoin: .round,
+                            dash: [5, 10, 2, 3]
+                        )
+                    )
+            }
         }.mapStyle(.hybrid(elevation: .realistic))
             .safeAreaInset(
                 edge: .bottom,
                 content: {
                     VStack {
-                        if lookAroundPreviewScene != nil {
-                            LookAroundPreview(scene: $lookAroundPreviewScene)
-                                .frame(maxHeight: 100)
-                                .clipShape(.rect(cornerRadius: 10))
+                        if lookAroundPreviewScene != nil, route != nil {
+                            ZStack {
+                                LookAroundPreview(scene: $lookAroundPreviewScene)
+                                Text("Estimated travel time: \(travelTime ?? "Unknown")")
+                                    .foregroundStyle(.white)
+                                    .padding()
+                                    .frame(
+                                        maxWidth: .infinity,
+                                        maxHeight: .infinity,
+                                        alignment: .bottomTrailing
+                                    )
+                            }
+                            .clipShape(.rect(cornerRadius: 10))
+                            .frame(maxHeight: 100)
                         }
                         HStack {
                             Spacer()
@@ -93,6 +127,12 @@ struct TripPlannerView: View {
                     .background(.ultraThinMaterial)
                 }
             )
+            .mapControls {
+                MapUserLocationButton()
+                MapScaleView()
+                MapCompass()
+                MapPitchToggle()
+            }
 //            .onChange(of: searchResults) { _, _ in
 //                position = .automatic
 //            }
@@ -105,6 +145,11 @@ struct TripPlannerView: View {
                             lookAroundPreviewScene = nil
                         }
                     }
+                }
+            }
+            .onChange(of: selectedSearchResult) { _, newValue in
+                if newValue != nil {
+                    getDirections()
                 }
             }
             .onMapCameraChange(
@@ -138,6 +183,23 @@ struct TripPlannerView: View {
         )
         if let scene = try? await request.scene {
             lookAroundPreviewScene = scene
+        }
+    }
+
+    func getDirections() {
+        route = nil
+        guard let selectedSearchResult else { return }
+        let request = MKDirections.Request()
+        request.source = MKMapItem(
+            placemark: .init(
+                coordinate: MyLocation.appleHeadquarters.coordinate
+            )
+        )
+        request.destination = selectedSearchResult
+        Task {
+            let directions = MKDirections(request: request)
+            let response = try? await directions.calculate()
+            route = response?.routes.first
         }
     }
 }
