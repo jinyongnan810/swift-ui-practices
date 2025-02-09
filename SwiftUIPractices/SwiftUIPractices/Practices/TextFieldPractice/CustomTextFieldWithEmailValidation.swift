@@ -16,6 +16,8 @@ struct CustomTextFieldWithEmailValidation: View {
         !email.isEmpty && email.isValidEmail()
     }
 
+    @FocusState private var isFocused: Bool
+
     @State private var showPlaceholder: Bool = true
     var body: some View {
         VStack {
@@ -31,6 +33,7 @@ struct CustomTextFieldWithEmailValidation: View {
             VStack {
                 ZStack {
                     TextField("", text: $email.animation())
+                        .focused($isFocused)
                         .font(.title2)
                         .keyboardType(.emailAddress)
                         .autocorrectionDisabled(false)
@@ -56,6 +59,8 @@ struct CustomTextFieldWithEmailValidation: View {
                     .foregroundColor(.red)
                     .opacity(!emailValid && !emailIsEmpty ? 1 : 0)
             }
+        }.onTapGesture {
+            isFocused = false
         }
         .padding()
     }
