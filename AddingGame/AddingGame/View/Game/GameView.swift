@@ -14,6 +14,8 @@ struct GameView: View {
             VStack {
                 ScoreLivesView()
                 Spacer()
+                BubbleView(size: 200, text: "77", type: .bubble1)
+                Spacer()
             }
         }
     }
