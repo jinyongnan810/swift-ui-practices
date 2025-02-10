@@ -8,7 +8,7 @@
 import Foundation
 
 struct GameModel: Identifiable {
-    let id: UUID = UUID()
+    let id: UUID = .init()
     var level: Int
     var score: Int
     var speed: Int
@@ -29,7 +29,7 @@ struct GameModel: Identifiable {
         self.score = score
         self.speed = speed
         self.lives = lives
-        self.currentProblem = ProblemModel(level: level)
+        currentProblem = ProblemModel(level: level)
     }
 
     static let defaultGame: GameModel = .init(

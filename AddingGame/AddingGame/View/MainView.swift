@@ -13,9 +13,15 @@ struct MainView: View {
     var body: some View {
         TabView {
             Tab("Game", systemImage:
-                "gamecontroller") {}
+                "gamecontroller")
+            {
+                GameView()
+            }
             Tab("High Score", systemImage:
-                "list.number") {}
+                "list.number")
+            {
+                HighScoreView()
+            }
         }
     }
 }

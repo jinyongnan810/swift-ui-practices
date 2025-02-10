@@ -8,7 +8,7 @@
 import Foundation
 
 class GameViewModel: ObservableObject {
-    @Published var game: GameModel = GameModel.defaultGame
+    @Published var game: GameModel = .defaultGame
 
     private var problemCount = 0
 
@@ -17,9 +17,11 @@ class GameViewModel: ObservableObject {
     var score: Int {
         game.score
     }
+
     var timeToGoToNextLevel: Bool {
         problemCount % nextLevelBound == 0
     }
+
     var gameOver: Bool {
         game.gameOver
     }
@@ -27,13 +29,14 @@ class GameViewModel: ObservableObject {
     var num1: Int {
         game.currentProblem.number1
     }
+
     var num2: Int {
         game.currentProblem.number2
     }
+
     var possibleSolutions: [Int] {
         game.currentProblem.possibleSolutions
     }
-
 
     func answer(_ answer: Int) {
         if game.currentProblem.check(answer) {
