@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @ObservedObject var HIghScoreViewModel: HighScoreViewModel = .init()
     var body: some View {
         TabView {
             Tab("Game", systemImage:
