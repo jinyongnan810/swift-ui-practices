@@ -4,8 +4,8 @@
 //
 //  Created by Yuunan kin on 2025/02/10.
 //
-import Foundation
 import CoreData
+import Foundation
 
 class HighScoreViewModel: ObservableObject {
     let container: NSPersistentContainer
@@ -15,20 +15,19 @@ class HighScoreViewModel: ObservableObject {
     init() {
         container = NSPersistentContainer(name: "HighScoresDataModel")
 
-        container.loadPersistentStores { description, error in
+        container.loadPersistentStores { _, error in
             if let error {
                 print("⭐️ Loading HighScoreDataModel failed: \(error)")
             } else {
                 print("⭐️ Loading HighScoreDataModel succeeded.")
             }
         }
-
     }
 
     func fetchHighScores() {
         let fetchRequest: NSFetchRequest<HighScoreEntity> = HighScoreEntity.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "score", ascending: false)]
-        
+
         do {
             highScores = try container.viewContext.fetch(fetchRequest)
         } catch {
