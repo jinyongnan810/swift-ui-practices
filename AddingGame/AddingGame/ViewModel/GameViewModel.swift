@@ -18,6 +18,14 @@ class GameViewModel: ObservableObject {
         game.score
     }
 
+    var lives: Int {
+        game.lives
+    }
+
+    var level: Int {
+        game.level
+    }
+
     var timeToGoToNextLevel: Bool {
         problemCount % nextLevelBound == 0
     }

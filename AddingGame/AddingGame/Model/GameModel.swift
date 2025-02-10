@@ -13,6 +13,7 @@ struct GameModel: Identifiable {
     var score: Int
     var speed: Int
     var lives: Int
+    let maxLives: Int = 3
     var currentProblem: ProblemModel
 
     var gameOver: Bool {

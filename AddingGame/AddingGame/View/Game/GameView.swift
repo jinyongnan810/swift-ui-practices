@@ -11,11 +11,14 @@ struct GameView: View {
     var body: some View {
         ZStack {
             GameBackgroundView()
-            Text("Game View")
+            VStack {
+                ScoreLivesView()
+                Spacer()
+            }
         }
     }
 }
 
 #Preview {
-    GameView()
+    GameView().environmentObject(GameViewModel())
 }
