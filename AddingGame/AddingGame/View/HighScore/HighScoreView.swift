@@ -11,11 +11,20 @@ struct HighScoreView: View {
     var body: some View {
         ZStack {
             HighScoreBackgroundView()
-            Text("High Score")
+            VStack {
+                HStack {
+                    HighScoreTitleView(image: "creature0", text: "Rank")
+                    HighScoreTitleView(image: "creature1", text: "Name")
+                    HighScoreTitleView(image: "creature2", text: "Score")
+                }
+                HighScoreList()
+
+                Spacer()
+            }
         }
     }
 }
 
 #Preview {
-    HighScoreView()
+    HighScoreView().environmentObject(HighScoreViewModel())
 }

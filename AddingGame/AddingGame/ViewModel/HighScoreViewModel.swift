@@ -28,6 +28,7 @@ class HighScoreViewModel: ObservableObject {
                 print("⭐️ Loading HighScoreDataModel succeeded.")
             }
         }
+        fetchHighScores()
     }
 
     func fetchHighScores() {
@@ -45,6 +46,7 @@ class HighScoreViewModel: ObservableObject {
         let highScore = HighScoreEntity(context: container.viewContext)
         highScore.name = name
         highScore.score = Int64(score)
+        highScore.id = UUID()
         highScores.append(highScore)
         saveHighScores()
     }
