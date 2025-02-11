@@ -6,11 +6,13 @@
 //
 import CoreData
 import Foundation
+import Observation
 
-class HighScoreViewModel: ObservableObject {
+@Observable
+class HighScoreViewModel {
     let container: NSPersistentContainer
 
-    @Published var highScores: [HighScoreEntity] = []
+    var highScores: [HighScoreEntity] = []
     var highestScore: Int {
         if let first = highScores.first {
             return Int(first.score)

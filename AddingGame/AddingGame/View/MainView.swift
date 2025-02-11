@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var highScoreViewModel: HighScoreViewModel = .init()
-    @StateObject var gameViewModel: GameViewModel = .init()
+    @State var highScoreViewModel: HighScoreViewModel = .init()
+    @State var gameViewModel: GameViewModel = .init()
     var body: some View {
         TabView {
             Tab("Game", systemImage:
@@ -22,12 +22,12 @@ struct MainView: View {
             {
                 HighScoreView()
             }
-        }.environmentObject(highScoreViewModel)
-            .environmentObject(gameViewModel)
+        }.environment(highScoreViewModel)
+            .environment(gameViewModel)
     }
 }
 
 #Preview {
-    MainView().environmentObject(GameViewModel())
-        .environmentObject(HighScoreViewModel())
+    MainView().environment(GameViewModel())
+        .environment(HighScoreViewModel())
 }

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct HighScoreList: View {
-    @EnvironmentObject var viewModel: HighScoreViewModel
+    @Environment(
+        HighScoreViewModel.self
+    ) var viewModel: HighScoreViewModel
     var body: some View {
         List {
             ForEach(
@@ -25,7 +27,9 @@ struct HighScoreList: View {
 }
 
 struct HighScoreItem: View {
-    @EnvironmentObject var viewModel: HighScoreViewModel
+    @Environment(
+        HighScoreViewModel.self
+    ) var viewModel: HighScoreViewModel
     let index: Int
     let highScore: HighScoreEntity
     @State private var editMode: Bool = false
@@ -99,5 +103,5 @@ struct HighScoreItemText: View {
 }
 
 #Preview {
-    HighScoreList().environmentObject(HighScoreViewModel())
+    HighScoreList().environment(HighScoreViewModel())
 }

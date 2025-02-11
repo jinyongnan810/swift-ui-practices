@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScoreLivesView: View {
-    @EnvironmentObject var viewModel: GameViewModel
+    @Environment(GameViewModel.self) var viewModel: GameViewModel
     var body: some View {
         HStack {
             TitleViewItem(

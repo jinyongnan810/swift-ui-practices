@@ -10,8 +10,10 @@ import SwiftUI
 struct NewHighScoreView: View {
     @Binding var isPresented: Bool
     @State private var name: String = ""
-    @EnvironmentObject var highScoreViewModel: HighScoreViewModel
-    @EnvironmentObject var gameViewModel: GameViewModel
+    @Environment(
+        HighScoreViewModel.self
+    ) var highScoreViewModel: HighScoreViewModel
+    @Environment(GameViewModel.self) var gameViewModel: GameViewModel
     var body: some View {
         ZStack {
             BackgroundView(colorList: [.green, .cyan, .clear], opacity: 0.7)

@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct GameView: View {
-    @EnvironmentObject var gameViewModel: GameViewModel
-    @EnvironmentObject var highScoreViewModel: HighScoreViewModel
+    @Environment(
+        HighScoreViewModel.self
+    ) var highScoreViewModel: HighScoreViewModel
+    @Environment(GameViewModel.self) var gameViewModel: GameViewModel
     @State private var showHighScoreView: Bool = false
     var gameOver: Bool {
         gameViewModel.gameOver
@@ -57,6 +59,6 @@ struct GameView: View {
 }
 
 #Preview {
-    GameView().environmentObject(GameViewModel())
-        .environmentObject(HighScoreViewModel())
+    GameView().environment(GameViewModel())
+        .environment(HighScoreViewModel())
 }

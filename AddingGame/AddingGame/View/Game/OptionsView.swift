@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct OptionsView: View {
-    @EnvironmentObject var viewModel: GameViewModel
+    @Environment(
+        GameViewModel.self
+    ) var viewModel: GameViewModel
     let size = 100.0
     let spacing = 40.0
     let columns = [

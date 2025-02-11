@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import Observation
 
-class GameViewModel: ObservableObject {
-    @Published var game: GameModel = .defaultGame
+@Observable
+class GameViewModel {
+    var game: GameModel = .defaultGame
 
     private var problemCount = 0
 

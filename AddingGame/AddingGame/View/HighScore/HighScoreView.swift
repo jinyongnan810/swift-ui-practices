@@ -26,5 +26,5 @@ struct HighScoreView: View {
 }
 
 #Preview {
-    HighScoreView().environmentObject(HighScoreViewModel())
+    HighScoreView().environment(HighScoreViewModel())
 }
