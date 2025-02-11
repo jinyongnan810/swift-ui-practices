@@ -25,14 +25,16 @@ struct ProblemModel: Identifiable {
         let upperBound: Int = level * 10
         number1 = Int.random(in: lowerBound ... upperBound)
         number2 = Int.random(in: lowerBound ... upperBound)
-        let fourRandomNumber: [Int] = Array(Set(Array(repeating: 0, count: 4).map { _ in Int.random(in: (lowerBound * 2) ... (upperBound * 2)) }))
         answer = number1 + number2
-        if fourRandomNumber.contains(answer) {
-            possibleSolutions = fourRandomNumber
-        } else {
-            var tempArray = fourRandomNumber.dropFirst()
-            tempArray.append(answer)
-            possibleSolutions = tempArray.shuffled()
+        var fourRandomNumber: [Int] = []
+        for _ in 0 ..< 3 {
+            var randomNumber = Int.random(in: (lowerBound * 2) ... (upperBound * 2))
+            while fourRandomNumber.contains(randomNumber) || randomNumber == answer {
+                randomNumber = Int.random(in: (lowerBound * 2) ... (upperBound * 2))
+            }
+            fourRandomNumber.append(randomNumber)
         }
+        fourRandomNumber.append(answer)
+        possibleSolutions = fourRandomNumber.shuffled()
     }
 }

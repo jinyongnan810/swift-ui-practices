@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%lld" : {
+
+    },
     "Game" : {
       "localizations" : {
         "ja" : {
@@ -10,9 +13,6 @@
           }
         }
       }
-    },
-    "Game View" : {
-
     },
     "High Score" : {
       "localizations" : {
