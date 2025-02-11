@@ -57,8 +57,3 @@ struct GameView: View {
         )
     }
 }
-
-#Preview {
-    GameView().environment(GameViewModel())
-        .environment(HighScoreViewModel())
-}

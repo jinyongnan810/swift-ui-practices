@@ -5,11 +5,22 @@
 //  Created by Yuunan kin on 2025/02/10.
 //
 
+import SwiftData
 import SwiftUI
 
 struct MainView: View {
-    @State var highScoreViewModel: HighScoreViewModel = .init()
+    @Environment(\.modelContext) private var context
+    @State var highScoreViewModel: HighScoreViewModel
     @State var gameViewModel: GameViewModel = .init()
+
+    init(
+        context: ModelContext
+    ) {
+        _highScoreViewModel = State(
+            initialValue: HighScoreViewModel(modelContext: context)
+        )
+    }
+
     var body: some View {
         TabView {
             Tab("Game", systemImage:
@@ -25,9 +36,4 @@ struct MainView: View {
         }.environment(highScoreViewModel)
             .environment(gameViewModel)
     }
-}
-
-#Preview {
-    MainView().environment(GameViewModel())
-        .environment(HighScoreViewModel())
 }

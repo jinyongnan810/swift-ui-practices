@@ -5,9 +5,13 @@
 //  Created by Yuunan kin on 2025/02/11.
 //
 
+import SwiftData
 import SwiftUI
 
 struct HighScoreList: View {
+//    @Query(sort: \HighScoreModel.score, order: .reverse)
+//    private var highScores: [HighScoreModel]
+
     @Environment(
         HighScoreViewModel.self
     ) var viewModel: HighScoreViewModel
@@ -31,23 +35,24 @@ struct HighScoreItem: View {
         HighScoreViewModel.self
     ) var viewModel: HighScoreViewModel
     let index: Int
-    let highScore: HighScoreEntity
+    let highScore: HighScoreModel
     @State private var editMode: Bool = false
     @State private var name: String = ""
     @FocusState private var isFocused: Bool
     init(
         index: Int,
-        highScore: HighScoreEntity
+        highScore: HighScoreModel
     ) {
         self.index = index
         self.highScore = highScore
-        name = highScore.name ?? ""
+        name = highScore.name
     }
 
     var body: some View {
         if editMode {
             HStack {
                 TextField("Enter name", text: $name).foregroundStyle(.white)
+                    .autocorrectionDisabled()
                     .padding(.vertical)
                     .focused($isFocused, equals: true)
                 Button(action: {
@@ -76,7 +81,7 @@ struct HighScoreItem: View {
             HStack {
                 HighScoreItemText(text: "\(index + 1)")
                 Spacer()
-                HighScoreItemText(text: highScore.name ?? "Anonymous")
+                HighScoreItemText(text: highScore.name)
                 Spacer()
                 HighScoreItemText(text: "\(highScore.score)")
             }
@@ -100,8 +105,4 @@ struct HighScoreItemText: View {
         Text(text).font(.headline).fontWeight(.semibold)
             .frame(maxWidth: .infinity)
     }
-}
-
-#Preview {
-    HighScoreList().environment(HighScoreViewModel())
 }

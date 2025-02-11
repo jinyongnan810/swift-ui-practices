@@ -24,7 +24,3 @@ struct HighScoreView: View {
         }
     }
 }
-
-#Preview {
-    HighScoreView().environment(HighScoreViewModel())
-}

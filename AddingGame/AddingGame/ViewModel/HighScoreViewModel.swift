@@ -7,12 +7,18 @@
 import CoreData
 import Foundation
 import Observation
+import SwiftData
 
 @Observable
 class HighScoreViewModel {
-    let container: NSPersistentContainer
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+        fetchHighScores()
+    }
 
-    var highScores: [HighScoreEntity] = []
+    var modelContext: ModelContext
+
+    var highScores: [HighScoreModel] = []
     var highestScore: Int {
         if let first = highScores.first {
             return Int(first.score)
@@ -20,54 +26,39 @@ class HighScoreViewModel {
         return 0
     }
 
-    init() {
-        container = NSPersistentContainer(name: "HighScoresDataModel")
-
-        container.loadPersistentStores { _, error in
-            if let error {
-                print("⭐️ Loading HighScoreDataModel failed: \(error)")
-            } else {
-                print("⭐️ Loading HighScoreDataModel succeeded.")
-            }
-        }
-        fetchHighScores()
-    }
-
     func fetchHighScores() {
-        let fetchRequest: NSFetchRequest<HighScoreEntity> = HighScoreEntity.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "score", ascending: false)]
-
         do {
-            highScores = try container.viewContext.fetch(fetchRequest)
+            let descriptor = FetchDescriptor<HighScoreModel>(
+                sortBy: [SortDescriptor(\.score, order: .reverse)]
+            )
+            highScores = try modelContext.fetch(descriptor)
+            print("⭐️ high scores fetched: \(highScores)")
         } catch {
             print("⭐️ Fetching high scores failed: \(error)")
         }
     }
 
     func addHighScore(name: String, score: Int) {
-        let highScore = HighScoreEntity(context: container.viewContext)
-        highScore.name = name
-        highScore.score = Int64(score)
-        highScore.id = UUID()
-        highScores.append(highScore)
+        let highScore = HighScoreModel(name: name, score: score)
+        modelContext.insert(highScore)
         saveHighScores()
     }
 
-    func updateHighScoreUserName(entity: HighScoreEntity, newName: String) {
+    func updateHighScoreUserName(entity: HighScoreModel, newName: String) {
         entity.name = newName
         saveHighScores()
     }
 
     func deleteHighScore(indexSet: IndexSet) {
         for item in indexSet {
-            container.viewContext.delete(highScores[item])
+            modelContext.delete(highScores[item])
         }
         saveHighScores()
     }
 
     func saveHighScores() {
         do {
-            try container.viewContext.save()
+            try modelContext.save()
             fetchHighScores()
         } catch {
             print("⭐️ Saving high scores failed: \(error)")
