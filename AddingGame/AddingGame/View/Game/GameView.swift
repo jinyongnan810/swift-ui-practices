@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct GameView: View {
-    @EnvironmentObject var viewModel: GameViewModel
+    @EnvironmentObject var gameViewModel: GameViewModel
+    @EnvironmentObject var highScoreViewModel: HighScoreViewModel
+    @State private var showHighScoreView: Bool = false
     var gameOver: Bool {
-        viewModel.gameOver
+        gameViewModel.gameOver
+    }
+
+    var newHighScore: Bool {
+        gameOver && gameViewModel.score > highScoreViewModel.highestScore
     }
 
     var body: some View {
@@ -19,7 +25,7 @@ struct GameView: View {
             VStack {
                 ScoreLivesView()
                 Spacer()
-                BubbleView(size: 200, text: "\(viewModel.num1) + \(viewModel.num2)", type: .bubble1)
+                BubbleView(size: 200, text: "\(gameViewModel.num1) + \(gameViewModel.num2)", type: .bubble1)
                 Spacer()
                 OptionsView()
                 Spacer()
@@ -32,13 +38,25 @@ struct GameView: View {
                 .padding()
                 .onTapGesture {
                     withAnimation {
-                        viewModel.reset()
+                        gameViewModel.reset()
                     }
                 }
         }
+        .onChange(of: newHighScore) { _, newValue in
+            if !newValue { return }
+            withAnimation {
+                showHighScoreView = true
+            }
+        }
+        .fullScreenCover(
+            isPresented: $showHighScoreView, onDismiss: {}, content: {
+                NewHighScoreView(isPresented: $showHighScoreView)
+            }
+        )
     }
 }
 
 #Preview {
     GameView().environmentObject(GameViewModel())
+        .environmentObject(HighScoreViewModel())
 }

@@ -16,27 +16,15 @@ struct GameOverView: View {
 
     var body: some View {
         VStack {
-            Image(newHighScore ? "creature2" : "creature5")
+            Image("creature5")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 200, height: 200)
             Text("Game Over")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-            Text(
-                "Your score: \(gameViewModel.score)"
-            ).font(.title)
-                .fontWeight(.semibold)
-            Text(
-                "(Current High Score: \(highScoreViewModel.highestScore))"
-            ).font(.title)
-                .fontWeight(.semibold)
             Text("Tap to restart")
                 .font(.headline)
         }.foregroundStyle(.white)
     }
-}
-
-#Preview {
-    GameOverView()
 }

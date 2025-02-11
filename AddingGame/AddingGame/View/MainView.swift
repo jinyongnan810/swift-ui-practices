@@ -28,5 +28,6 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+    MainView().environmentObject(GameViewModel())
+        .environmentObject(HighScoreViewModel())
 }
