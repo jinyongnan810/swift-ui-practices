@@ -10,13 +10,17 @@ import SwiftUI
 struct HighScoreList: View {
     @EnvironmentObject var viewModel: HighScoreViewModel
     var body: some View {
-        ForEach(
-            Array(viewModel.highScores.enumerated()),
-            id: \.element
-                .id
-        ) { index, highScore in
-            HighScoreItem(index: index, highScore: highScore)
-        }
+        List {
+            ForEach(
+                Array(viewModel.highScores.enumerated()),
+                id: \.element
+                    .id
+            ) { index, highScore in
+                HighScoreItem(index: index, highScore: highScore)
+            }
+            .onDelete(perform: viewModel.deleteHighScore)
+            .listRowBackground(Color.clear)
+        }.listStyle(.plain)
     }
 }
 
@@ -81,12 +85,6 @@ struct HighScoreItem: View {
                     Text("Edit")
                     Image(systemName: "pencil")
                 }
-                Button {
-                    viewModel.deleteHighScore(entity: highScore)
-                } label: {
-                    Text("Delete").foregroundStyle(.red)
-                    Image(systemName: "trash").foregroundStyle(.red)
-                }.foregroundStyle(.red)
             }
         }
     }
