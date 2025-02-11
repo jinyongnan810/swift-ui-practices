@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "(Current High Score: %lld)" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(現在の記録: %lld)"
+          }
+        }
+      }
+    },
     "%lld" : {
 
     },
@@ -10,6 +20,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ゲーム"
+          }
+        }
+      }
+    },
+    "Game Over" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ゲームオーバー"
           }
         }
       }
@@ -26,6 +46,46 @@
     },
     "Key" : {
       "extractionState" : "manual"
+    },
+    "Level" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レベル"
+          }
+        }
+      }
+    },
+    "Score" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スコア"
+          }
+        }
+      }
+    },
+    "Tap to restart" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タップして再開"
+          }
+        }
+      }
+    },
+    "Your score: %lld" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スコア: %lld"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

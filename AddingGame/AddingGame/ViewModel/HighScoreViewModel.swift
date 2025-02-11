@@ -11,6 +11,12 @@ class HighScoreViewModel: ObservableObject {
     let container: NSPersistentContainer
 
     @Published var highScores: [HighScoreEntity] = []
+    var highestScore: Int {
+        if let first = highScores.first {
+            return Int(first.score)
+        }
+        return 0
+    }
 
     init() {
         container = NSPersistentContainer(name: "HighScoresDataModel")

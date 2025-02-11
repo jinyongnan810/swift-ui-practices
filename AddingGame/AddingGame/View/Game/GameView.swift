@@ -9,6 +9,10 @@ import SwiftUI
 
 struct GameView: View {
     @EnvironmentObject var viewModel: GameViewModel
+    var gameOver: Bool {
+        viewModel.gameOver
+    }
+
     var body: some View {
         ZStack {
             GameBackgroundView()
@@ -19,7 +23,18 @@ struct GameView: View {
                 Spacer()
                 OptionsView()
                 Spacer()
-            }
+            }.blur(radius: gameOver ? 5 : 0)
+                .disabled(gameOver)
+            GameOverView()
+                .opacity(gameOver ? 1 : 0)
+                .blur(radius: gameOver ? 0 : 30)
+                .disabled(!gameOver)
+                .padding()
+                .onTapGesture {
+                    withAnimation {
+                        viewModel.reset()
+                    }
+                }
         }
     }
 }

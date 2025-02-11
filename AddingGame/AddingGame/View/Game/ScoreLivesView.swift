@@ -11,7 +11,10 @@ struct ScoreLivesView: View {
     @EnvironmentObject var viewModel: GameViewModel
     var body: some View {
         HStack {
-            TitleViewItem(title: "Score", value: viewModel.score)
+            TitleViewItem(
+                title: "Score",
+                value: viewModel.score
+            )
             Spacer()
             TitleViewItem(title: "Level", value: viewModel.level)
             Spacer()
@@ -21,7 +24,7 @@ struct ScoreLivesView: View {
 }
 
 struct TitleViewItem: View {
-    let title: String
+    let title: LocalizedStringKey
     let value: Int
     var body: some View {
         VStack {
