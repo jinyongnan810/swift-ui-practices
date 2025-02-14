@@ -5,47 +5,46 @@
 //  Created by Yuunan kin on 2025/02/15.
 //
 import SwiftUI
+
 extension Font {
     static let customFont = Font.custom("DarumadropOne-Regular", size: 16)
 }
 
+// reference: https://medium.com/@maysam.shahsavari/changing-the-app-font-globally-in-for-swiftui-views-a-workaround-97e57a2f3e86
 extension Font {
-    ///
-    /// Use the closest weight if your typeface does not support a particular weight
-    ///
-    static private var regularFontName: String {
+    private static var regularFontName: String {
         "DarumadropOne-Regular"
     }
 
-    static private var mediumFontName: String {
+    private static var mediumFontName: String {
         "DarumadropOne-Regular"
     }
 
-    static private var boldFontName: String {
+    private static var boldFontName: String {
         "DarumadropOne-Regular"
     }
 
-    static private var semiBoldFontName: String {
+    private static var semiBoldFontName: String {
         "DarumadropOne-Regular"
     }
 
-    static private var extraBoldFontName: String {
+    private static var extraBoldFontName: String {
         "DarumadropOne-Regular"
     }
 
-    static private var heavyFontName: String {
+    private static var heavyFontName: String {
         "DarumadropOne-Regular"
     }
 
-    static private var lightFontName: String {
+    private static var lightFontName: String {
         "DarumadropOne-Regular"
     }
 
-    static private var thinFontName: String {
+    private static var thinFontName: String {
         "DarumadropOne-Regular"
     }
 
-    static private var ultraThinFontName: String {
+    private static var ultraThinFontName: String {
         "DarumadropOne-Regular"
     }
 
@@ -116,130 +115,128 @@ extension Font {
 
     /// Styles
     public static var title: Font {
-        return Font.custom(regularFontName, size: preferredTitle1)
+        Font.custom(regularFontName, size: preferredTitle1)
     }
 
     public static var title2: Font {
-        return Font.custom(regularFontName, size: preferredTitle2)
+        Font.custom(regularFontName, size: preferredTitle2)
     }
 
     public static var title3: Font {
-        return Font.custom(regularFontName, size: preferredTitle3)
+        Font.custom(regularFontName, size: preferredTitle3)
     }
 
     public static var largeTitle: Font {
-        return Font.custom(regularFontName, size: preferredLargeTitle)
+        Font.custom(regularFontName, size: preferredLargeTitle)
     }
 
     public static var body: Font {
-        return Font.custom(regularFontName, size: preferredBody)
+        Font.custom(regularFontName, size: preferredBody)
     }
 
     public static var headline: Font {
-        return Font.custom(regularFontName, size: preferredHeadline)
+        Font.custom(regularFontName, size: preferredHeadline)
     }
 
     public static var subheadline: Font {
-        return Font.custom(regularFontName, size: preferredSubheadline)
+        Font.custom(regularFontName, size: preferredSubheadline)
     }
 
     public static var callout: Font {
-        return Font.custom(regularFontName, size: preferredCallout)
+        Font.custom(regularFontName, size: preferredCallout)
     }
 
     public static var footnote: Font {
-        return Font.custom(regularFontName, size: preferredFootnote)
+        Font.custom(regularFontName, size: preferredFootnote)
     }
 
     public static var caption: Font {
-        return Font.custom(regularFontName, size: preferredCaption)
+        Font.custom(regularFontName, size: preferredCaption)
     }
 
     public static var caption2: Font {
-        return Font.custom(regularFontName, size: preferredCaption2)
+        Font.custom(regularFontName, size: preferredCaption2)
     }
 
-    public static func system(_ style: Font.TextStyle, design: Font.Design? = nil, weight: Font.Weight? = nil) -> Font {
+    public static func system(_ style: Font.TextStyle, design _: Font.Design? = nil, weight: Font.Weight? = nil) -> Font {
         var size: CGFloat
         var font: String
 
         switch style {
-            case .largeTitle:
-                size = preferredLargeTitle
-            case .title:
-                size = preferredTitle1
-            case .title2:
-                size = preferredTitle2
-            case .title3:
-                size = preferredTitle3
-            case .headline:
-                size = preferredHeadline
-            case .subheadline:
-                size = preferredSubheadline
-            case .body:
-                size = preferredBody
-            case .callout:
-                size = preferredCallout
-            case .footnote:
-                size = preferredFootnote
-            case .caption:
-                size = preferredCaption
-            case .caption2:
-                size = preferredCaption2
-            case .extraLargeTitle:
-                size = preferredExtraLargeTitle
-            case .extraLargeTitle2:
-                size = preferredExtraLargeTitle2
-            default:
-                size = preferredBody
+        case .largeTitle:
+            size = preferredLargeTitle
+        case .title:
+            size = preferredTitle1
+        case .title2:
+            size = preferredTitle2
+        case .title3:
+            size = preferredTitle3
+        case .headline:
+            size = preferredHeadline
+        case .subheadline:
+            size = preferredSubheadline
+        case .body:
+            size = preferredBody
+        case .callout:
+            size = preferredCallout
+        case .footnote:
+            size = preferredFootnote
+        case .caption:
+            size = preferredCaption
+        case .caption2:
+            size = preferredCaption2
+        case .extraLargeTitle:
+            size = preferredExtraLargeTitle
+        case .extraLargeTitle2:
+            size = preferredExtraLargeTitle2
+        default:
+            size = preferredBody
         }
 
         switch weight {
-            case .bold:
-                font = boldFontName
-            case .regular:
-                font = regularFontName
-            case .heavy:
-                font = heavyFontName
-            case .light:
-                font = lightFontName
-            case .medium:
-                font = mediumFontName
-            case .semibold:
-                font = semiBoldFontName
-            case .thin:
-                font = thinFontName
-            case .ultraLight:
-                font = ultraThinFontName
-            default:
-                font = regularFontName
+        case .bold:
+            font = boldFontName
+        case .regular:
+            font = regularFontName
+        case .heavy:
+            font = heavyFontName
+        case .light:
+            font = lightFontName
+        case .medium:
+            font = mediumFontName
+        case .semibold:
+            font = semiBoldFontName
+        case .thin:
+            font = thinFontName
+        case .ultraLight:
+            font = ultraThinFontName
+        default:
+            font = regularFontName
         }
 
         return Font.custom(font, size: size)
     }
 
-    public static func system(size: CGFloat, weight: Font.Weight = .regular, design: Font.Design = .default) -> Font {
-        var font: String
-
-        switch weight {
-            case .bold:
-                font = boldFontName
-            case .regular:
-                font = regularFontName
-            case .heavy:
-                font = heavyFontName
-            case .light:
-                font = lightFontName
-            case .medium:
-                font = mediumFontName
-            case .semibold:
-                font = semiBoldFontName
-            case .thin:
-                font = thinFontName
-            case .ultraLight:
-                font = ultraThinFontName
-            default:
-                font = regularFontName
+    public static func system(size: CGFloat, weight: Font.Weight = .regular, design _: Font.Design = .default) -> Font {
+        var font: String = switch weight {
+        case .bold:
+            boldFontName
+        case .regular:
+            regularFontName
+        case .heavy:
+            heavyFontName
+        case .light:
+            lightFontName
+        case .medium:
+            mediumFontName
+        case .semibold:
+            semiBoldFontName
+        case .thin:
+            thinFontName
+        case .ultraLight:
+            ultraThinFontName
+        default:
+            regularFontName
         }
 
         return Font.custom(font, size: size)

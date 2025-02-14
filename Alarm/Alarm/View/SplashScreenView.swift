@@ -30,27 +30,32 @@ struct SplashView: View {
                 Text("Your Alarm App")
                     .font(fontSize)
                 Spacer()
+                Image("welcome")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                Spacer()
             }
         }
-            .opacity(opacity)
-            .blur(radius: blur)
-            .onAppear {
-                withAnimation(.easeIn(duration: 0.7)) {
-                    opacity = 1
-                    fontSize = .largeTitle
-                    blur = 0
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    withAnimation(.easeIn) {
-                        active = true
-                    }
-                }
+        .opacity(opacity)
+        .blur(radius: blur)
+        .onAppear {
+            withAnimation(.easeIn(duration: 0.7)) {
+                opacity = 1
+                fontSize = .largeTitle
+                blur = 0
             }
-            .onTapGesture {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 withAnimation(.easeIn) {
                     active = true
                 }
             }
+        }
+        .onTapGesture {
+            withAnimation(.easeIn) {
+                active = true
+            }
+        }
     }
 }
 
