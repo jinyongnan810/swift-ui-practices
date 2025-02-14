@@ -1,7 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Hello, world!" : {
 
+    },
+    "Your Alarm" : {
+
+    }
   },
   "version" : "1.0"
 }

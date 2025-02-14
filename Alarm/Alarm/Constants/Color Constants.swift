@@ -9,5 +9,5 @@ let mainColors: [Color] = [
     .myBlue,
     .myYellow,
     .myLightGray,
-    .myBlack
+    .myBlack,
 ]
