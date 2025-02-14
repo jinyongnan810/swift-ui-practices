@@ -13,6 +13,6 @@ let lightGray = Color("lightGray")
 let black = Color("black")
 let nickel = Color("nickel")
 
-let gradColorList = [yellow,pink,purple,blue]
+let gradColorList = [yellow, pink, purple, blue]
 
 let mainColors = [pink, purple, blue, yellow, lightGray, black]
