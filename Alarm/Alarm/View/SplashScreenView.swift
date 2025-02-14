@@ -9,34 +9,48 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @State private var active: Bool = false
-    @State private var opacity: Double = 0.3
-    @State private var blur: CGFloat = 5
-    @State private var fontSize: CGFloat = 12
     var body: some View {
         if active {
             AlarmView()
         } else {
-            ZStack {
-                FourCircleBackgroundView(color1: .myBlue, color2: .clear)
-                VStack {
-                    Text("Your Alarm")
-                        .font(.system(size: fontSize))
-                }
-            }.opacity(opacity)
-                .blur(radius: blur)
-                .onAppear {
-                    withAnimation(.easeIn(duration: 1)) {
-                        opacity = 1
-                        fontSize = 36
-                        blur = 0
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        withAnimation(.easeIn) {
-                            active = true
-                        }
-                    }
-                }
+            SplashView(active: $active)
         }
+    }
+}
+
+struct SplashView: View {
+    @Binding var active: Bool
+    @State private var opacity: Double = 0.3
+    @State private var blur: CGFloat = 5
+    @State private var fontSize: Font = .subheadline
+    var body: some View {
+        ZStack {
+            FourCircleBackgroundView(color1: .myBlue, color2: .clear)
+            VStack {
+                Text("Your Alarm App")
+                    .font(fontSize)
+                Spacer()
+            }
+        }
+            .opacity(opacity)
+            .blur(radius: blur)
+            .onAppear {
+                withAnimation(.easeIn(duration: 0.7)) {
+                    opacity = 1
+                    fontSize = .largeTitle
+                    blur = 0
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    withAnimation(.easeIn) {
+                        active = true
+                    }
+                }
+            }
+            .onTapGesture {
+                withAnimation(.easeIn) {
+                    active = true
+                }
+            }
     }
 }
 

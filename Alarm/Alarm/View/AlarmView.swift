@@ -16,6 +16,8 @@ struct AlarmView: View {
                     .imageScale(.large)
                     .foregroundStyle(.tint)
                 Text("Hello, world!")
+                    .font(.largeTitle)
+                Text("Hello, world!")
             }
             .padding()
         }

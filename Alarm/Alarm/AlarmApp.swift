@@ -12,6 +12,7 @@ struct AlarmApp: App {
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
+                .environment(\.font, .customFont)
         }
     }
 }
