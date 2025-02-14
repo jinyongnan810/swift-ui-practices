@@ -10,7 +10,7 @@ import SwiftUI
 struct TimeOfDayIcon: View {
     let date: Date
     var percent: CGFloat {
-        dateToPercent(date)
+        date.percent()
     }
 
     var hour: Int {
@@ -44,7 +44,7 @@ struct TimeOfDayIcon: View {
         ForEach(0 ..< 24, id: \.self) { i in
             let time = currentDayWithHourSet(i)
             HStack {
-                Text("\(getTimeOfDate(time))")
+                Text("\(time.shortDateString())")
                 Spacer()
                 TimeOfDayIcon(date: time)
             }
