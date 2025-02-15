@@ -26,8 +26,12 @@ struct AlarmView: View {
             .fullScreenCover(isPresented: $presentAddEditScreen, content: {
                 AddEditAlarmView(alarm: .Default(), isPresented: $presentAddEditScreen)
             })
-            .navigationTitle("Alarms")
+//            .navigationTitle("Alarms")
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Alarms")
+                        .font(.largeTitle)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         presentAddEditScreen = true

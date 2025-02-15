@@ -12,7 +12,7 @@ struct SelectActivityView: View {
     @Binding var activity: String
     var body: some View {
         VStack {
-            HStack {
+            HStack(spacing: 20) {
                 ForEach(
                     Array(mainColors.enumerated()),
                     id: \.element
@@ -59,7 +59,6 @@ struct ColorPickerItem: View {
             .overlay {
                 Circle().stroke(.black, style: StrokeStyle(lineWidth: selected ? 3 : 1))
             }
-            .padding(.horizontal, 5)
     }
 }
 
@@ -74,7 +73,8 @@ struct ActivityPickerView: View {
     var body: some View {
         Image(systemName: activity)
             .imageScale(selected ? .large : .medium)
-            .foregroundStyle(selected ? selectedColor : .gray)
+            .foregroundStyle(selected ? selectedColor : .myNickel)
+            .opacity(selected ? 1 : 0.7)
             .padding(7)
             .background(
                 ZStack {
