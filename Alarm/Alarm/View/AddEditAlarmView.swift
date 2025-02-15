@@ -18,6 +18,10 @@ struct AddEditAlarmView: View {
                 VStack {
                     EnableView(enabled: $alarm.enabled)
                     Spacer()
+                    SelectActivityView(
+                        colorIndex: $alarm.colorINdex,
+                        activity: $alarm.activity
+                    )
                 }.padding()
             }
             .toolbar {
