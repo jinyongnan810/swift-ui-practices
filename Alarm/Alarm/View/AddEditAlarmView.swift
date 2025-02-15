@@ -1,0 +1,41 @@
+//
+//  AddEditAlarmView.swift
+//  Alarm
+//
+//  Created by Yuunan kin on 2025/02/15.
+//
+
+import SwiftUI
+
+struct AddEditAlarmView: View {
+    @State var alarm: AlarmModel
+    @Binding var isPresented: Bool
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                Color.background.ignoresSafeArea()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isPresented = false
+                    } label: {
+                        Text("Save")
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        isPresented = false
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    AddEditAlarmView(alarm: .Default(), isPresented: .constant(true))
+}

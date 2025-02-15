@@ -1,7 +1,25 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "+" : {
+
+    },
+    "Alarms" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Enable" : {
+
+    },
+    "Enable notifications to hear the alarm!" : {
+
+    },
     "Hello, world!" : {
+
+    },
+    "Save" : {
 
     },
     "Your Alarm App" : {
