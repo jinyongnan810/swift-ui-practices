@@ -11,7 +11,7 @@ struct ToggleView: View {
     @Binding var enabled: Bool
     var body: some View {
         Capsule()
-            .frame(width: 59, height: 35)
+            .frame(width: 70, height: 35)
             .foregroundStyle(enabled ? .myBlack : .myNickel)
             .overlay {
                 ZStack {
@@ -29,11 +29,11 @@ struct ToggleView: View {
                                 .foregroundStyle(.myBlack)
                                 .fixedSize()
                         }
-                    }.padding(6)
+                    }.padding(12)
                     Circle()
                         .foregroundStyle(.myLightGray)
                         .frame(width: 25)
-                        .offset(x: enabled ? 12 : -12)
+                        .offset(x: enabled ? 17 : -17)
                         .gesture(DragGesture().onChanged { ges in
                             withAnimation {
                                 enabled = ges.translation.width > 0
