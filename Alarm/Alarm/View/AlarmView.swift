@@ -23,7 +23,6 @@ struct AlarmView: View {
                 }
                 .padding()
             }
-
             .fullScreenCover(isPresented: $presentAddEditScreen, content: {
                 AddEditAlarmView(alarm: .Default(), isPresented: $presentAddEditScreen)
             })

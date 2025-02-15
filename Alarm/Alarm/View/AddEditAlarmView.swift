@@ -15,6 +15,10 @@ struct AddEditAlarmView: View {
         NavigationStack {
             ZStack {
                 Color.background.ignoresSafeArea()
+                VStack {
+                    EnableView(enabled: $alarm.enabled)
+                    Spacer()
+                }.padding()
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -32,6 +36,19 @@ struct AddEditAlarmView: View {
                     }
                 }
             }
+        }
+    }
+}
+
+struct EnableView: View {
+    @Binding var enabled: Bool
+
+    var body: some View {
+        HStack {
+            Text("Enabled")
+                .font(.headline)
+            Spacer()
+            ToggleView(enabled: $enabled)
         }
     }
 }
