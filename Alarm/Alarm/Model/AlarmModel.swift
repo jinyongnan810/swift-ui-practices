@@ -20,7 +20,21 @@ struct AlarmModel: Identifiable {
             start: Date().addingTimeInterval(60),
             end: Date().addingTimeInterval(120),
             activity: activities[0],
-            colorINdex: 0
+            colorIndex: 0
+        )
+    }
+
+    static func Default2() -> AlarmModel {
+        .init(
+            title: "Default Alarm",
+            details: "Have a good day!",
+            repeats: false,
+            sound: .christmas_bells,
+            enabled: true,
+            start: Date().addingTimeInterval(6000),
+            end: Date().addingTimeInterval(12000),
+            activity: activities[2],
+            colorIndex: 4
         )
     }
 
@@ -46,8 +60,8 @@ struct AlarmModel: Identifiable {
     }
 
     var activity: String
-    var colorINdex: Int
+    var colorIndex: Int
     var activityColor: Color {
-        mainColors[colorINdex]
+        mainColors[colorIndex]
     }
 }

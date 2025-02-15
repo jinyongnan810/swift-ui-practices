@@ -9,23 +9,44 @@ import SwiftUI
 
 struct AlarmView: View {
     @State private var presentAddEditScreen: Bool = false
+    @State private var selectedAlarmIndex: Int? = nil
+    @State private var alarms: [AlarmModel] = [
+        .Default(),
+        .Default2(),
+    ]
     var body: some View {
         NavigationStack {
             ZStack {
                 FourCircleBackgroundView(color1: .myYellow, color2: .clear)
-                VStack {
-                    Image(systemName: "globe")
-                        .imageScale(.large)
-                        .foregroundStyle(.tint)
-                    Text("Hello, world!")
-                        .font(.largeTitle)
-                    Text("Hello, world!")
-                }
-                .padding()
+                List {
+                    ForEach(
+                        Array(alarms.enumerated()),
+                        id: \.element.id
+                    ) { index, alarm in
+                        AlarmItemView(alarm: alarm)
+                            .onTapGesture {
+                                withAnimation {
+                                    presentAddEditScreen = true
+                                    selectedAlarmIndex = index
+                                }
+                            }
+                    }.listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                }.listStyle(.plain)
+                    .padding()
             }
-            .fullScreenCover(isPresented: $presentAddEditScreen, content: {
-                AddEditAlarmView(alarm: .Default(), isPresented: $presentAddEditScreen)
-            })
+            .sheet(
+                isPresented: $presentAddEditScreen,
+                onDismiss: {
+                    selectedAlarmIndex = nil
+                },
+                content: {
+                    AddEditAlarmView(
+                        alarm: alarms[selectedAlarmIndex ?? 0],
+                        isPresented: $presentAddEditScreen
+                    )
+                }
+            )
 //            .navigationTitle("Alarms")
             .toolbar {
                 ToolbarItem(placement: .principal) {

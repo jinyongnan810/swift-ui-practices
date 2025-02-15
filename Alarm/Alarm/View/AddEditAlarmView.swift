@@ -19,7 +19,7 @@ struct AddEditAlarmView: View {
                     EnableView(enabled: $alarm.enabled)
                     Spacer()
                     SelectActivityView(
-                        colorIndex: $alarm.colorINdex,
+                        colorIndex: $alarm.colorIndex,
                         activity: $alarm.activity
                     )
                 }.padding()
