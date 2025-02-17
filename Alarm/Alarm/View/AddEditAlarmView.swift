@@ -9,11 +9,28 @@ import SwiftUI
 
 struct AddEditAlarmView: View {
     @Environment(AlarmViewModel.self) var viewModel
-    @State var alarm: AlarmModel?
+    var alarm: AlarmModel?
     @Binding var isPresented: Bool
-    @State var enabled: Bool = false
-    @State var colorIndex: Int = 0
-    @State var activity: String = activities[0]
+    @State var enabled: Bool
+    @State var colorIndex: Int
+    @State var activity: String
+
+    init(
+        alarm: AlarmModel? = nil,
+        isPresented: Binding<Bool>
+    ) {
+        self.alarm = alarm
+        _isPresented = isPresented
+        if let alarm {
+            _enabled = .init(wrappedValue: alarm.enabled)
+            _colorIndex = .init(wrappedValue: alarm.colorIndex)
+            _activity = .init(wrappedValue: alarm.activity)
+        } else {
+            _enabled = .init(wrappedValue: false)
+            _colorIndex = .init(wrappedValue: 0)
+            _activity = .init(wrappedValue: activities[0])
+        }
+    }
 
     var body: some View {
         NavigationStack {
@@ -32,7 +49,12 @@ struct AddEditAlarmView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        viewModel.add()
+                        if alarm != nil {
+                            viewModel.update(model: alarm!, enabled: enabled, colorIndex: colorIndex, activity: activity)
+                        } else {
+                            viewModel.add()
+                        }
+
                         isPresented = false
                     } label: {
                         Text("Save")

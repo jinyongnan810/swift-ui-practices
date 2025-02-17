@@ -33,10 +33,8 @@ struct AlarmView: View {
                     ) { index, alarm in
                         AlarmItemView(alarm: alarm)
                             .onTapGesture {
-                                withAnimation {
-                                    presentAddEditScreen = true
-                                    selectedAlarmIndex = index
-                                }
+                                selectedAlarmIndex = index
+                                presentAddEditScreen = true
                             }
                     }.listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
@@ -55,6 +53,10 @@ struct AlarmView: View {
                     )
                 }
             )
+            // don't know why, but without this, sometimes AddEditAlarmView gets nil for alarm first time after app launch
+            .onChange(of: selectedAlarmIndex) { _, _ in
+//                print("⭐️ selectedAlarmIndex changed from \(oldValue ?? -1) to \(newValue ?? -1)")
+            }
 //            .navigationTitle("Alarms")
             .toolbar {
                 ToolbarItem(placement: .principal) {

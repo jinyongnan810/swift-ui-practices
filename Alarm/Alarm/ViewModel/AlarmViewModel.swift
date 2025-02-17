@@ -37,6 +37,13 @@ class AlarmViewModel {
         save()
     }
 
+    func update(model: AlarmModel, enabled: Bool? = nil, colorIndex: Int? = nil, activity: String? = nil) {
+        model.enabled = enabled ?? model.enabled
+        model.colorIndex = colorIndex ?? model.colorIndex
+        model.activity = activity ?? model.activity
+        save()
+    }
+
     func save() {
         do {
             try modelContext.save()
