@@ -5,15 +5,23 @@
 //  Created by Yuunan kin on 2025/02/12.
 //
 
+import SwiftData
 import SwiftUI
 
 struct AlarmView: View {
+    @State var viewModel: AlarmViewModel
+    var alarms: [AlarmModel] {
+        viewModel.alarms
+    }
+
+    init(
+        context: ModelContext
+    ) {
+        _viewModel = State(initialValue: AlarmViewModel(modelContext: context))
+    }
+
     @State private var presentAddEditScreen: Bool = false
     @State private var selectedAlarmIndex: Int? = nil
-    @State private var alarms: [AlarmModel] = [
-        .Default(),
-        .Default2(),
-    ]
     var body: some View {
         NavigationStack {
             ZStack {
@@ -42,7 +50,7 @@ struct AlarmView: View {
                 },
                 content: {
                     AddEditAlarmView(
-                        alarm: alarms[selectedAlarmIndex ?? 0],
+                        alarm: selectedAlarmIndex == nil ? nil : alarms[selectedAlarmIndex!],
                         isPresented: $presentAddEditScreen
                     )
                 }
@@ -65,10 +73,6 @@ struct AlarmView: View {
                     EditButton()
                 }
             }
-        }
+        }.environment(viewModel)
     }
-}
-
-#Preview {
-    AlarmView()
 }

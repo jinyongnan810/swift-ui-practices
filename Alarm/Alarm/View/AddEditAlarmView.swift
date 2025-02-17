@@ -8,25 +8,31 @@
 import SwiftUI
 
 struct AddEditAlarmView: View {
-    @State var alarm: AlarmModel
+    @Environment(AlarmViewModel.self) var viewModel
+    @State var alarm: AlarmModel?
     @Binding var isPresented: Bool
+    @State var enabled: Bool = false
+    @State var colorIndex: Int = 0
+    @State var activity: String = activities[0]
 
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
-                    EnableView(enabled: $alarm.enabled)
+                    // Fixme
+                    EnableView(enabled: $enabled)
                     Spacer()
                     SelectActivityView(
-                        colorIndex: $alarm.colorIndex,
-                        activity: $alarm.activity
+                        colorIndex: $colorIndex,
+                        activity: $activity
                     )
                 }.padding()
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
+                        viewModel.add()
                         isPresented = false
                     } label: {
                         Text("Save")
@@ -55,8 +61,4 @@ struct EnableView: View {
             ToggleView(enabled: $enabled)
         }
     }
-}
-
-#Preview {
-    AddEditAlarmView(alarm: .Default(), isPresented: .constant(true))
 }

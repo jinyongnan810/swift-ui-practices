@@ -5,10 +5,33 @@
 //  Created by Yuunan kin on 2025/02/14.
 //
 
+import SwiftData
 import SwiftUI
 
-struct AlarmModel: Identifiable {
-    let id: String = UUID().uuidString
+@Model
+class AlarmModel: Identifiable {
+    var id: String = UUID().uuidString
+    init(
+        title: String,
+        details: String,
+        repeats: Bool,
+        sound: Sounds,
+        enabled: Bool,
+        start: Date,
+        end: Date,
+        activity: String,
+        colorIndex: Int
+    ) {
+        self.title = title
+        self.details = details
+        self.repeats = repeats
+        self.sound = sound
+        self.enabled = enabled
+        self.start = start
+        self.end = end
+        self.activity = activity
+        self.colorIndex = colorIndex
+    }
 
     static func Default() -> AlarmModel {
         .init(
@@ -38,10 +61,10 @@ struct AlarmModel: Identifiable {
         )
     }
 
-    let title: String
-    let details: String
+    var title: String
+    var details: String
 
-    let repeats: Bool
+    var repeats: Bool
     var sound: Sounds
     var enabled: Bool
 
