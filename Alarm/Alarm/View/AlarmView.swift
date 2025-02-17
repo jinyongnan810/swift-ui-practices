@@ -36,8 +36,11 @@ struct AlarmView: View {
                                 selectedAlarmIndex = index
                                 presentAddEditScreen = true
                             }
-                    }.listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
+                    }
+                    .onDelete(perform: viewModel.delete)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+
                 }.listStyle(.plain)
                     .padding()
             }

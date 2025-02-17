@@ -57,6 +57,13 @@ class AlarmViewModel {
         save()
     }
 
+    func delete(indexSet: IndexSet) {
+        for index in indexSet {
+            modelContext.delete(alarms[index])
+        }
+        save()
+    }
+
     func save() {
         do {
             try modelContext.save()
