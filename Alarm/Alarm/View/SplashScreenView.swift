@@ -9,9 +9,10 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @State private var active: Bool = false
+    @Environment(\.modelContext) private var context
     var body: some View {
         if active {
-            AlarmView()
+            AlarmView(context: context)
         } else {
             SplashView(active: $active)
         }
