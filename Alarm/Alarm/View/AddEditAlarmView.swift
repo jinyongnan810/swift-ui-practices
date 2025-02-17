@@ -14,6 +14,8 @@ struct AddEditAlarmView: View {
     @State var enabled: Bool
     @State var colorIndex: Int
     @State var activity: String
+    @State var start: Date
+    @State var end: Date
 
     init(
         alarm: AlarmModel? = nil,
@@ -25,10 +27,14 @@ struct AddEditAlarmView: View {
             _enabled = .init(wrappedValue: alarm.enabled)
             _colorIndex = .init(wrappedValue: alarm.colorIndex)
             _activity = .init(wrappedValue: alarm.activity)
+            _start = .init(wrappedValue: alarm.start)
+            _end = .init(wrappedValue: alarm.end)
         } else {
-            _enabled = .init(wrappedValue: false)
+            _enabled = .init(wrappedValue: true)
             _colorIndex = .init(wrappedValue: 0)
             _activity = .init(wrappedValue: activities[0])
+            _start = .init(wrappedValue: Date().addingTimeInterval(60))
+            _end = .init(wrappedValue: Date().addingTimeInterval(420))
         }
     }
 
@@ -37,8 +43,23 @@ struct AddEditAlarmView: View {
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
-                    // Fixme
                     EnableView(enabled: $enabled)
+                    Spacer()
+
+                    // Fixme
+                    VStack(spacing: 20) {
+                        HStack {
+                            Text("Start:")
+                            Spacer()
+                            TimePickerView(time: $start)
+                        }
+                        HStack {
+                            Text("End:")
+                            Spacer()
+                            TimePickerView(time: $end)
+                        }
+                    }
+
                     Spacer()
                     SelectActivityView(
                         colorIndex: $colorIndex,
@@ -50,9 +71,24 @@ struct AddEditAlarmView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         if alarm != nil {
-                            viewModel.update(model: alarm!, enabled: enabled, colorIndex: colorIndex, activity: activity)
+                            viewModel
+                                .update(
+                                    model: alarm!,
+                                    enabled: enabled,
+                                    colorIndex: colorIndex,
+                                    activity: activity,
+                                    start: start,
+                                    end: end
+                                )
                         } else {
-                            viewModel.add()
+                            viewModel
+                                .add(
+                                    enabled: enabled,
+                                    colorIndex: colorIndex,
+                                    activity: activity,
+                                    start: start,
+                                    end: end
+                                )
                         }
 
                         isPresented = false

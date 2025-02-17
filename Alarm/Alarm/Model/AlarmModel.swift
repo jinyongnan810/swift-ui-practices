@@ -33,34 +33,6 @@ class AlarmModel: Identifiable {
         self.colorIndex = colorIndex
     }
 
-    static func Default() -> AlarmModel {
-        .init(
-            title: "Default Alarm",
-            details: "Have a good day!",
-            repeats: false,
-            sound: .bird_forest,
-            enabled: true,
-            start: Date().addingTimeInterval(60),
-            end: Date().addingTimeInterval(120),
-            activity: activities[0],
-            colorIndex: 0
-        )
-    }
-
-    static func Default2() -> AlarmModel {
-        .init(
-            title: "Default Alarm",
-            details: "Have a good day!",
-            repeats: false,
-            sound: .christmas_bells,
-            enabled: true,
-            start: Date().addingTimeInterval(6000),
-            end: Date().addingTimeInterval(12000),
-            activity: activities[2],
-            colorIndex: 4
-        )
-    }
-
     var title: String
     var details: String
 
