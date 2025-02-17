@@ -40,9 +40,9 @@ struct AlarmView: View {
                     .onDelete(perform: viewModel.delete)
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
-
-                }.listStyle(.plain)
-                    .padding()
+                }
+                .listStyle(.plain)
+                .padding()
             }
             .sheet(
                 isPresented: $presentAddEditScreen,
