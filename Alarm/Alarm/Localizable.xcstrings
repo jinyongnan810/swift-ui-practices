@@ -1,0 +1,49 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@ - %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ - %2$@"
+          }
+        }
+      }
+    },
+    "+" : {
+
+    },
+    "Alarms" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Enable" : {
+
+    },
+    "Enable notifications to hear the alarm!" : {
+
+    },
+    "Enabled" : {
+
+    },
+    "OFF" : {
+
+    },
+    "ON" : {
+
+    },
+    "Save" : {
+
+    },
+    "Your Alarm App" : {
+
+    }
+  },
+  "version" : "1.0"
+}
