@@ -11,7 +11,8 @@ struct SelectActivityView: View {
     @Binding var colorIndex: Int
     @Binding var activity: String
     var body: some View {
-        VStack {
+        VStack(spacing: 10) {
+            Text("Activity").font(.title)
             HStack(spacing: 20) {
                 ForEach(
                     Array(mainColors.enumerated()),

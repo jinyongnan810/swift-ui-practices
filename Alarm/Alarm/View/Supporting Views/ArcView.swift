@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-let width: CGFloat = 200
+let width: CGFloat = 250
 struct ArcView: View {
     @Binding var start: Date
     @Binding var end: Date
@@ -40,11 +40,11 @@ struct ArcView: View {
                 )
                 .overlay {
                     VStack(spacing: 4) {
-                        Text("start").font(.footnote)
+                        Text("start").font(.subheadline)
                         TimePickerView(time: $start)
-                        Text("duration").font(.subheadline)
+                        Text("Duration").font(.title)
                         TimePickerView(time: $end)
-                        Text("end").font(.footnote)
+                        Text("end").font(.subheadline)
                     }
                 }
             Circle()

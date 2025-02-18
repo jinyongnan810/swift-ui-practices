@@ -16,6 +16,7 @@ struct AddEditAlarmView: View {
     @State var activity: String
     @State var start: Date
     @State var end: Date
+    @State var sound: Sounds
 
     init(
         alarm: AlarmModel? = nil,
@@ -29,12 +30,14 @@ struct AddEditAlarmView: View {
             _activity = .init(wrappedValue: alarm.activity)
             _start = .init(wrappedValue: alarm.start)
             _end = .init(wrappedValue: alarm.end)
+            _sound = .init(wrappedValue: alarm.sound)
         } else {
             _enabled = .init(wrappedValue: true)
             _colorIndex = .init(wrappedValue: 0)
             _activity = .init(wrappedValue: activities[0])
             _start = .init(wrappedValue: Date().addingTimeInterval(60))
             _end = .init(wrappedValue: Date().addingTimeInterval(420))
+            _sound = .init(wrappedValue: .bird_forest)
         }
     }
 
@@ -47,8 +50,16 @@ struct AddEditAlarmView: View {
                     Spacer()
 
                     ArcView(start: $start, end: $end)
+                    Spacer()
+
+                    NavigationLink {
+                        SoundListView(selectedSound: $sound)
+                    } label: {
+                        SelectSoundButtonView(sound: $sound)
+                    }
 
                     Spacer()
+
                     SelectActivityView(
                         colorIndex: $colorIndex,
                         activity: $activity
@@ -66,7 +77,8 @@ struct AddEditAlarmView: View {
                                     colorIndex: colorIndex,
                                     activity: activity,
                                     start: start,
-                                    end: end
+                                    end: end,
+                                    sound: sound
                                 )
                         } else {
                             viewModel
@@ -75,7 +87,8 @@ struct AddEditAlarmView: View {
                                     colorIndex: colorIndex,
                                     activity: activity,
                                     start: start,
-                                    end: end
+                                    end: end,
+                                    sound: sound
                                 )
                         }
 
