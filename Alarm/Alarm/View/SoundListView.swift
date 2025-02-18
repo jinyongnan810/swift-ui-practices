@@ -16,6 +16,7 @@ struct SoundListView: View {
                     SoundItemView(sound: sound, isSelected: selectedSound == sound)
                         .onTapGesture {
                             selectedSound = sound
+                            playSound(sound: sound.rawValue)
                         }
                 }
             }
@@ -24,9 +25,13 @@ struct SoundListView: View {
                     SoundItemView(sound: sound, isSelected: selectedSound == sound)
                         .onTapGesture {
                             selectedSound = sound
+                            playSound(sound: sound.rawValue)
                         }
                 }
             }
+        }
+        .onDisappear {
+            stopPlaying()
         }
     }
 }

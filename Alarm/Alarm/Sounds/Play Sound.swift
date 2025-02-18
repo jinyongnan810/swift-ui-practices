@@ -4,8 +4,6 @@ import Foundation
 
 var audioPlayer: AVAudioPlayer? = AVAudioPlayer()
 
-// Play sound with a default value
-// set to 1.0
 func playSound(sound: String, type: String = "", volume: Float = 1.0) {
     if let path = Bundle
         .main
