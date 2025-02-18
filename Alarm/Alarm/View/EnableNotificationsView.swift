@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EnableNotificationsView: View {
+    @Environment(LocalNotificationManager.self) var localNotificationManager
     var body: some View {
         ZStack {
             FourCircleBackgroundView(color1: .myPurple, color2: .clear)
@@ -18,6 +19,9 @@ struct EnableNotificationsView: View {
                     .multilineTextAlignment(.center)
                 Spacer()
                 ButtonView(text: "Enable").padding()
+                    .onTapGesture {
+                        localNotificationManager.openSettings()
+                    }
             }
         }
     }

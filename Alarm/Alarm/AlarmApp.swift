@@ -10,6 +10,7 @@ import SwiftUI
 
 @main
 struct AlarmApp: App {
+    @State private var localNotificationManager: LocalNotificationManager = .init()
     let container: ModelContainer
     init() {
         do {
@@ -23,6 +24,7 @@ struct AlarmApp: App {
         WindowGroup {
             SplashScreenView()
                 .environment(\.font, .customFont)
+                .environment(localNotificationManager)
                 .modelContainer(container)
         }
     }
