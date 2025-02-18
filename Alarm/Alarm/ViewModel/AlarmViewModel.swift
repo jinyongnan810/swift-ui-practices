@@ -32,12 +32,12 @@ class AlarmViewModel {
         }
     }
 
-    func add(enabled: Bool, colorIndex: Int, activity: String, start: Date, end: Date) {
+    func add(enabled: Bool, colorIndex: Int, activity: String, start: Date, end: Date, sound: Sounds) {
         let newAlarm = AlarmModel(
             title: "not-set",
             details: "not-set",
             repeats: false,
-            sound: .bird_forest,
+            sound: sound,
             enabled: enabled,
             start: start,
             end: end,
@@ -48,12 +48,13 @@ class AlarmViewModel {
         save()
     }
 
-    func update(model: AlarmModel, enabled: Bool? = nil, colorIndex: Int? = nil, activity: String? = nil, start: Date? = nil, end: Date? = nil) {
+    func update(model: AlarmModel, enabled: Bool? = nil, colorIndex: Int? = nil, activity: String? = nil, start: Date? = nil, end: Date? = nil, sound: Sounds? = nil) {
         model.enabled = enabled ?? model.enabled
         model.colorIndex = colorIndex ?? model.colorIndex
         model.activity = activity ?? model.activity
         model.start = start ?? model.start
         model.end = end ?? model.end
+        model.sound = sound ?? model.sound
         save()
     }
 
