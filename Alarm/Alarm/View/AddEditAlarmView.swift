@@ -46,19 +46,7 @@ struct AddEditAlarmView: View {
                     EnableView(enabled: $enabled)
                     Spacer()
 
-                    // Fixme
-                    VStack(spacing: 20) {
-                        HStack {
-                            Text("Start:")
-                            Spacer()
-                            TimePickerView(time: $start)
-                        }
-                        HStack {
-                            Text("End:")
-                            Spacer()
-                            TimePickerView(time: $end)
-                        }
-                    }
+                    ArcView(start: $start, end: $end)
 
                     Spacer()
                     SelectActivityView(
