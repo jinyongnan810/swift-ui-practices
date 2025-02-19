@@ -36,8 +36,8 @@ class AlarmViewModel {
 
     func add(enabled: Bool, colorIndex: Int, activity: String, start: Date, end: Date, sound: Sounds) {
         let newAlarm = AlarmModel(
-            title: "not-set",
-            details: "not-set",
+            title: "Alarm",
+            details: "Have a nice day!",
             repeats: false,
             sound: sound,
             enabled: enabled,
@@ -75,6 +75,21 @@ class AlarmViewModel {
                 await notificationManager
                     .removeSchedule(model.id)
             }
+        }
+    }
+
+    func updateEnabled(currentPendingAlarms: [String]) {
+        var hasChange = false
+        for index in 0 ..< alarms.count {
+            if alarms[index].enabled {
+                if !currentPendingAlarms.contains(alarms[index].id) {
+                    alarms[index].enabled = false
+                    hasChange = true
+                }
+            }
+        }
+        if hasChange {
+            save()
         }
     }
 

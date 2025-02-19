@@ -13,6 +13,9 @@ struct AlarmView: View {
     @Environment(LocalNotificationManager.self) var localNotificationManager
 
     @State var viewModel: AlarmViewModel
+    var pendingAlarms: [UNNotificationRequest] {
+        localNotificationManager.pendingAlarms
+    }
 
     init(
         context: ModelContext,
@@ -38,10 +41,20 @@ struct AlarmView: View {
             try? await localNotificationManager.requestAuthorization()
             await localNotificationManager.getPendingAlarms()
         }
+        .onChange(
+            of: pendingAlarms)
+        {
+            _,
+                _ in
+            viewModel
+                .updateEnabled(
+                    currentPendingAlarms: pendingAlarms.map(\.identifier))
+        }
         .onChange(of: scenePhase) { _, newValue in
             if newValue == .active {
                 Task {
                     await localNotificationManager.getCurrentSettings()
+                    await localNotificationManager.getPendingAlarms()
                 }
             }
         }
