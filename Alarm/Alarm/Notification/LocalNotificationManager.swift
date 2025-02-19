@@ -11,13 +11,18 @@ import Observation
 
 @MainActor
 @Observable
-class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
+class LocalNotificationManager: NSObject {
     let center = UNUserNotificationCenter.current()
     var isAuthorized = false
     var pendingAlarms: [UNNotificationRequest] = []
 
+    override init() {
+        super.init()
+        center.delegate = self
+    }
+
     func requestAuthorization() async throws {
-        try await center.requestAuthorization(options: [.alert, .badge, .sound])
+        try await center.requestAuthorization(options: [.sound, .badge, .alert])
         await getCurrentSettings()
     }
 
@@ -42,7 +47,6 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
         content.title = NSLocalizedString(alarm.title, comment: "")
         content.body = NSLocalizedString(alarm.details, comment: "")
         content.sound = customSound(alarm.sound)
-        print("⭐️ sound: \(content.sound)")
 
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: .init(
@@ -69,5 +73,17 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
         let fileName = "\(sound.rawValue)\(ext)"
         print("⭐️ fileName: \(fileName)")
         return UNNotificationSound(named: .init(rawValue: fileName))
+    }
+}
+
+extension LocalNotificationManager: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification) async -> UNNotificationPresentationOptions {
+        print("⭐️ willPresent")
+        await getPendingAlarms()
+        return [.sound, .banner]
+    }
+
+    func userNotificationCenter(_: UNUserNotificationCenter, didReceive _: UNNotificationResponse) async {
+        print("⭐️ didReceive")
     }
 }
