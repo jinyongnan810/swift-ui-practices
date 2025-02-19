@@ -15,9 +15,15 @@ struct AlarmView: View {
     @State var viewModel: AlarmViewModel
 
     init(
-        context: ModelContext
+        context: ModelContext,
+        notificationManager: LocalNotificationManager
     ) {
-        _viewModel = State(initialValue: AlarmViewModel(modelContext: context))
+        _viewModel = State(
+            initialValue: AlarmViewModel(
+                modelContext: context,
+                notificationManager: notificationManager
+            )
+        )
     }
 
     var body: some View {
@@ -30,6 +36,7 @@ struct AlarmView: View {
         }
         .task {
             try? await localNotificationManager.requestAuthorization()
+            await localNotificationManager.getPendingAlarms()
         }
         .onChange(of: scenePhase) { _, newValue in
             if newValue == .active {

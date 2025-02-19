@@ -13,9 +13,11 @@ import SwiftData
 class AlarmViewModel {
     var alarms: [AlarmModel] = []
     var modelContext: ModelContext
+    var notificationManager: LocalNotificationManager
 
-    init(modelContext: ModelContext) {
+    init(modelContext: ModelContext, notificationManager: LocalNotificationManager) {
         self.modelContext = modelContext
+        self.notificationManager = notificationManager
         fetch()
     }
 
@@ -46,6 +48,12 @@ class AlarmViewModel {
         )
         modelContext.insert(newAlarm)
         save()
+
+        if newAlarm.enabled {
+            Task {
+                await notificationManager.schedule(newAlarm)
+            }
+        }
     }
 
     func update(model: AlarmModel, enabled: Bool? = nil, colorIndex: Int? = nil, activity: String? = nil, start: Date? = nil, end: Date? = nil, sound: Sounds? = nil) {
@@ -56,10 +64,28 @@ class AlarmViewModel {
         model.end = end ?? model.end
         model.sound = sound ?? model.sound
         save()
+        if model.enabled {
+            Task {
+                await notificationManager
+                    .removeSchedule(model.id)
+                await notificationManager.schedule(model)
+            }
+        } else {
+            Task {
+                await notificationManager
+                    .removeSchedule(model.id)
+            }
+        }
     }
 
     func delete(indexSet: IndexSet) {
         for index in indexSet {
+            if alarms[index].enabled {
+                Task {
+                    await notificationManager
+                        .removeSchedule(alarms[index].id)
+                }
+            }
             modelContext.delete(alarms[index])
         }
         save()
