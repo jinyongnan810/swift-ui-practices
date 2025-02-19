@@ -37,5 +37,8 @@ struct AlarmItemView: View {
         .onChange(of: enabled) { _, newValue in
             viewModel.update(model: alarm, enabled: newValue)
         }
+        .onChange(of: alarm.enabled) { _, newValue in
+            enabled = newValue
+        }
     }
 }

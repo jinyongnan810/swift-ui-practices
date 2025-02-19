@@ -10,9 +10,13 @@ import SwiftUI
 struct SplashScreenView: View {
     @State private var active: Bool = false
     @Environment(\.modelContext) private var context
+    @Environment(LocalNotificationManager.self) private var localNotificationManager
     var body: some View {
         if active {
-            AlarmView(context: context)
+            AlarmView(
+                context: context,
+                notificationManager: localNotificationManager
+            )
         } else {
             SplashView(active: $active)
         }

@@ -40,11 +40,14 @@ struct ArcView: View {
                 )
                 .overlay {
                     VStack(spacing: 4) {
-                        Text("start").font(.subheadline)
+                        Text("start")
+                            .font(.subheadline)
+                            .foregroundStyle(.gray)
                         TimePickerView(time: $start)
                         Text("Duration").font(.title)
                         TimePickerView(time: $end)
                         Text("end").font(.subheadline)
+                            .foregroundStyle(.gray)
                     }
                 }
             Circle()

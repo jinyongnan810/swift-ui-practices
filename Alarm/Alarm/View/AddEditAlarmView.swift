@@ -37,7 +37,7 @@ struct AddEditAlarmView: View {
             _activity = .init(wrappedValue: activities[0])
             _start = .init(wrappedValue: Date().addingTimeInterval(60))
             _end = .init(wrappedValue: Date().addingTimeInterval(420))
-            _sound = .init(wrappedValue: .bird_forest)
+            _sound = .init(wrappedValue: .lagrima)
         }
     }
 

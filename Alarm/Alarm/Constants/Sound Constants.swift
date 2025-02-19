@@ -1,6 +1,7 @@
 
 import Foundation
 
+// the mp3's are not playable in notification. maybe need to replace with aiff.
 enum Sounds: String, CaseIterable, Codable {
     // Ringtone Sounds
     case wake_up = "Sound Wake up.aiff"

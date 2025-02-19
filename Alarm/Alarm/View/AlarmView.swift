@@ -9,19 +9,67 @@ import SwiftData
 import SwiftUI
 
 struct AlarmView: View {
+    @Environment(\.scenePhase) var scenePhase
+    @Environment(LocalNotificationManager.self) var localNotificationManager
+
     @State var viewModel: AlarmViewModel
+    var pendingAlarms: [UNNotificationRequest] {
+        localNotificationManager.pendingAlarms
+    }
+
+    init(
+        context: ModelContext,
+        notificationManager: LocalNotificationManager
+    ) {
+        _viewModel = State(
+            initialValue: AlarmViewModel(
+                modelContext: context,
+                notificationManager: notificationManager
+            )
+        )
+    }
+
+    var body: some View {
+        ZStack {
+            if !localNotificationManager.isAuthorized {
+                EnableNotificationsView()
+            } else {
+                MainAlarmView().environment(viewModel)
+            }
+        }
+        .task {
+            try? await localNotificationManager.requestAuthorization()
+            await localNotificationManager.getPendingAlarms()
+        }
+        .onChange(
+            of: pendingAlarms)
+        {
+            _,
+                _ in
+            viewModel
+                .updateEnabled(
+                    currentPendingAlarms: pendingAlarms.map(\.identifier))
+        }
+        .onChange(of: scenePhase) { _, newValue in
+            if newValue == .active {
+                Task {
+                    await localNotificationManager.getCurrentSettings()
+                    await localNotificationManager.getPendingAlarms()
+                }
+            }
+        }
+    }
+}
+
+struct MainAlarmView: View {
+    @Environment(AlarmViewModel.self) var viewModel
     var alarms: [AlarmModel] {
         viewModel.alarms
     }
 
-    init(
-        context: ModelContext
-    ) {
-        _viewModel = State(initialValue: AlarmViewModel(modelContext: context))
-    }
-
     @State private var presentAddEditScreen: Bool = false
     @State private var selectedAlarmIndex: Int? = nil
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -58,9 +106,9 @@ struct AlarmView: View {
             )
             // don't know why, but without this, sometimes AddEditAlarmView gets nil for alarm first time after app launch
             .onChange(of: selectedAlarmIndex) { _, _ in
-//                print("⭐️ selectedAlarmIndex changed from \(oldValue ?? -1) to \(newValue ?? -1)")
+                //                print("⭐️ selectedAlarmIndex changed from \(oldValue ?? -1) to \(newValue ?? -1)")
             }
-//            .navigationTitle("Alarms")
+            //            .navigationTitle("Alarms")
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Alarms")
@@ -78,6 +126,6 @@ struct AlarmView: View {
                     EditButton()
                 }
             }
-        }.environment(viewModel)
+        }
     }
 }
