@@ -218,7 +218,7 @@ extension Font {
     }
 
     public static func system(size: CGFloat, weight: Font.Weight = .regular, design _: Font.Design = .default) -> Font {
-        var font: String = switch weight {
+        let font: String = switch weight {
         case .bold:
             boldFontName
         case .regular:

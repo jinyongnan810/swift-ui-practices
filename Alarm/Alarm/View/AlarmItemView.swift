@@ -19,21 +19,21 @@ struct AlarmItemView: View {
 
     var body: some View {
         HStack {
-            Image(systemName: alarm.activity)
-                .imageScale(.large)
-                .foregroundStyle(mainColors[alarm.colorIndex])
-            Spacer()
-            Text(
-                "\(alarm.start.shortDateString()) - \(alarm.end.shortDateString())"
-            ).font(.title)
-                .foregroundStyle(.myBlue)
-                .opacity(alarm.enabled ? 1 : 0.5)
+            Button(action: {}) {
+                HStack(spacing: 20) {
+                    Image(systemName: alarm.activity)
+                        .imageScale(.large)
+                        .foregroundStyle(mainColors[alarm.colorIndex])
+                    Text(
+                        "\(alarm.start.shortDateString()) - \(alarm.end.shortDateString())"
+                    ).font(.title)
+                        .foregroundStyle(.myBlue)
+                        .opacity(alarm.enabled ? 1 : 0.5)
+                }
+            }
             Spacer()
             ToggleView(enabled: $enabled)
         }
-        .padding()
-        .background(RoundedRectangle(cornerRadius: 12).fill(.white.opacity(0.8)))
-        .clipShape(.rect(cornerRadius: 12))
         .onChange(of: enabled) { _, newValue in
             viewModel.update(model: alarm, enabled: newValue)
         }

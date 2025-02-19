@@ -73,7 +73,6 @@ struct MainAlarmView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                FourCircleBackgroundView(color1: .myYellow, color2: .clear)
                 List {
                     ForEach(
                         Array(alarms.enumerated()),
@@ -83,14 +82,13 @@ struct MainAlarmView: View {
                             .onTapGesture {
                                 selectedAlarmIndex = index
                                 presentAddEditScreen = true
-                            }
+                            }.padding(.vertical)
                     }
                     .onDelete(perform: viewModel.delete)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
                 }
-                .listStyle(.plain)
-                .padding()
+                FourCircleBackgroundView(color1: .myYellow, color2: .clear)
+                    .opacity(0.6)
+                    .allowsHitTesting(false)
             }
             .sheet(
                 isPresented: $presentAddEditScreen,
