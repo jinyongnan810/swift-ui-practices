@@ -50,11 +50,17 @@ struct AlarmView: View {
                 .updateEnabled(
                     currentPendingAlarms: pendingAlarms.map(\.identifier))
         }
-        .onChange(of: scenePhase) { _, newValue in
+        .onChange(of: scenePhase) {
+            _,
+                newValue in
             if newValue == .active {
                 Task {
                     await localNotificationManager.getCurrentSettings()
                     await localNotificationManager.getPendingAlarms()
+                    viewModel
+                        .updateEnabled(
+                            currentPendingAlarms: localNotificationManager
+                                .pendingAlarms.map(\.identifier))
                 }
             }
         }
