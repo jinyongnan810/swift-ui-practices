@@ -18,28 +18,84 @@
 
     },
     "Activity" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "かつどう"
+          }
+        }
+      }
     },
     "Alarms" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あらーむ"
+          }
+        }
+      }
     },
     "Cancel" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "きゃんせる"
+          }
+        }
+      }
     },
     "Duration" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "きかん"
+          }
+        }
+      }
     },
     "Enable" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ゆうこう"
+          }
+        }
+      }
     },
     "Enable notifications to hear the alarm!" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "けんげんをふよしてください！"
+          }
+        }
+      }
     },
     "Enabled" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ゆうこう"
+          }
+        }
+      }
     },
     "end" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "しゅうりょう"
+          }
+        }
+      }
     },
     "Nature Tone" : {
 
@@ -54,16 +110,44 @@
 
     },
     "Save" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "せーゔ"
+          }
+        }
+      }
     },
     "Sound" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "おと"
+          }
+        }
+      }
     },
     "start" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すたーと"
+          }
+        }
+      }
     },
     "Your Alarm App" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あなたのあらーむあぷり"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
