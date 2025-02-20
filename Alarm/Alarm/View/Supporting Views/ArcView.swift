@@ -31,16 +31,6 @@ struct ArcView: View {
         Angle(degrees: 360 * startPercent - 90)
     }
 
-    var iconDragGesture: some Gesture {
-        DragGesture()
-            .onChanged { value in
-                let location = value.location
-                let degree = posToDegree(location)
-                let time = degreeToTime(degree).fullDateString()
-//                print("⭐️ \(location), \(degree), \(time)")
-            }
-    }
-
     var body: some View {
         ZStack {
             Circle()

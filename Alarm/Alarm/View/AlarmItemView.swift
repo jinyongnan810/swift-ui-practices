@@ -11,12 +11,6 @@ struct AlarmItemView: View {
     @Environment(AlarmViewModel.self) var viewModel
     let alarm: AlarmModel
     @State var enabled: Bool
-
-    init(alarm: AlarmModel) {
-        self.alarm = alarm
-        _enabled = .init(wrappedValue: alarm.enabled)
-    }
-
     var body: some View {
         HStack {
             Button(action: {}) {
