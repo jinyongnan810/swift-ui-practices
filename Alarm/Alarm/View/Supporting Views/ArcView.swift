@@ -58,8 +58,24 @@ struct ArcView: View {
                 .trim(from: 0, to: diff)
                 .stroke(.white, style: .init(lineWidth: 15, dash: [1, 2]))
                 .rotationEffect(rotation)
-            LineCapIcon(time: start)
-            LineCapIcon(time: end)
+            LineCapIcon(time: start).gesture(
+                DragGesture()
+                    .onChanged { value in
+                        let location = value.location
+                        let degree = posToDegree(location)
+                        let time = degreeToTime(degree)
+                        start = time
+                    }
+            )
+            LineCapIcon(time: end).gesture(
+                DragGesture()
+                    .onChanged { value in
+                        let location = value.location
+                        let degree = posToDegree(location)
+                        let time = degreeToTime(degree)
+                        end = time
+                    }
+            )
 
         }.frame(width: width)
     }

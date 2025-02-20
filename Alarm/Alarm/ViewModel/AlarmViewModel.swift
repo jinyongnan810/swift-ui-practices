@@ -66,8 +66,6 @@ class AlarmViewModel {
         save()
         if model.enabled {
             Task {
-                await notificationManager
-                    .removeSchedule(model.id)
                 await notificationManager.schedule(model)
             }
         } else {

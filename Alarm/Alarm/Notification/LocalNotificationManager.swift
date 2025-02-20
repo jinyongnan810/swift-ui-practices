@@ -37,12 +37,13 @@ class LocalNotificationManager: NSObject {
         }
     }
 
-    func getPendingAlarms() async {
+    func updatePendingAlarms() async {
         pendingAlarms = await center.pendingNotificationRequests()
         print("⭐️ pendingAlarms: \(pendingAlarms.count)")
     }
 
     func schedule(_ alarm: AlarmModel) async {
+        center.removePendingNotificationRequests(withIdentifiers: [alarm.id])
         let content = UNMutableNotificationContent()
         content.title = NSLocalizedString(alarm.title, comment: "")
         content.body = NSLocalizedString(alarm.details, comment: "")
@@ -58,13 +59,13 @@ class LocalNotificationManager: NSObject {
 
         let request = UNNotificationRequest(identifier: alarm.id, content: content, trigger: trigger)
         try? await center.add(request)
-        await getPendingAlarms()
+        await updatePendingAlarms()
     }
 
     func removeSchedule(_ id: String) {
         center.removePendingNotificationRequests(withIdentifiers: [id])
         Task {
-            await getPendingAlarms()
+            await updatePendingAlarms()
         }
     }
 
@@ -79,7 +80,7 @@ class LocalNotificationManager: NSObject {
 extension LocalNotificationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification) async -> UNNotificationPresentationOptions {
         print("⭐️ willPresent")
-        await getPendingAlarms()
+        await updatePendingAlarms()
         return [.sound, .banner]
     }
 

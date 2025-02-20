@@ -39,7 +39,7 @@ struct AlarmView: View {
         }
         .task {
             try? await localNotificationManager.requestAuthorization()
-            await localNotificationManager.getPendingAlarms()
+            await localNotificationManager.updatePendingAlarms()
         }
         .onChange(
             of: pendingAlarms)
@@ -56,7 +56,7 @@ struct AlarmView: View {
             if newValue == .active {
                 Task {
                     await localNotificationManager.getCurrentSettings()
-                    await localNotificationManager.getPendingAlarms()
+                    await localNotificationManager.updatePendingAlarms()
                     viewModel
                         .updateEnabled(
                             currentPendingAlarms: localNotificationManager
@@ -84,7 +84,7 @@ struct MainAlarmView: View {
                         Array(alarms.enumerated()),
                         id: \.element.id
                     ) { index, alarm in
-                        AlarmItemView(alarm: alarm)
+                        AlarmItemView(alarm: alarm, enabled: alarm.enabled)
                             .onTapGesture {
                                 selectedAlarmIndex = index
                                 presentAddEditScreen = true
