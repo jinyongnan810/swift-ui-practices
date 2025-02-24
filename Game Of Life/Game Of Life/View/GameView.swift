@@ -23,13 +23,13 @@ struct GameView: View {
                 Spacer()
                 BoardView(board: $board, designType: $designType, swapXY: $swapXY)
                 Spacer()
-                ControlView()
+                ControlView(type: $designType)
             }
             .padding()
         }.onAppear {
             timer?.invalidate()
             timer = Timer
-                .scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { _ in
+                .scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { _ in
                     withAnimation {
                         board.nextGeneration()
                     }

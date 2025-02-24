@@ -44,7 +44,9 @@ struct BoardModel {
     }
 
     mutating func updateCreature(x: Int, y: Int, state: Int) {
-        creatures[x][y] = state
+        let safeX = (x + gridSize) % gridSize
+        let safeY = (y + gridSize) % gridSize
+        creatures[safeX][safeY] = state
     }
 
     mutating func applyDesignPattern(row: Int, col: Int, type: DesignType, swapXY: Bool) {
