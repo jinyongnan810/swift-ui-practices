@@ -17,10 +17,8 @@ struct BoardModel {
     }
 
     mutating func randomBoard() {
-        creatures = []
-        for _ in 0 ..< gridSize {
-            creatures
-                .append(Array(repeating: Int.random(in: 0 ... 1), count: gridSize))
+        creatures = (0 ..< gridSize).map { _ in
+            (0 ..< gridSize).map { _ in Int.random(in: 0 ... 1) }
         }
     }
 
@@ -42,5 +40,13 @@ struct BoardModel {
 
     mutating func updateCreature(x: Int, y: Int, state: Int) {
         creatures[x][y] = state
+    }
+
+    mutating func applyDesignPattern(row: Int, col: Int, type: DesignType, swapXY: Bool) {
+        for design in type.offsetDesign {
+            let dx = swapXY ? design.x : design.y
+            let dy = swapXY ? design.y : design.x
+            updateCreature(x: row + dx, y: col + dy, state: 1)
+        }
     }
 }

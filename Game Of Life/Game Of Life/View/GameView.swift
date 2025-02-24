@@ -10,18 +10,16 @@
 import SwiftUI
 
 struct GameView: View {
-    @State private var board: BoardModel = .init(gridSize: 25)
+    @State private var board: BoardModel = .init(gridSize: 50)
+    @State var designType: DesignType = .block
+    @State var swapXY: Bool = false
     var body: some View {
         ZStack {
             BackgroundView()
             VStack {
                 TitleView()
                 Spacer()
-                BoardView(
-                    creatures: $board.creatures,
-                    gridSize: board.gridSize,
-                    color: .blue
-                )
+                BoardView(board: $board, designType: $designType, swapXY: $swapXY)
                 Spacer()
                 ControlView()
             }
