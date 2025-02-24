@@ -7,6 +7,11 @@
 
 import Foundation
 
+let directions: [(x: Int, y: Int)] = [
+    (-1, -1), (0, -1), (1, -1),
+    (-1, 0), (1, 0),
+    (-1, 1), (0, 1), (1, 1),
+]
 struct BoardModel {
     var gridSize: Int
     var creatures: [[Int]] = []
@@ -26,15 +31,15 @@ struct BoardModel {
         creatures = Array(repeating: Array(repeating: 0, count: gridSize), count: gridSize)
     }
 
-    func countLiveNeighbors(x: Int, y: Int) -> Int {
+    func countLiveNeighbors(row: Int, col: Int) -> Int {
         var count = 0
-        for i in x - 1 ... x + 1 {
-            for j in y - 1 ... y + 1 {
-                if i >= 0, i < gridSize, j >= 0, j < gridSize, i != x, j != y {
-                    count += creatures[i][j]
-                }
-            }
+
+        for direction in directions {
+            let newRow = (row + direction.x + gridSize) % gridSize
+            let newCol = (col + direction.y + gridSize) % gridSize
+            count += creatures[newRow][newCol]
         }
+
         return count
     }
 
@@ -48,5 +53,27 @@ struct BoardModel {
             let dy = swapXY ? design.y : design.x
             updateCreature(x: row + dx, y: col + dy, state: 1)
         }
+    }
+
+    mutating func nextGeneration() {
+        var newCreatures = creatures
+        for row in 0 ..< gridSize {
+            for col in 0 ..< gridSize {
+                let liveNeighbors = countLiveNeighbors(row: row, col: col)
+
+                if creatures[row][col] == 1 { // current living
+                    // dies from lonelyness or overcrowded
+                    if liveNeighbors < 2 || liveNeighbors > 3 {
+                        newCreatures[row][col] = 0
+                    }
+                } else { // current not living
+                    // new born
+                    if liveNeighbors == 3 {
+                        newCreatures[row][col] = 1
+                    }
+                }
+            }
+        }
+        creatures = newCreatures
     }
 }

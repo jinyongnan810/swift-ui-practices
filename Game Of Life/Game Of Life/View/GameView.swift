@@ -13,6 +13,8 @@ struct GameView: View {
     @State private var board: BoardModel = .init(gridSize: 50)
     @State var designType: DesignType = .block
     @State var swapXY: Bool = false
+    @State private var timer: Timer?
+
     var body: some View {
         ZStack {
             BackgroundView()
@@ -24,6 +26,14 @@ struct GameView: View {
                 ControlView()
             }
             .padding()
+        }.onAppear {
+            timer?.invalidate()
+            timer = Timer
+                .scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { _ in
+                    withAnimation {
+                        board.nextGeneration()
+                    }
+                })
         }
     }
 }
