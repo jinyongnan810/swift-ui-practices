@@ -14,7 +14,10 @@ struct AlarmApp: App {
     let container: ModelContainer
     init() {
         do {
-            container = try ModelContainer(for: AlarmModel.self)
+            container = try ModelContainer(
+                for: AlarmModel.self,
+                migrationPlan: AlarmModelMigrationPlan.self
+            )
         } catch {
             fatalError("Unable to create ModelContainer: \(error)")
         }

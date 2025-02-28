@@ -29,6 +29,9 @@ class AlarmViewModel {
             )
             alarms = try modelContext.fetch(descriptor)
             print("⭐️ Fetched: \(alarms)")
+            for alarm in alarms {
+                print("⭐️ hope: \(alarm.hope)")
+            }
         } catch {
             print("⭐️ Fetching failed: \(error)")
         }
@@ -45,6 +48,7 @@ class AlarmViewModel {
             end: end,
             activity: activity,
             colorIndex: colorIndex
+            ,hope: "Hello World"
         )
         modelContext.insert(newAlarm)
         save()
