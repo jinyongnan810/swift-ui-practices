@@ -27,7 +27,7 @@ struct AddEditAlarmView: View {
         if let alarm {
             _enabled = .init(wrappedValue: alarm.enabled)
             _colorIndex = .init(wrappedValue: alarm.colorIndex)
-            _activity = .init(wrappedValue: alarm.activity)
+            _activity = .init(wrappedValue: alarm.activityName)
             _start = .init(wrappedValue: alarm.start)
             _end = .init(wrappedValue: alarm.end)
             _sound = .init(wrappedValue: alarm.sound)

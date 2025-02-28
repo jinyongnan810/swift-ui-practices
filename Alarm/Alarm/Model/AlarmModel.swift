@@ -29,7 +29,7 @@ class AlarmModel: Identifiable {
         self.enabled = enabled
         self.start = start
         self.end = end
-        self.activity = activity
+        self.activityName = activity
         self.colorIndex = colorIndex
     }
 
@@ -54,7 +54,7 @@ class AlarmModel: Identifiable {
         end.toTimeModel()
     }
 
-    var activity: String
+    @Attribute(originalName: "activity") var activityName: String
     var colorIndex: Int
     var activityColor: Color {
         mainColors[colorIndex]

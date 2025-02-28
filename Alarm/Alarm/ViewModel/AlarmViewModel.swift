@@ -59,7 +59,7 @@ class AlarmViewModel {
     func update(model: AlarmModel, enabled: Bool? = nil, colorIndex: Int? = nil, activity: String? = nil, start: Date? = nil, end: Date? = nil, sound: Sounds? = nil) {
         model.enabled = enabled ?? model.enabled
         model.colorIndex = colorIndex ?? model.colorIndex
-        model.activity = activity ?? model.activity
+        model.activityName = activity ?? model.activityName
         model.start = start ?? model.start
         model.end = end ?? model.end
         model.sound = sound ?? model.sound

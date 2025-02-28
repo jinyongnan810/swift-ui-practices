@@ -15,7 +15,7 @@ struct AlarmItemView: View {
         HStack {
             Button(action: {}) {
                 HStack(spacing: 20) {
-                    Image(systemName: alarm.activity)
+                    Image(systemName: alarm.activityName)
                         .imageScale(.large)
                         .foregroundStyle(mainColors[alarm.colorIndex])
                     Text(
