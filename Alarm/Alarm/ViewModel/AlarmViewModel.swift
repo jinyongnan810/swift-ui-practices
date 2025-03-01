@@ -47,8 +47,8 @@ class AlarmViewModel {
             start: start,
             end: end,
             activity: activity,
-            colorIndex: colorIndex
-            ,hope: "Hello World"
+            colorIndex: colorIndex,
+            hope: "Hello World"
         )
         modelContext.insert(newAlarm)
         save()

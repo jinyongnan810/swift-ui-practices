@@ -38,7 +38,7 @@ enum AlarmModelSchema1: VersionedSchema {
             self.enabled = enabled
             self.start = start
             self.end = end
-            self.activityName = activity
+            activityName = activity
             self.colorIndex = colorIndex
         }
 
@@ -100,7 +100,7 @@ enum AlarmModelSchema2: VersionedSchema {
             self.enabled = enabled
             self.start = start
             self.end = end
-            self.activityName = activity
+            activityName = activity
             self.colorIndex = colorIndex
             self.hope = hope
         }
@@ -181,7 +181,8 @@ enum AlarmModelMigrationPlan: SchemaMigrationPlan {
             } catch {
                 print("⭐️ migration error: \(error)")
             }
-
+        },
+        didMigrate: { context in
             let newAlarms = try! context.fetch(
                 FetchDescriptor<AlarmModel>()
             )
@@ -189,8 +190,6 @@ enum AlarmModelMigrationPlan: SchemaMigrationPlan {
             for newAlarm in newAlarms {
                 print("⭐️ new alarm: \(newAlarm), \(newAlarm.hope)")
             }
-
-        },
-        didMigrate: nil
+        }
     )
 }
