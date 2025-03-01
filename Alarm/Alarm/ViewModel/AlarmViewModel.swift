@@ -29,6 +29,9 @@ class AlarmViewModel {
             )
             alarms = try modelContext.fetch(descriptor)
             print("⭐️ Fetched: \(alarms)")
+            for alarm in alarms {
+                print("⭐️ hope: \(alarm.hope)")
+            }
         } catch {
             print("⭐️ Fetching failed: \(error)")
         }
@@ -44,7 +47,8 @@ class AlarmViewModel {
             start: start,
             end: end,
             activity: activity,
-            colorIndex: colorIndex
+            colorIndex: colorIndex,
+            hope: "Hello World"
         )
         modelContext.insert(newAlarm)
         save()
@@ -59,7 +63,7 @@ class AlarmViewModel {
     func update(model: AlarmModel, enabled: Bool? = nil, colorIndex: Int? = nil, activity: String? = nil, start: Date? = nil, end: Date? = nil, sound: Sounds? = nil) {
         model.enabled = enabled ?? model.enabled
         model.colorIndex = colorIndex ?? model.colorIndex
-        model.activity = activity ?? model.activity
+        model.activityName = activity ?? model.activityName
         model.start = start ?? model.start
         model.end = end ?? model.end
         model.sound = sound ?? model.sound
