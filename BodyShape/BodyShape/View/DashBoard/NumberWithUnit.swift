@@ -9,10 +9,11 @@ import SwiftUI
 
 struct NumberWithUnit<Content: View>: View {
     let content: Content
-    let unit: String = "lb"
+    let unit: String
 
-    init(@ViewBuilder content: () -> Content) {
+    init(@ViewBuilder content: () -> Content, unit: String = "lb") {
         self.content = content()
+        self.unit = unit
     }
 
     var body: some View {
