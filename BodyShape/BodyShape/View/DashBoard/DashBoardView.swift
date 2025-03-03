@@ -14,6 +14,8 @@ struct DashBoardView: View {
                 TopRightIcon()
                 Spacer()
                 WelcomeView()
+                    .padding(.vertical)
+                WeightView()
             }
         }.padding()
     }
