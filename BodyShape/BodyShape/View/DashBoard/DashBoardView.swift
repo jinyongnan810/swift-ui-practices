@@ -16,6 +16,8 @@ struct DashBoardView: View {
                 WelcomeView()
                     .padding(.vertical)
                 WeightView()
+                    .padding(.vertical)
+                DataSummariesView()
             }
         }.padding()
     }
