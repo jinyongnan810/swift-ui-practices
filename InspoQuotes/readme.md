@@ -9,3 +9,5 @@
 1. In App Store Connect, go to Users and Access
 2. In Sandbox tab, add sandbox user(dummy email is ok)
 3. Go to Settings->App Store, Signout current account, and login with sandbox account(ignore 2-factore auth)
+
+![InspoQuotes](https://github.com/user-attachments/assets/2ae4a6ee-803e-4779-a18f-267869e531c2)

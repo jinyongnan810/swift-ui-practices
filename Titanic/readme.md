@@ -1,3 +1,7 @@
+## App
+
+![Titanic](https://github.com/user-attachments/assets/275252e6-ed76-422d-b83a-8194e5ae0f32)
+
 ## Model Training with CreateML Steps
 
 ![Screenshot 2025-02-12 at 9 02 59](https://github.com/user-attachments/assets/2da6e148-16f5-4a7e-96f8-414891e3946a)

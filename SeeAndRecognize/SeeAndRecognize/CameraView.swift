@@ -39,8 +39,8 @@ struct CameraView: UIViewControllerRepresentable {
     func makeUIViewController(context: UIViewControllerRepresentableContext<CameraView>) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
-//        picker.sourceType = .camera
-        picker.sourceType = .photoLibrary
+        picker.sourceType = .camera
+//        picker.sourceType = .photoLibrary
         return picker
     }
 
