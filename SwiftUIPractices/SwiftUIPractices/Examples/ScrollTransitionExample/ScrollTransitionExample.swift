@@ -7,10 +7,24 @@
 
 import SwiftUI
 
+struct ScrollOffsetPreferenceKey: PreferenceKey {
+    typealias Value = CGFloat
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+}
+
 struct ScrollTransitionExample: View {
+    @State private var scrollOffset: CGFloat = 0
     var body: some View {
         ScrollView(.horizontal) {
             HStack {
+                GeometryReader { geometry in
+                    Color.clear
+                        .preference(key: ScrollOffsetPreferenceKey.self, value: geometry.frame(in: .named("scrollView")).minX)
+                }
+                .frame(height: 0)
                 ForEach(images, id: \.self) { image in
                     MyImageView(name: image)
                         .containerRelativeFrame(.horizontal)
@@ -34,6 +48,11 @@ struct ScrollTransitionExample: View {
                         .clipShape(.rect(cornerRadius: 30))
                 }
             }
+        }
+        .coordinateSpace(name: "scrollView")
+        .onPreferenceChange(ScrollOffsetPreferenceKey.self) { newValue in
+            scrollOffset = newValue
+            print("⭐️ scrollOffset: \(scrollOffset)")
         }
     }
 }
