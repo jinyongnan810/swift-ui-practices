@@ -41,6 +41,10 @@ struct ContentView: View {
                             destination: AnimationExample()
                         )
                         NavigationLink(
+                            "Shape",
+                            destination: ShapeExample()
+                        )
+                        NavigationLink(
                             "Gestures",
                             destination: GesturesExample()
                         )
