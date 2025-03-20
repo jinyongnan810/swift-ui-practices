@@ -57,6 +57,10 @@ struct ContentView: View {
                 Tab("User Interface Practices", systemImage: "person") {
                     List {
                         NavigationLink(
+                            "Flipping Card",
+                            destination: FlipCardPractice()
+                        )
+                        NavigationLink(
                             "Sheet with specified height",
                             destination: SheetWithHeightPractice()
                         )
