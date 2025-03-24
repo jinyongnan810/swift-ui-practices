@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var frameHandler = FrameHandler()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        FrameView(image: frameHandler.frame)
+            .ignoresSafeArea()
+            .onChange(of: frameHandler.permissionGranted) { oldValue, newValue in
+                if !oldValue, newValue {
+                    frameHandler.startCapturing()
+                }
+            }
+            .task {
+                if frameHandler.permissionGranted {
+                    frameHandler.startCapturing()
+                }
+            }
     }
 }
 
