@@ -26,7 +26,9 @@ class FrameHandler: NSObject {
     override init() {
         super.init()
         checkPermission()
-        backgroundImage = UIImage(named: "tree")?.cgImage
+        if let originalImage = UIImage(named: "tree")?.cgImage {
+            backgroundImage = resizeImage(originalImage, width: 480, height: 640)
+        }
     }
 
     func checkPermission() {
@@ -77,6 +79,16 @@ class FrameHandler: NSObject {
         videoOutput.setSampleBufferDelegate(self, queue: sessionQueue)
         captureSession.addOutput(videoOutput)
         videoOutput.connection(with: .video)?.videoRotationAngle = 90
+    }
+
+    func resizeImage(_ image: CGImage, width: Int, height: Int) -> CGImage? {
+        let ciImage = CIImage(cgImage: image)
+        let scaleX = CGFloat(width) / ciImage.extent.width
+        let scaleY = CGFloat(height) / ciImage.extent.height
+        let transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+        let resizedImage = ciImage.transformed(by: transform)
+
+        return context.createCGImage(resizedImage, from: CGRect(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height)))
     }
 }
 
