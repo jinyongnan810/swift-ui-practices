@@ -12,10 +12,15 @@ import Observation
 import SwiftUI
 import Vision
 
+enum Mode: String, CaseIterable {
+    case color, image, blur, none
+}
+
 @Observable
 class FrameHandler: NSObject {
     var frame: CGImage?
     var backgroundImage: CGImage?
+    var mode: Mode = .image
 
     var permissionGranted: Bool = false
 
@@ -107,18 +112,15 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
     func bufferToCGImage(_ buffer: CMSampleBuffer) -> CGImage? {
         guard let imageBuffer = CMSampleBufferGetImageBuffer(buffer) else { return nil }
         let ciImage = CIImage(cvImageBuffer: imageBuffer)
-        if backgroundImage != nil {
-            return applyBackground(original: ciImage)
-        } else {
-            guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
-            return cgImage
-        }
+        return applyBackground(original: ciImage)
     }
 
     func applyBackground(original: CIImage) -> CGImage? {
-        guard let backgroundImage else {
-            return nil
+        if mode == .none {
+            guard let cgImage = context.createCGImage(original, from: original.extent) else { return nil }
+            return cgImage
         }
+
         let requestHandler = VNImageRequestHandler(ciImage: original)
         let request = VNGeneratePersonSegmentationRequest()
         do {
@@ -133,14 +135,28 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
 
                 let blendFilter = CIFilter.blendWithMask()
                 blendFilter.inputImage = original
-//                blendFilter.backgroundImage = CIImage(
-//                    color: CIColor(color: .cyan)
-//                )
-//                .cropped(
-//                    to: original.extent
-//                )
-//                blendFilter.backgroundImage = CIImage(cgImage: backgroundImage)
-                blendFilter.backgroundImage = blurImage(original)
+                switch mode {
+                case .blur:
+                    blendFilter.backgroundImage = blurImage(original)
+                case .image:
+                    guard let backgroundImage else { return nil }
+                    blendFilter.backgroundImage = CIImage(cgImage: backgroundImage)
+                case .color:
+                    blendFilter.backgroundImage = CIImage(
+                        color: CIColor(color: .cyan)
+                    )
+                    .cropped(
+                        to: original.extent
+                    )
+                default:
+                    blendFilter.backgroundImage = CIImage(
+                        color: CIColor(color: .cyan)
+                    )
+                    .cropped(
+                        to: original.extent
+                    )
+                }
+
                 blendFilter.maskImage = maskImage
                 let outputImage = blendFilter.outputImage
                 return context.createCGImage(outputImage!, from: outputImage!.extent)!
