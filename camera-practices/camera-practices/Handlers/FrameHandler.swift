@@ -139,7 +139,8 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
 //                .cropped(
 //                    to: original.extent
 //                )
-                blendFilter.backgroundImage = CIImage(cgImage: backgroundImage)
+//                blendFilter.backgroundImage = CIImage(cgImage: backgroundImage)
+                blendFilter.backgroundImage = blurImage(original)
                 blendFilter.maskImage = maskImage
                 let outputImage = blendFilter.outputImage
                 return context.createCGImage(outputImage!, from: outputImage!.extent)!
@@ -148,5 +149,12 @@ extension FrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             print("⭐️ failed to generate mask: \(error)")
         }
         return nil
+    }
+
+    func blurImage(_ image: CIImage) -> CIImage {
+        image
+            .clampedToExtent()
+            .applyingFilter("CIGaussianBlur", parameters: ["inputRadius": 10])
+            .cropped(to: image.extent)
     }
 }
