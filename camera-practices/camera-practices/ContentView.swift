@@ -28,7 +28,7 @@ struct ContentView: View {
                     withAnimation {
                         showControls.toggle()
                     }
-                }
+                }.rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
             Controls(frameHandler: $frameHandler)
                 .opacity(showControls ? 1 : 0)
         }
