@@ -26,7 +26,7 @@ struct ToastPractice: View {
 
 extension View {
     func toast(text: String, isShowing: Binding<Bool>) -> some View {
-        modifier(MyToastModifier(text: text, isShowing: isShowing))
+        modifier(MyToastModifier(text: text, duration: 2, isShowing: isShowing))
     }
 }
 
