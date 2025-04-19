@@ -2,9 +2,9 @@
 
 ## Main Practices
 
-| Practice                                                                                           | Type    | Description            | Memo                                                                                                                                                                                                     |
-| -------------------------------------------------------------------------------------------------- | ------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [SwiftUIPractices](https://github.com/jinyongnan810/swift-ui-practices/tree/main/SwiftUIPractices) | SwiftUI | Display SwiftUI Usages | Navigation & Transition, Custom ViewModifier, Mesh Gradient & Timer & Animation, Scroll Transition & Effects, Observation, SF Symbol Animation, Phase/KeyFrame Animation, Gestures, Text Styling, Shader |
+| Practice                                                                                           | Type    | Description            | Memo                                                                                                                                                                                                             |
+| -------------------------------------------------------------------------------------------------- | ------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [SwiftUIPractices](https://github.com/jinyongnan810/swift-ui-practices/tree/main/SwiftUIPractices) | SwiftUI | Display SwiftUI Usages | Navigation & Transition, Custom ViewModifier, Mesh Gradient & Timer & Animation, Scroll Transition & Effects, Observation, SF Symbol Animation, Phase/KeyFrame Animation, Gestures, Text Styling, Shader, Gauges |
 
 ## Other Practices
 
