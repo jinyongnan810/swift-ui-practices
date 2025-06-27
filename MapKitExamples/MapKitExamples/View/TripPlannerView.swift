@@ -52,7 +52,7 @@ struct TripPlannerView: View {
                 .foregroundStyle(.orange.opacity(0.6))
 
             ForEach(searchResults, id: \.self) { item in
-                Marker(item: item)
+                Marker(item: item).mapItemDetailSelectionAccessory(.callout)
             }
             if let route {
                 MapPolyline(route)
@@ -124,7 +124,8 @@ struct TripPlannerView: View {
                         }
                     }
                     .padding()
-                    .background(.ultraThinMaterial)
+                    .glassEffect()
+//                    .background(.ultraThinMaterial)
                 }
             )
             .mapControls {
