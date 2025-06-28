@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		3F8D9C512E0F682F006D394E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F3499052D55BCA600A2047F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F34990C2D55BCA600A2047F;
+			remoteInfo = MapKitExamples;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		3F34990D2D55BCA600A2047F /* MapKitExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKitExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F8D9C4B2E0F682F006D394E /* MapKitExamplesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapKitExamplesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,22 @@
 			path = MapKitExamples;
 			sourceTree = "<group>";
 		};
+		3F8D9C4C2E0F682F006D394E /* MapKitExamplesUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MapKitExamplesUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3F34990A2D55BCA600A2047F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F8D9C482E0F682F006D394E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				3F34990F2D55BCA600A2047F /* MapKitExamples */,
+				3F8D9C4C2E0F682F006D394E /* MapKitExamplesUITests */,
 				3F34990E2D55BCA600A2047F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				3F34990D2D55BCA600A2047F /* MapKitExamples.app */,
+				3F8D9C4B2E0F682F006D394E /* MapKitExamplesUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +95,29 @@
 			productReference = 3F34990D2D55BCA600A2047F /* MapKitExamples.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3F8D9C4A2E0F682F006D394E /* MapKitExamplesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F8D9C532E0F682F006D394E /* Build configuration list for PBXNativeTarget "MapKitExamplesUITests" */;
+			buildPhases = (
+				3F8D9C472E0F682F006D394E /* Sources */,
+				3F8D9C482E0F682F006D394E /* Frameworks */,
+				3F8D9C492E0F682F006D394E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F8D9C522E0F682F006D394E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				3F8D9C4C2E0F682F006D394E /* MapKitExamplesUITests */,
+			);
+			name = MapKitExamplesUITests;
+			packageProductDependencies = (
+			);
+			productName = MapKitExamplesUITests;
+			productReference = 3F8D9C4B2E0F682F006D394E /* MapKitExamplesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -77,11 +125,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1610;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					3F34990C2D55BCA600A2047F = {
 						CreatedOnToolsVersion = 16.1;
+					};
+					3F8D9C4A2E0F682F006D394E = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = 3F34990C2D55BCA600A2047F;
 					};
 				};
 			};
@@ -100,12 +152,20 @@
 			projectRoot = "";
 			targets = (
 				3F34990C2D55BCA600A2047F /* MapKitExamples */,
+				3F8D9C4A2E0F682F006D394E /* MapKitExamplesUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3F34990B2D55BCA600A2047F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F8D9C492E0F682F006D394E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +182,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3F8D9C472E0F682F006D394E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3F8D9C522E0F682F006D394E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F34990C2D55BCA600A2047F /* MapKitExamples */;
+			targetProxy = 3F8D9C512E0F682F006D394E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3F34991A2D55BCA700A2047F /* Debug */ = {
@@ -317,6 +392,54 @@
 			};
 			name = Release;
 		};
+		3F8D9C542E0F682F006D394E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6W8B6G9KYD;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinn.MapKitExamplesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = MapKitExamples;
+				XROS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		3F8D9C552E0F682F006D394E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6W8B6G9KYD;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinn.MapKitExamplesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = MapKitExamples;
+				XROS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -334,6 +457,15 @@
 			buildConfigurations = (
 				3F34991D2D55BCA700A2047F /* Debug */,
 				3F34991E2D55BCA700A2047F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F8D9C532E0F682F006D394E /* Build configuration list for PBXNativeTarget "MapKitExamplesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F8D9C542E0F682F006D394E /* Debug */,
+				3F8D9C552E0F682F006D394E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
