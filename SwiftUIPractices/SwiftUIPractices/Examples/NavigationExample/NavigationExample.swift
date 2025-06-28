@@ -7,8 +7,11 @@
 
 import SwiftUI
 
-enum NavigationDemo {
-    case basic, withValue, split
+enum NavigationDemo: String, CaseIterable {
+    case basic = "Basic Navigation With Link"
+    case withValue = "Navigation With Value"
+    case splitView = "Navigation Split View"
+    case splitViewWithValue = "Navigation Split View With Value"
 }
 
 struct NavigationExample: View {
@@ -19,43 +22,28 @@ struct NavigationExample: View {
         // for NavigationWithValueView won't work when NavigationStack is nested.
         // In this demo, I'm using sheet to seperate NavigationStack
         List {
-            Button(action: {
-                withAnimation {
-                    if selectedDemo == nil {
-                        selectedDemo = .basic
-                        showDemo.toggle()
+            ForEach(NavigationDemo.allCases, id: \.self) { demo in
+                Button(action: {
+                    withAnimation {
+                        if selectedDemo == nil {
+                            selectedDemo = demo
+                            showDemo.toggle()
+                        }
                     }
+                }) {
+                    Text(demo.rawValue)
                 }
-            }) {
-                Text("Basic Navigation With Link")
             }
-            Button(action: {
-                withAnimation {
-                    if selectedDemo == nil {
-                        selectedDemo = .withValue
-                        showDemo.toggle()
-                    }
-                }
-            }) {
-                Text("Navigation with Value")
-            }
-            Button(action: {
-                withAnimation {
-                    if selectedDemo == nil {
-                        selectedDemo = .split
-                        showDemo.toggle()
-                    }
-                }
-            }) {
-                Text("Navigation Split View")
-            }
+
         }.sheet(isPresented: $showDemo) {
             if case .basic = selectedDemo {
                 NameAndAgeInputView()
             } else if case .withValue = selectedDemo {
                 NavigationWithValueView()
-            } else if case .split = selectedDemo {
+            } else if case .splitView = selectedDemo {
                 NavigationSplitViewExample()
+            } else if case .splitViewWithValue = selectedDemo {
+                NavigationSplitViewWithValueExample()
             }
         }.onChange(of: showDemo) { _, newValue in
             if !newValue {
