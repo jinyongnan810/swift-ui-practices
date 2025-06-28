@@ -8,7 +8,6 @@
 import XCTest
 
 final class MapKitExamplesUITests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -45,13 +44,12 @@ final class MapKitExamplesUITests: XCTestCase {
         mapsApp.activate()
         let app = XCUIApplication()
         app.activate()
-        app/*@START_MENU_TOKEN@*/.buttons["Trip Planner"]/*[[".buttons.containing(.staticText, identifier: \"Trip Planner\")",".otherElements.buttons[\"Trip Planner\"]",".buttons[\"Trip Planner\"]"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.firstMatch.tap()
-        app/*@START_MENU_TOKEN@*/.images["suitcase"]/*[[".otherElements.images[\"suitcase\"]",".images",".images[\"suitcase\"]"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.firstMatch.tap()
+        app/*@START_MENU_TOKEN@*/ .buttons["Trip Planner"]/*[[".buttons.containing(.staticText, identifier: \"Trip Planner\")",".otherElements.buttons[\"Trip Planner\"]",".buttons[\"Trip Planner\"]"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ .firstMatch.tap()
+        app/*@START_MENU_TOKEN@*/ .images["suitcase"]/*[[".otherElements.images[\"suitcase\"]",".images",".images[\"suitcase\"]"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ .firstMatch.tap()
 
         let element = app.windows.element(boundBy: 1)
-        app/*@START_MENU_TOKEN@*/.buttons["Parks"]/*[[".otherElements.buttons[\"Parks\"]",".buttons[\"Parks\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.firstMatch.tap()
-        app/*@START_MENU_TOKEN@*/.otherElements["Alviso Marina County Park"]/*[[".otherElements.otherElements[\"Alviso Marina County Park\"]",".otherElements[\"Alviso Marina County Park\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.firstMatch.tap()
+        app/*@START_MENU_TOKEN@*/ .buttons["Parks"]/*[[".otherElements.buttons[\"Parks\"]",".buttons[\"Parks\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ .firstMatch.tap()
+        app/*@START_MENU_TOKEN@*/ .otherElements["Alviso Marina County Park"]/*[[".otherElements.otherElements[\"Alviso Marina County Park\"]",".otherElements[\"Alviso Marina County Park\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/ .firstMatch.tap()
         XCUIDevice.shared.press(.home)
-        
     }
 }

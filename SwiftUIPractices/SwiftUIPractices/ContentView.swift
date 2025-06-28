@@ -13,7 +13,10 @@ struct ContentView: View {
             TabView {
                 Tab("Feature Demos", systemImage: "house") {
                     List {
-                        NavigationLink("Navigation", destination: NameAndAgeInputView())
+                        NavigationLink(
+                            "Navigation",
+                            destination: NavigationExample()
+                        )
                         NavigationLink("View Modifier", destination: CustomViewModifierExample())
                         NavigationLink("Mesh Gradient & Timer & Animation", destination: MeshGradientExample())
                         NavigationLink(
