@@ -13,6 +13,7 @@ enum NavigationDemo: String, CaseIterable {
     case splitView = "Navigation Split View"
     case splitViewWithValue = "Navigation Split View With Value"
 }
+
 // https://developer.apple.com/jp/videos/play/wwdc2022/10054/
 struct NavigationExample: View {
     @State var selectedDemo: NavigationDemo? = nil

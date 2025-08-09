@@ -65,6 +65,13 @@ struct SFSymbolsAnimation: View {
                             options: .repeat(3).speed(3), value: section4
                         )
                         .foregroundStyle(section4 ? .blue : .purple)
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                        .symbolEffect(
+                            .rotate,
+                            options: .repeat(.continuous),
+//                            value: section4
+                        )
+                        .foregroundStyle(section4 ? .blue : .purple)
                 }
             }
             .onTapGesture {
