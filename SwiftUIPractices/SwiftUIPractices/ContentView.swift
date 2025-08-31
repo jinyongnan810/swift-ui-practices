@@ -59,6 +59,7 @@ struct ContentView: View {
                 }
                 Tab("User Interface Practices", systemImage: "person") {
                     List {
+                        NavigationLink("Clock", destination: ClockView())
                         NavigationLink(
                             "List with Swipe Actions",
                             destination: SwipeActionsPractice()
