@@ -10,17 +10,13 @@ import SwiftUI
 
 struct AnalogClock: View {
     let centerDotRadius: CGFloat = 5
-    let clockRadius: CGFloat = 200
-    let secondHandLength: CGFloat = 150
-    let minuteHandLength: CGFloat = 150
-    let hourHandLength: CGFloat = 80
 
     var body: some View {
         TimelineView(.animation) { timeline in
             Canvas {
                 ctx,
                     size in
-
+                let clockRadius = Double(min(size.width, size.height) / 2)
                 let calendar = Calendar.current
                 var seconds = CGFloat(calendar.component(.second, from: timeline.date))
                 let miliSeconds = calendar.component(
@@ -32,9 +28,9 @@ struct AnalogClock: View {
                 let hours = calendar.component(.hour, from: timeline.date)
 
                 // angles for each
-                let secondsAngle: CGFloat = .init(Double.pi * 2 / 60) * CGFloat(seconds)
-                let minutesAngle: CGFloat = .init(Double.pi * 2 / 60) * CGFloat(minutes)
-                let hoursAngle: CGFloat = .init(Double.pi * 2 / 12) * CGFloat(hours)
+                let secondsAngle = Double.pi * 2 / 60 * Double(seconds)
+                let minutesAngle = Double.pi * 2 / 60 * Double(minutes)
+                let hoursAngle = Double.pi * 2 / 12 * Double(hours)
 
                 // center
                 let center: CGPoint = .init(x: size.width / 2, y: size.height / 2)
@@ -47,9 +43,10 @@ struct AnalogClock: View {
                 ctx.fill(Path(ellipseIn: centerDot), with: .color(.primary))
 
                 // hands
+                let secondHandLength = clockRadius * 0.8
                 let secondHandEnd: CGPoint = .init(
-                    x: center.x + Foundation.sin(secondsAngle) * secondHandLength,
-                    y: center.y - Foundation.cos(secondsAngle) * secondHandLength
+                    x: CGFloat(center.x + Foundation.sin(secondsAngle) * secondHandLength),
+                    y: CGFloat(center.y - cos(secondsAngle) * secondHandLength)
                 )
                 var secondHandPath = Path()
                 secondHandPath.move(to: center)
@@ -60,22 +57,41 @@ struct AnalogClock: View {
                         with: .color(.primary),
                         style: StrokeStyle(lineWidth: 2, lineCap: .round)
                     )
+                let minuteHandLength = clockRadius * 0.6
                 let minuteHandEnd: CGPoint = .init(
-                    x: center.x + Foundation.sin(minutesAngle) * minuteHandLength,
-                    y: center.y - Foundation.cos(minutesAngle) * minuteHandLength
+                    x: CGFloat(center.x + Foundation.sin(minutesAngle) * minuteHandLength),
+                    y: CGFloat(center.y - Foundation.cos(minutesAngle) * minuteHandLength)
                 )
                 var minuteHandPath = Path()
                 minuteHandPath.move(to: center)
                 minuteHandPath.addLine(to: minuteHandEnd)
                 ctx.stroke(minuteHandPath, with: .color(.primary), style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                let hourHandLength = clockRadius * 0.4
                 let hourHandEnd: CGPoint = .init(
-                    x: center.x + Foundation.sin(hoursAngle) * hourHandLength,
-                    y: center.y - Foundation.cos(hoursAngle) * hourHandLength
+                    x: CGFloat(center.x + Foundation.sin(hoursAngle) * hourHandLength),
+                    y: CGFloat(center.y - Foundation.cos(hoursAngle) * hourHandLength)
                 )
                 var hourHandPath = Path()
                 hourHandPath.move(to: center)
                 hourHandPath.addLine(to: hourHandEnd)
                 ctx.stroke(hourHandPath, with: .color(.primary), style: StrokeStyle(lineWidth: 5, lineCap: .round))
+
+                // Digits
+                for i in 1 ... 12 {
+                    let text = Text("\(i)").font(.headline).fontWeight(.bold)
+                    let angle = Double.pi / 6 * Double(i)
+                    let xOffset: CGFloat = 15
+                    let yOffset: CGFloat = 30
+                    let textSize = ctx.resolve(text).measure(
+                        in: CGSize(width: 100, height: 100)
+                    )
+                    let position: CGPoint = .init(
+                        x: CGFloat(center.x + Foundation.sin(angle) * clockRadius * 0.8 - textSize.width * 0.5),
+                        y: CGFloat(center.y - Foundation.cos(angle) * clockRadius * 0.8 - textSize.height * 0.5)
+                    )
+
+                    ctx.draw(text, at: position)
+                }
             }
         }
     }
