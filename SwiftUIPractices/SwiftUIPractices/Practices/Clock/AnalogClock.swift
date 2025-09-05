@@ -80,18 +80,48 @@ struct AnalogClock: View {
                 for i in 1 ... 12 {
                     let text = Text("\(i)").font(.headline).fontWeight(.bold)
                     let angle = Double.pi / 6 * Double(i)
-                    let xOffset: CGFloat = 15
-                    let yOffset: CGFloat = 30
-                    let textSize = ctx.resolve(text).measure(
-                        in: CGSize(width: 100, height: 100)
-                    )
+//                    let textSize = ctx.resolve(text).measure(
+//                        in: CGSize(width: 100, height: 100)
+//                    )
                     let position: CGPoint = .init(
-                        x: CGFloat(center.x + Foundation.sin(angle) * clockRadius * 0.8 - textSize.width * 0.5),
-                        y: CGFloat(center.y - Foundation.cos(angle) * clockRadius * 0.8 - textSize.height * 0.5)
+                        x: CGFloat(center.x + Foundation.sin(angle) * clockRadius * 0.85),
+                        y: CGFloat(center.y - Foundation.cos(angle) * clockRadius * 0.85)
                     )
-
                     ctx.draw(text, at: position)
                 }
+
+                // Ticks
+                for i in 1 ... 60 {
+                    let longer = i.isMultiple(of: 5)
+                    let outterPoint = CGPoint(
+                        x: CGFloat(center.x + Foundation.sin(.pi / 30 * Double(i)) *
+                            clockRadius * 0.99),
+                        y: CGFloat(center.y - Foundation.cos(.pi / 30 * Double(i)) *
+                            clockRadius * 0.99),
+                    )
+                    let innerPoint = CGPoint(
+                        x: CGFloat(center.x + Foundation.sin(.pi / 30 * Double(i)) *
+                            clockRadius * (longer ? 0.95 : 0.97)),
+                        y: CGFloat(center.y - Foundation.cos(.pi / 30 * Double(i)) *
+                            clockRadius * (longer ? 0.95 : 0.97)),
+                    )
+                    var tickPath = Path()
+                    tickPath.move(to: outterPoint)
+                    tickPath.addLine(to: innerPoint)
+                    ctx.stroke(tickPath, with: .color(.secondary), style: StrokeStyle(lineWidth: 2, lineCap: .round))
+                }
+
+                // Outter Circle
+//                let outterCirclePath = Path(
+//                    ellipseIn: CGRect(
+//                        origin: .init(
+//                            x: center.x - clockRadius,
+//                            y: center.y - clockRadius
+//                        ),
+//                        size: .init(width: clockRadius * 2, height: clockRadius * 2)
+//                    )
+//                )
+//                ctx.stroke(outterCirclePath, with: .color(.secondary), style: StrokeStyle(lineWidth: 2, lineCap: .round))
             }
         }
     }

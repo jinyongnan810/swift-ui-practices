@@ -16,7 +16,7 @@ struct ClockView: View {
                 endPoint: .bottomTrailing
             ).ignoresSafeArea()
             VStack {
-                AnalogClock()
+                AnalogClock().padding()
                 DigitalClock()
             }
         }
