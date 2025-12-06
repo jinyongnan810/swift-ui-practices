@@ -7,74 +7,83 @@
 
 import SwiftUI
 
-enum Page: Hashable {
-    case navigation
-    case customViewModifier
-    case meshGradient
-    case scrollTransition
-    case tabView
-    case effects
-    case observation
-    case image
-    case animation
-    case shape
-    case gestures
-    case textStyling
-    case clock
-    case swipeActions
-    case flipCard
-    case sheetWithHeight
-    case priceCard
-    case customColorPicker
-    case progressBar
-    case drag
-    case segmentedBorder
-    case customTooltip
-    case chocolateView
-    case customLabelStyle
-    case textField
-    case toast
+enum Page: String, Hashable {
+    case navigation = "Navigation"
+    case customViewModifier = "Custom View Modifier"
+    case meshGradient = "Mesh Gradient"
+    case scrollTransition = "Scroll Transition"
+    case tabView = "TabView"
+    case effects = "Effects"
+    case observation = "Observation"
+    case image = "Image"
+    case animation = "Animation"
+    case shape = "Shape"
+    case gestures = "Gestures"
+    case textStyling = "Text Styling"
+    case clock = "Clock"
+    case swipeActions = "Swipe Actions"
+    case flipCard = "Flip Card"
+    case sheetWithHeight = "Sheet with height"
+    case priceCard = "Price Card"
+    case customColorPicker = "Custom Color Picker"
+    case progressBar = "Progress Bar"
+    case drag = "Drag"
+    case segmentedBorder = "Segmented Border"
+    case customTooltip = "Custom Tooltip"
+    case chocolateView = "Chocolate View"
+    case customLabelStyle = "Custom Label Style"
+    case textField = "Text Field"
+    case toast = "Toast"
 }
 
-struct ContentView: View {
+let featureDemos: [Page] = [
+    .navigation,
+    .customViewModifier,
+    .meshGradient,
+    .scrollTransition,
+    .tabView,
+    .effects,
+    .observation,
+    .image,
+    .animation,
+    .shape,
+    .gestures,
+    .textStyling,
+]
+let uiPractices: [Page] = [
+    .clock,
+    .swipeActions,
+    .flipCard,
+    .sheetWithHeight,
+    .priceCard,
+    .customColorPicker,
+    .progressBar,
+    .drag,
+    .segmentedBorder,
+    .customTooltip,
+    .chocolateView,
+    .customLabelStyle,
+    .textField,
+    .toast,
+]
+var allPages: [Page] { featureDemos + uiPractices }
+
+struct PageTab: View {
+    let pages: [Page]
+    let title: String
+    @State var searchQuery: String = ""
+
+    var filteredPages: [Page] {
+        searchQuery.isEmpty ? pages : pages
+            .filter { $0.rawValue.contains(searchQuery) == true }
+    }
+
     var body: some View {
         NavigationStack {
-            TabView {
-                Tab("Feature Demos", systemImage: "house") {
-                    List {
-                        NavigationLink("Navigation", value: Page.navigation)
-                        NavigationLink("View Modifier", value: Page.customViewModifier)
-                        NavigationLink("Mesh Gradient & Timer & Animation", value: Page.meshGradient)
-                        NavigationLink("Scroll Transition", value: Page.scrollTransition)
-                        NavigationLink("TabView", value: Page.tabView)
-                        NavigationLink("Effects", value: Page.effects)
-                        NavigationLink("Observation", value: Page.observation)
-                        NavigationLink("Image", value: Page.image)
-                        NavigationLink("Animations", value: Page.animation)
-                        NavigationLink("Shape", value: Page.shape)
-                        NavigationLink("Gestures", value: Page.gestures)
-                        NavigationLink("Text Styling", value: Page.textStyling)
-                    }
-                }
-                Tab("User Interface Practices", systemImage: "person") {
-                    List {
-                        NavigationLink("Clock", value: Page.clock)
-                        NavigationLink("List with Swipe Actions", value: Page.swipeActions)
-                        NavigationLink("Flipping Card", value: Page.flipCard)
-                        NavigationLink("Sheet with specified height", value: Page.sheetWithHeight)
-                        NavigationLink("Price Card", value: Page.priceCard)
-                        NavigationLink("Custom Color Picker", value: Page.customColorPicker)
-                        NavigationLink("Progress Bar", value: Page.progressBar)
-                        NavigationLink("Drag and Z-index", value: Page.drag)
-                        NavigationLink("Segmented Border", value: Page.segmentedBorder)
-                        NavigationLink("Custom Tooltip", value: Page.customTooltip)
-                        NavigationLink("Chocolate View", value: Page.chocolateView)
-                        NavigationLink("Custom Label Style", value: Page.customLabelStyle)
-                        NavigationLink("TextField", value: Page.textField)
-                        NavigationLink("Toast", value: Page.toast)
-                    }
-                }
-            }.navigationTitle("SwiftUI Practices")
+            List(filteredPages, id: \.self) { page in
+                NavigationLink(page.rawValue, value: page)
+            }.searchable(text: $searchQuery, prompt: "Search...")
+                .navigationTitle(Text(title))
                 .navigationDestination(for: Page.self) { page in
                     switch page {
                     case .navigation:
@@ -132,6 +141,31 @@ struct ContentView: View {
                     }
                 }
         }
+    }
+}
+
+struct ContentView: View {
+    @State private var searchQuery: String = ""
+    var body: some View {
+        TabView {
+            Tab("Feature Demos", systemImage: "house") {
+                PageTab(pages: featureDemos, title: "Feature Demos")
+            }
+            Tab("User Interface Practices", systemImage: "person") {
+                PageTab(pages: uiPractices, title: "User Interface Practices")
+            }
+            Tab("Search", systemImage: "magnifyingglass", role: .search) {
+                PageTab(pages: allPages, title: "Search")
+            }
+        }
+        .tabViewBottomAccessory(content: {
+            Text("\(Image(systemName: "swift")) Made with SwiftUI")
+        })
+        .tabBarMinimizeBehavior(.onScrollDown)
+        .tabViewSearchActivation(.automatic)
+        .tabViewStyle(.sidebarAdaptable)
+//            .searchable(text: $searchQuery, prompt: "Search...")
+//            .navigationTitle("SwiftUI Practices")
     }
 }
 
