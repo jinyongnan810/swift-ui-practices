@@ -17,6 +17,10 @@ struct ScrollOffsetPreferenceKey: PreferenceKey {
 
 struct ScrollTransitionExample: View {
     @State private var scrollOffset: CGFloat = 0
+    init() {
+        print("⭐️ scroll transition example")
+    }
+
     var body: some View {
         ScrollView(.horizontal) {
             HStack {
