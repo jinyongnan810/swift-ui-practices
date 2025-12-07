@@ -9,19 +9,19 @@ import SwiftUI
 
 struct TextFieldPractice: View {
     var body: some View {
-        NavigationStack {
-            List {
-                NavigationLink("Custom TextField with Email Validataion") {
-                    CustomTextFieldWithEmailValidation()
-                }
-                NavigationLink("Multiline TextField") {
-                    MultilineTextField()
-                }
+        List {
+            NavigationLink("Custom TextField with Email Validataion") {
+                CustomTextFieldWithEmailValidation()
+            }
+            NavigationLink("Multiline TextField") {
+                MultilineTextField()
             }
         }
     }
 }
 
 #Preview {
-    TextFieldPractice()
+    NavigationStack {
+        TextFieldPractice()
+    }
 }

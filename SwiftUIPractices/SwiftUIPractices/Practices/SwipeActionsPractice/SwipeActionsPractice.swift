@@ -28,70 +28,68 @@ struct SwipeActionsPractice: View {
     @State private var selections = Set<TestDataItem>()
     @Environment(\.editMode) private var editMode
     var body: some View {
-        NavigationStack {
-            List(data, selection: $selections) { item in
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(item.title)
-                            .font(.headline)
-                        Text(item.description)
-                            .foregroundColor(.secondary)
-                    }
-                    Spacer()
-                    if item.marked {
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.green)
-                    }
+        List(data, selection: $selections) { item in
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(item.title)
+                        .font(.headline)
+                    Text(item.description)
+                        .foregroundColor(.secondary)
                 }
-                .tag(item)
-                .swipeActions {
-                    Button(
-                        "delete",
-                        systemImage: "trash",
-                        role: .destructive
-                    ) {
-                        withAnimation {
-                            data.removeAll { d in
-                                d.id == item.id
-                            }
-                        }
-                    }
-                    Button(
-                        "star",
-                        systemImage: "star"
-                    ) {
-                        withAnimation {
-                            if let index = data.firstIndex(where: { d in
-                                d.id == item.id
-                            }) {
-                                data[index].toggleMarked()
-                            }
-                        }
-                    }
-                    .tint(item.marked ? .green : .secondary)
+                Spacer()
+                if item.marked {
+                    Image(systemName: "star.fill")
+                        .foregroundColor(.green)
                 }
-//                .selectionDisabled(true)
             }
-            .navigationTitle("Swipe Actions Practice")
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading, content: {
-                    EditButton()
-                })
-                if !selections.isEmpty {
-                    ToolbarItem(placement: .bottomBar) {
-                        Button(action: {
-                            withAnimation {
-                                for selection in selections {
-                                    if let index = data.firstIndex(of: selection) {
-                                        data.remove(at: index)
-                                    }
-                                }
-                                editMode?.wrappedValue = .inactive
-                            }
-                        }) {
-                            Text("Delete \(selections.count) items")
-                                .foregroundStyle(.red)
+            .tag(item)
+            .swipeActions {
+                Button(
+                    "delete",
+                    systemImage: "trash",
+                    role: .destructive
+                ) {
+                    withAnimation {
+                        data.removeAll { d in
+                            d.id == item.id
                         }
+                    }
+                }
+                Button(
+                    "star",
+                    systemImage: "star"
+                ) {
+                    withAnimation {
+                        if let index = data.firstIndex(where: { d in
+                            d.id == item.id
+                        }) {
+                            data[index].toggleMarked()
+                        }
+                    }
+                }
+                .tint(item.marked ? .green : .secondary)
+            }
+//                .selectionDisabled(true)
+        }
+        .navigationTitle("Swipe Actions Practice")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing, content: {
+                EditButton()
+            })
+            if !selections.isEmpty {
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
+                        withAnimation {
+                            for selection in selections {
+                                if let index = data.firstIndex(of: selection) {
+                                    data.remove(at: index)
+                                }
+                            }
+                            editMode?.wrappedValue = .inactive
+                        }
+                    }) {
+                        Text("Delete \(selections.count) items")
+                            .foregroundStyle(.red)
                     }
                 }
             }
@@ -100,5 +98,7 @@ struct SwipeActionsPractice: View {
 }
 
 #Preview {
-    SwipeActionsPractice()
+    NavigationStack {
+        SwipeActionsPractice()
+    }
 }

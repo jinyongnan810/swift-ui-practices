@@ -26,49 +26,47 @@ struct SimultaneousGestureExample: View {
     @State private var magnification: CGFloat = 1
 
     var body: some View {
-        NavigationStack {
-            MyTextView(text: "Simultaneous Gesture")
-                .rotationEffect(rotation)
-                .offset(offset)
-                .scaleEffect(magnification)
-                .gesture(
-                    SimultaneousGesture(SimultaneousGesture(DragGesture()
-                            .onChanged { value in
-                                withAnimation {
-                                    draggingOffsetCurrent = value.translation
-                                }
-                            }
-                            .onEnded { _ in
-                                draggingOffsetEnded = offset
-                                draggingOffsetCurrent = .zero
-                            }, MagnificationGesture()
-                            .onChanged { value in
-                                withAnimation {
-                                    magnification = value
-                                }
-
-                            }), RotateGesture()
+        MyTextView(text: "Simultaneous Gesture")
+            .rotationEffect(rotation)
+            .offset(offset)
+            .scaleEffect(magnification)
+            .gesture(
+                SimultaneousGesture(SimultaneousGesture(DragGesture()
                         .onChanged { value in
                             withAnimation {
-                                rotationCurrent = value.rotation
+                                draggingOffsetCurrent = value.translation
                             }
                         }
                         .onEnded { _ in
-                            rotationEnded = rotation
-                            rotationCurrent = .zero
-                        })
-                )
-                .onTapGesture {
-                    withAnimation {
-                        rotationCurrent = .zero
-                        rotationEnded = .zero
-                        draggingOffsetEnded = .zero
-                        draggingOffsetCurrent = .zero
-                        magnification = 1
+                            draggingOffsetEnded = offset
+                            draggingOffsetCurrent = .zero
+                        }, MagnificationGesture()
+                        .onChanged { value in
+                            withAnimation {
+                                magnification = value
+                            }
+
+                        }), RotateGesture()
+                    .onChanged { value in
+                        withAnimation {
+                            rotationCurrent = value.rotation
+                        }
                     }
-                }.navigationTitle("Simultaneous Gesture")
-                .navigationBarTitleDisplayMode(.inline)
-        }
+                    .onEnded { _ in
+                        rotationEnded = rotation
+                        rotationCurrent = .zero
+                    })
+            )
+            .onTapGesture {
+                withAnimation {
+                    rotationCurrent = .zero
+                    rotationEnded = .zero
+                    draggingOffsetEnded = .zero
+                    draggingOffsetCurrent = .zero
+                    magnification = 1
+                }
+            }.navigationTitle("Simultaneous Gesture")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 

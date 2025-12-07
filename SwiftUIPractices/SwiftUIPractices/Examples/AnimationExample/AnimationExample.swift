@@ -9,25 +9,25 @@ import SwiftUI
 
 struct AnimationExample: View {
     var body: some View {
-        NavigationStack {
-            List {
-                NavigationLink(
-                    "SF Symbol Animations",
-                    destination: SFSymbolsAnimation()
-                )
-                NavigationLink(
-                    "Phase Animation",
-                    destination: PhaseAnimationExample()
-                )
-                NavigationLink(
-                    "Key Frame Animation",
-                    destination: KeyFrameAnimationExample()
-                )
-            }
+        List {
+            NavigationLink(
+                "SF Symbol Animations",
+                destination: SFSymbolsAnimation()
+            )
+            NavigationLink(
+                "Phase Animation",
+                destination: PhaseAnimationExample()
+            )
+            NavigationLink(
+                "Key Frame Animation",
+                destination: KeyFrameAnimationExample()
+            )
         }
     }
 }
 
 #Preview {
-    AnimationExample()
+    NavigationStack {
+        AnimationExample()
+    }
 }

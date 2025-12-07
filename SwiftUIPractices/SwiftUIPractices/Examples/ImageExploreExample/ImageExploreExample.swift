@@ -9,18 +9,19 @@ import SwiftUI
 
 struct ImageExploreExample: View {
     var body: some View {
-        NavigationStack {
-            List {
-                NavigationLink("ContentMode", destination: ScaleFitOrFill())
-                NavigationLink("Scroll", destination: ScrollThroughImages())
-                NavigationLink("AsyncImage", destination: AsyncImageExample())
-                NavigationLink("LazyVGrid", destination: LazyVGridExample())
-                NavigationLink("ClipImage", destination: ClipImagePractice())
-            }.navigationTitle("Explore Image")
+        List {
+            NavigationLink("ContentMode", destination: ScaleFitOrFill())
+            NavigationLink("Scroll", destination: ScrollThroughImages())
+            NavigationLink("AsyncImage", destination: AsyncImageExample())
+            NavigationLink("LazyVGrid", destination: LazyVGridExample())
+            NavigationLink("ClipImage", destination: ClipImagePractice())
         }
+        .navigationTitle("Explore Image")
     }
 }
 
 #Preview {
-    ImageExploreExample()
+    NavigationStack {
+        ImageExploreExample()
+    }
 }

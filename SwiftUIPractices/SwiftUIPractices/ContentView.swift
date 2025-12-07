@@ -21,6 +21,7 @@ enum Page: String, Hashable {
     case gestures = "Gestures"
     case textStyling = "Text Styling"
     case clock = "Clock"
+    case gauge = "Gauge"
     case swipeActions = "Swipe Actions"
     case flipCard = "Flip Card"
     case sheetWithHeight = "Sheet with height"
@@ -52,6 +53,7 @@ let featureDemos: [Page] = [
 ]
 let uiPractices: [Page] = [
     .clock,
+    .gauge,
     .swipeActions,
     .flipCard,
     .sheetWithHeight,
@@ -72,6 +74,7 @@ struct PageTab: View {
     let pages: [Page]
     let title: String
     @State var searchQuery: String = ""
+    @State private var path = NavigationPath()
 
     var filteredPages: [Page] {
         searchQuery.isEmpty ? pages : pages
@@ -79,7 +82,7 @@ struct PageTab: View {
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List(filteredPages, id: \.self) { page in
                 NavigationLink(page.rawValue, value: page)
             }.searchable(text: $searchQuery, prompt: "Search...")
@@ -112,6 +115,8 @@ struct PageTab: View {
                         TextStylingExample()
                     case .clock:
                         ClockView()
+                    case .gauge:
+                        GaugePractice()
                     case .swipeActions:
                         SwipeActionsPractice()
                     case .flipCard:
@@ -140,6 +145,8 @@ struct PageTab: View {
                         ToastPractice()
                     }
                 }
+        }.onChange(of: path) { _, newValue in
+            print("path: \(newValue)")
         }
     }
 }

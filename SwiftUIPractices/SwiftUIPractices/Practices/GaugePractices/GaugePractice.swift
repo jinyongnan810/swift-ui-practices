@@ -10,31 +10,29 @@ import SwiftUI
 struct GaugePractice: View {
     @State var value: Double = 40
     var body: some View {
-        NavigationStack {
-            List {
-                Section("Customized Gauge") {
-                    VStack {
-                        HStack {
-                            Spacer()
-                            MyGauge(value: value)
-                                .gaugeStyle(.accessoryCircularCapacity)
-                            Spacer()
-                            MyGauge(value: value)
-                                .gaugeStyle(.accessoryCircular)
-                            Spacer()
-                        }.padding()
-                        MyGauge(value: value)
-                            .gaugeStyle(.accessoryLinear)
-                            .padding(.vertical)
-                        MyGauge(value: value)
-                            .gaugeStyle(.accessoryLinearCapacity)
-                            .padding(.vertical)
-                        MyGauge(value: value)
-                            .gaugeStyle(.linearCapacity)
+        List {
+            Section("Customized Gauge") {
+                VStack {
+                    HStack {
                         Spacer()
-                    }
-                    Slider(value: $value, in: 0 ... 100)
+                        MyGauge(value: value)
+                            .gaugeStyle(.accessoryCircularCapacity)
+                        Spacer()
+                        MyGauge(value: value)
+                            .gaugeStyle(.accessoryCircular)
+                        Spacer()
+                    }.padding()
+                    MyGauge(value: value)
+                        .gaugeStyle(.accessoryLinear)
+                        .padding(.vertical)
+                    MyGauge(value: value)
+                        .gaugeStyle(.accessoryLinearCapacity)
+                        .padding(.vertical)
+                    MyGauge(value: value)
+                        .gaugeStyle(.linearCapacity)
+                    Spacer()
                 }
+                Slider(value: $value, in: 0 ... 100)
             }
         }
     }

@@ -12,28 +12,29 @@ struct GesturesExample: View {
     @State private var dragState: CGSize = .zero
     @State private var rotateState: Angle = .zero
     var body: some View {
-        NavigationStack {
-            List {
-                NavigationLink("Magnification") {
-                    MagnificationExample(storedState: $magnificationState)
-                }
-                NavigationLink("Drag") {
-                    DragGestureExample(storedOffsetEnded: $dragState)
-                }
-                NavigationLink("Rotation") {
-                    RotationGestureExample(rotation3Ended: $rotateState)
-                }
-                NavigationLink("Simultaneous") {
-                    SimultaneousGestureExample()
-                }
-                NavigationLink("@GestureState") {
-                    GestureStateExample()
-                }
-            }.navigationTitle("Explore Gestures")
+        List {
+            NavigationLink("Magnification") {
+                MagnificationExample(storedState: $magnificationState)
+            }
+            NavigationLink("Drag") {
+                DragGestureExample(storedOffsetEnded: $dragState)
+            }
+            NavigationLink("Rotation") {
+                RotationGestureExample(rotation3Ended: $rotateState)
+            }
+            NavigationLink("Simultaneous") {
+                SimultaneousGestureExample()
+            }
+            NavigationLink("@GestureState") {
+                GestureStateExample()
+            }
         }
+        .navigationTitle("Explore Gestures")
     }
 }
 
 #Preview {
-    GesturesExample()
+    NavigationStack {
+        GesturesExample()
+    }
 }

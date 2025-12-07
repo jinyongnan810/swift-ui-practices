@@ -23,65 +23,63 @@ struct RotationGestureExample: View {
     }
 
     var body: some View {
-        NavigationStack {
-            VStack {
-                Spacer()
-                MyTextView(text: "Stay Still")
-                    .rotationEffect(rotation1)
-                    .gesture(
-                        RotateGesture()
-                            .onChanged { value in
-                                rotation1Current = value.rotation
-                            }
-                            .onEnded { _ in
-                                rotation1Ended = rotation1
-                                rotation1Current = .zero
-                            }
-                    )
-                    .onTapGesture {
-                        withAnimation {
+        VStack {
+            Spacer()
+            MyTextView(text: "Stay Still")
+                .rotationEffect(rotation1)
+                .gesture(
+                    RotateGesture()
+                        .onChanged { value in
+                            rotation1Current = value.rotation
+                        }
+                        .onEnded { _ in
+                            rotation1Ended = rotation1
                             rotation1Current = .zero
-                            rotation1Ended = .zero
                         }
+                )
+                .onTapGesture {
+                    withAnimation {
+                        rotation1Current = .zero
+                        rotation1Ended = .zero
                     }
-                Spacer()
-                MyTextView(text: "Bounce Back")
-                    .rotationEffect(rotation2)
-                    .gesture(
-                        RotateGesture()
-                            .onChanged { value in
-                                rotation2 = value.rotation
+                }
+            Spacer()
+            MyTextView(text: "Bounce Back")
+                .rotationEffect(rotation2)
+                .gesture(
+                    RotateGesture()
+                        .onChanged { value in
+                            rotation2 = value.rotation
+                        }
+                        .onEnded { _ in
+                            withAnimation {
+                                rotation2 = .zero
                             }
-                            .onEnded { _ in
-                                withAnimation {
-                                    rotation2 = .zero
-                                }
-                            }
-                    )
+                        }
+                )
 
-                Spacer()
-                MyTextView(text: "State Stored")
-                    .rotationEffect(rotation3)
-                    .gesture(
-                        RotateGesture()
-                            .onChanged { value in
-                                rotation3Current = value.rotation
-                            }
-                            .onEnded { _ in
-                                rotation3Ended = rotation3
-                                rotation3Current = .zero
-                            }
-                    ).onTapGesture {
-                        withAnimation {
+            Spacer()
+            MyTextView(text: "State Stored")
+                .rotationEffect(rotation3)
+                .gesture(
+                    RotateGesture()
+                        .onChanged { value in
+                            rotation3Current = value.rotation
+                        }
+                        .onEnded { _ in
+                            rotation3Ended = rotation3
                             rotation3Current = .zero
-                            rotation3Ended = .zero
                         }
+                ).onTapGesture {
+                    withAnimation {
+                        rotation3Current = .zero
+                        rotation3Ended = .zero
                     }
+                }
 
-                Spacer()
-            }.navigationTitle("Rotation")
-                .navigationBarTitleDisplayMode(.inline)
-        }
+            Spacer()
+        }.navigationTitle("Rotation")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 
