@@ -22,6 +22,7 @@ struct AnimationExample: View {
                 "Key Frame Animation",
                 destination: KeyFrameAnimationExample()
             )
+            NavigationLink("Transition", destination: TransitionExample())
         }
     }
 }
