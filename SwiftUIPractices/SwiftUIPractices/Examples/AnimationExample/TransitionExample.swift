@@ -71,37 +71,61 @@ struct RotateScaleModifier: ViewModifier {
     }
 }
 
+struct BackgroundView: View {
+    var body: some View {
+        MeshGradient(
+            width: 2,
+            height: 2,
+            points: [
+                [0, 0], [1, 0],
+                [0, 1], [1, 1],
+            ],
+            colors: [
+                .pink, .indigo,
+                .cyan, .red,
+            ]
+        )
+        .opacity(0.4)
+        .ignoresSafeArea()
+    }
+}
+
 struct TransitionExample: View {
     @State private var isPresented: Bool = false
     var body: some View {
-        List {
-            Section("Single Transition") {
-                TransitionItem()
-                    .transition(.move(edge: .bottom))
-                    .wrapWithSpacer(isPresented)
-            }
-            Section("Asymmetric Transition") {
-                TransitionItem()
-                    .transition(
-                        .asymmetric(insertion: .slide, removal: .opacity)
-                    )
-                    .wrapWithSpacer(isPresented)
-            }
-            Section("Combined Transition") {
-                TransitionItem()
-                    .transition(
-                        .move(edge: .trailing)
-                            .combined(with: .scale)
-                            .combined(with: .opacity)
-                    )
-                    .wrapWithSpacer(isPresented)
-            }
-            Section("Custom Transition") {
-                TransitionItem()
-                    .transition(
-                        .rotateWithScale
-                    )
-                    .wrapWithSpacer(isPresented)
+        ZStack {
+            BackgroundView()
+
+            VStack {// this fails when replaced with List
+                Section("Single Transition") {
+                    TransitionItem()
+                        .transition(.move(edge: .bottom))
+                        .wrapWithSpacer(isPresented)
+                        .clipped()
+                }
+                Section("Asymmetric Transition") {
+                    TransitionItem()
+                        .transition(
+                            .asymmetric(insertion: .slide, removal: .opacity)
+                        )
+                        .wrapWithSpacer(isPresented)
+                }
+                Section("Combined Transition") {
+                    TransitionItem()
+                        .transition(
+                            .move(edge: .trailing)
+                                .combined(with: .scale)
+                                .combined(with: .opacity)
+                        )
+                        .wrapWithSpacer(isPresented)
+                }
+                Section("Custom Transition") {
+                    TransitionItem()
+                        .transition(
+                            .rotateWithScale
+                        )
+                        .wrapWithSpacer(isPresented)
+                }
             }
         }.onTapGesture {
             withAnimation {
