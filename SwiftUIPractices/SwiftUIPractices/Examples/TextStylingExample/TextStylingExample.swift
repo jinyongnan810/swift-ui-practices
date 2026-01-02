@@ -31,6 +31,9 @@ struct TextStylingExample: View {
             NavigationLink("TextAttribute, TextRenderer") {
                 TextAttributeAndRendererExample()
             }
+            NavigationLink("RichText Editor") {
+                RichTextExample()
+            }
         }
     }
 }

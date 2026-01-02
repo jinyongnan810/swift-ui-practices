@@ -96,7 +96,7 @@ struct TransitionExample: View {
         ZStack {
             BackgroundView()
 
-            VStack {// this fails when replaced with List
+            VStack { // this fails when replaced with List
                 Section("Single Transition") {
                     TransitionItem()
                         .transition(.move(edge: .bottom))
