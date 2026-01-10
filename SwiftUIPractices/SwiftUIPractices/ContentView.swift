@@ -24,7 +24,7 @@ enum Page: String, Hashable {
     case gauge = "Gauge"
     case swipeActions = "Swipe Actions"
     case flipCard = "Flip Card"
-    case sheetWithHeight = "Sheet with height"
+    case sheet = "Sheets"
     case priceCard = "Price Card"
     case customColorPicker = "Custom Color Picker"
     case progressBar = "Progress Bar"
@@ -56,7 +56,7 @@ let uiPractices: [Page] = [
     .gauge,
     .swipeActions,
     .flipCard,
-    .sheetWithHeight,
+    .sheet,
     .priceCard,
     .customColorPicker,
     .progressBar,
@@ -121,8 +121,8 @@ struct PageTab: View {
                         SwipeActionsPractice()
                     case .flipCard:
                         FlipCardPractice()
-                    case .sheetWithHeight:
-                        SheetWithHeightPractice()
+                    case .sheet:
+                        SheetPractices()
                     case .priceCard:
                         PriceCardPractice()
                     case .customColorPicker:
