@@ -35,6 +35,7 @@ enum Page: String, Hashable {
     case customLabelStyle = "Custom Label Style"
     case textField = "Text Field"
     case toast = "Toast"
+    case dynamicIsland = "Dynamic Island"
 }
 
 let featureDemos: [Page] = [
@@ -50,6 +51,7 @@ let featureDemos: [Page] = [
     .shape,
     .gestures,
     .textStyling,
+    .dynamicIsland,
 ]
 let uiPractices: [Page] = [
     .clock,
@@ -143,6 +145,8 @@ struct PageTab: View {
                         TextFieldPractice()
                     case .toast:
                         ToastPractice()
+                    case .dynamicIsland:
+                        DynamicIslandExample()
                     }
                 }
         }.onChange(of: path) { _, newValue in
