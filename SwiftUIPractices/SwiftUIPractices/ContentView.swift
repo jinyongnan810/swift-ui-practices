@@ -36,6 +36,7 @@ enum Page: String, Hashable {
     case textField = "Text Field"
     case toast = "Toast"
     case dynamicIsland = "Dynamic Island"
+    case infiniteCalendar = "Infinite Calendar"
 }
 
 let featureDemos: [Page] = [
@@ -54,6 +55,7 @@ let featureDemos: [Page] = [
     .dynamicIsland,
 ]
 let uiPractices: [Page] = [
+    .infiniteCalendar,
     .clock,
     .gauge,
     .swipeActions,
@@ -147,6 +149,8 @@ struct PageTab: View {
                         ToastPractice()
                     case .dynamicIsland:
                         DynamicIslandExample()
+                    case .infiniteCalendar:
+                        InfiniteCalendar()
                     }
                 }
         }.onChange(of: path) { _, newValue in
