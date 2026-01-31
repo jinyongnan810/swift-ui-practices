@@ -21,9 +21,50 @@
 		3FBE44A92F166D97003EECBA /* SwiftUIPracticesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUIPracticesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3FD88B082F2ECA4100A49B29 /* Exceptions for "SwiftUIPractices" folder in "SwiftUIPractices" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Examples/AnimationExample/readme.md,
+				Examples/CustomViewModifierExample/readme.md,
+				Examples/DynamicIslandExample/readme.md,
+				Examples/EffectsExample/readme.md,
+				Examples/GesturesExample/readme.md,
+				Examples/ImageExploreExample/readme.md,
+				Examples/MeshGradientExample/readme.md,
+				Examples/NavigationExample/readme.md,
+				Examples/ObservationExample/readme.md,
+				Examples/ScrollTransitionExample/readme.md,
+				Examples/ShapeExample/readme.md,
+				Examples/TabViewExample/readme.md,
+				Examples/TextStylingExample/readme.md,
+				Practices/ChocolateViewPractice/readme.md,
+				Practices/Clock/readme.md,
+				Practices/CustomColorPicker/readme.md,
+				Practices/CustomLabelStyle/readme.md,
+				Practices/CustomToolTip/readme.md,
+				Practices/DragPractice/readme.md,
+				Practices/FlipCard/readme.md,
+				Practices/GaugePractices/readme.md,
+				Practices/InfiniteCalendar/readme.md,
+				Practices/PriceCard/readme.md,
+				Practices/ProgressBar/readme.md,
+				Practices/SegmentedBorder/readme.md,
+				Practices/SheetPractices/readme.md,
+				Practices/SwipeActionsPractice/readme.md,
+				Practices/TextFieldPractice/readme.md,
+				Practices/ToastPractice/readme.md,
+			);
+			target = 3F46F7CA2D34EED9008A3BEA /* SwiftUIPractices */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3F46F7CD2D34EED9008A3BEA /* SwiftUIPractices */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3FD88B082F2ECA4100A49B29 /* Exceptions for "SwiftUIPractices" folder in "SwiftUIPractices" target */,
+			);
 			path = SwiftUIPractices;
 			sourceTree = "<group>";
 		};
