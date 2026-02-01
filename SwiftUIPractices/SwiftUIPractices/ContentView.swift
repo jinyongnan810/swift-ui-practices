@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+// MARK: - Page Enum
+
+/// Defines all available demo pages in the app.
+/// Each case has a raw value used as the display title in navigation.
 enum Page: String, Hashable {
     case navigation = "Navigation"
     case customViewModifier = "Custom View Modifier"
@@ -39,6 +43,9 @@ enum Page: String, Hashable {
     case infiniteCalendar = "Infinite Calendar"
 }
 
+// MARK: - Page Collections
+
+/// Collection of pages demonstrating core SwiftUI features and APIs
 let featureDemos: [Page] = [
     .navigation,
     .customViewModifier,
@@ -54,6 +61,8 @@ let featureDemos: [Page] = [
     .textStyling,
     .dynamicIsland,
 ]
+
+/// Collection of pages showcasing practical UI component implementations
 let uiPractices: [Page] = [
     .infiniteCalendar,
     .clock,
@@ -72,25 +81,34 @@ let uiPractices: [Page] = [
     .textField,
     .toast,
 ]
+
+/// Combined list of all pages for the search tab
 var allPages: [Page] { featureDemos + uiPractices }
 
+// MARK: - PageTab View
+
+/// A reusable view that displays a searchable, navigable list of demo pages.
+/// Used as the content for each tab in the main TabView.
 struct PageTab: View {
     let pages: [Page]
     let title: String
     @State var searchQuery: String = ""
     @State private var path = NavigationPath()
 
+    /// Filters pages based on the current search query
     var filteredPages: [Page] {
         searchQuery.isEmpty ? pages : pages
             .filter { $0.rawValue.contains(searchQuery) == true }
     }
 
     var body: some View {
+        // NavigationStack enables programmatic navigation with path tracking
         NavigationStack(path: $path) {
             List(filteredPages, id: \.self) { page in
                 NavigationLink(page.rawValue, value: page)
             }.searchable(text: $searchQuery, prompt: "Search...")
                 .navigationTitle(Text(title))
+                // Maps each Page enum case to its corresponding demo view
                 .navigationDestination(for: Page.self) { page in
                     switch page {
                     case .navigation:
@@ -159,30 +177,61 @@ struct PageTab: View {
     }
 }
 
+// MARK: - ContentView
+
+/// The main entry view of the app displaying a TabView with categorized demo pages.
+/// Features an adaptive sidebar style and a bottom accessory with animated readme popup.
 struct ContentView: View {
+    /// Namespace for matched geometry effect during readme transition
+    @Namespace private var readmeAnimation
     @State private var searchQuery: String = ""
+    @State private var extendReadme: Bool = false
+
     var body: some View {
         TabView {
+            // Tab for core SwiftUI feature demonstrations
             Tab("Feature Demos", systemImage: "house") {
                 PageTab(pages: featureDemos, title: "Feature Demos")
             }
+            // Tab for practical UI component examples
             Tab("User Interface Practices", systemImage: "person") {
                 PageTab(pages: uiPractices, title: "User Interface Practices")
             }
+            // Search tab that includes all pages from both categories
             Tab("Search", systemImage: "magnifyingglass", role: .search) {
                 PageTab(pages: allPages, title: "Search")
             }
         }
+        // Bottom accessory shows "Made with SwiftUI" branding
         .tabViewBottomAccessory(content: {
             Text("\(Image(systemName: "swift")) Made with SwiftUI")
+                .onTapGesture {
+                    extendReadme.toggle()
+                }.matchedTransitionSource(id: "readme", in: readmeAnimation)
         })
-        .tabBarMinimizeBehavior(.onScrollDown)
-        .tabViewSearchActivation(.automatic)
-        .tabViewStyle(.sidebarAdaptable)
-//            .searchable(text: $searchQuery, prompt: "Search...")
-//            .navigationTitle("SwiftUI Practices")
+        .tabBarMinimizeBehavior(.onScrollDown) // Minimizes tab bar when scrolling down
+        .tabViewSearchActivation(.automatic) // Automatically activates search tab
+        .tabViewStyle(.sidebarAdaptable) // Adapts between sidebar and tab bar based on platform
+        // Full screen readme popup with zoom transition animation
+        .fullScreenCover(isPresented: $extendReadme) {
+            ScrollView {
+                Text("\(Image(systemName: "swift")) Made with SwiftUI")
+                    .padding()
+                Text("If you interested in the full readme, you can check it out on [GitHub Repo](https://github.com/jinyongnan810/swift-ui-practices)!")
+                    .padding()
+            }.safeAreaInset(edge: .top) {
+                Capsule().fill(.secondary).frame(width: 35, height: 3)
+                    .navigationTransition(
+                        .zoom(sourceID: "readme", in: readmeAnimation)
+                    )
+            }
+            .background(.background)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     ContentView()
