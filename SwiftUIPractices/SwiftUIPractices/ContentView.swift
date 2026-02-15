@@ -42,6 +42,7 @@ enum Page: String, Hashable {
     case dynamicIsland = "Dynamic Island"
     case infiniteCalendar = "Infinite Calendar"
     case complex3DAnimation = "Complex 3D Animation"
+    case heroEffect = "Hero Effect"
 }
 
 // MARK: - Page Collections
@@ -65,6 +66,7 @@ let featureDemos: [Page] = [
 
 /// Collection of pages showcasing practical UI component implementations
 let uiPractices: [Page] = [
+    .heroEffect,
     .complex3DAnimation,
     .infiniteCalendar,
     .clock,
@@ -173,6 +175,8 @@ struct PageTab: View {
                         InfiniteCalendar()
                     case .complex3DAnimation:
                         Complex3DAnimation()
+                    case .heroEffect:
+                        HeroEffectPractice()
                     }
                 }
         }.onChange(of: path) { _, newValue in
