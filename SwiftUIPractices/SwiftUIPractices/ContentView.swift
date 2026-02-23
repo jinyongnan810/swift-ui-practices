@@ -45,6 +45,7 @@ enum Page: String, Hashable {
     case heroEffect = "Hero Effect"
     case screenshotPrevent = "Screenshot Prevent"
     case onboardingView = "Onboarding View"
+    case customToolbar = "Custom Toolbar"
 }
 
 // MARK: - Page Collections
@@ -68,6 +69,7 @@ let featureDemos: [Page] = [
 
 /// Collection of pages showcasing practical UI component implementations
 let uiPractices: [Page] = [
+    .customToolbar,
     .onboardingView,
     .screenshotPrevent,
     .heroEffect,
@@ -185,6 +187,8 @@ struct PageTab: View {
                         PreventScreenshotPractice()
                     case .onboardingView:
                         OnboardingPractice()
+                    case .customToolbar:
+                        CustomToolbarPractice()
                     }
                 }
         }.onChange(of: path) { _, newValue in
