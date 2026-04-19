@@ -1,46 +1,29 @@
 # Toast Practice
 
-Toast notification system with custom ViewModifier and automatic dismissal.
+Toast notifications driven by environment actions instead of local bindings.
 
 ## Techniques & Tips
 
-### Custom ViewModifier
-- `MyToastModifier` implements `ViewModifier` protocol
-- `func body(content: Content)` wraps original content
-- Adds toast overlay to any view
+### Toast Model
+- `Toast` stores the message text, SF Symbol name, optional action, and dismiss duration.
+- `Toast.Action` carries the button title and handler used by interactive toasts.
 
-### View Extension for Clean API
-- `extension View { func toast(...) }` for fluent syntax
-- Usage: `.toast(text: "Message", isShowing: $showToast)`
-- Encapsulates modifier creation
+### Environment-Driven API
+- `EnvironmentValues.showToast` exposes a `ShowToastAction`.
+- `EnvironmentValues.dismissToast` exposes a `DismissToastAction`.
+- Child views can present or dismiss a toast without owning overlay state.
 
-### Auto-Dismiss with onChange
-- `.onChange(of: isShowing)` monitors state changes
-- `DispatchQueue.main.asyncAfter()` for delayed dismissal
-- Only triggers when transitioning to `true`
+### Wrapper View
+- `ToastWrapper` accepts the main content and layers the toast as a bottom overlay.
+- The wrapper owns current and pending toast state plus dismissal tasks.
+- When a new toast arrives, the current one animates out first, then the new one is shown.
 
-### Animated Offset Transition
-- Toast slides up from bottom using `.offset(y:)`
-- Computed `offset`: 0 when showing, 100 when hidden
-- `withAnimation` wraps state toggle for smooth animation
+### Toast Presentation
+- `ToastView` renders as a capsule using SwiftUI Liquid Glass via `.glassEffect(..., in: Capsule())`.
+- The overlay uses an offset + opacity transition from the bottom edge.
+- Automatic dismissal is implemented with `Task.sleep(for:)` and cancellation.
 
-### Toast View Styling
-- Horizontal and vertical padding for content
-- Black gradient background for modern look
-- Rounded corners with `.cornerRadius()`
-- `.frame(maxHeight: .infinity, alignment: .bottom)` positions at bottom
-
-### Binding for External Control
-- `@Binding var isShowing` allows parent to control visibility
-- Parent can show toast, modifier handles auto-hide
-
-## Key APIs
-- `ViewModifier` protocol
-- `func body(content: Content)`
-- View extension for custom modifiers
-- `.onChange(of:)`
-- `.offset()`
-- `@Binding`
-- `DispatchQueue.main.asyncAfter()`
-- `withAnimation`
-- `.frame(alignment:)`
+### Example Screen
+- `Add To Cart` shows a success toast with an `Undo` action.
+- `Show Notification` shows an informational toast with no action.
+- `Dismiss Current Toast` immediately hides any visible toast.

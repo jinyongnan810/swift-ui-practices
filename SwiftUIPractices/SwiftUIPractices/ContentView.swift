@@ -71,6 +71,7 @@ let featureDemos: [Page] = [
 
 /// Collection of pages showcasing practical UI component implementations
 let uiPractices: [Page] = [
+    .toast,
     .imageBackground,
     .appIntroduction,
     .customToolbar,
@@ -93,7 +94,6 @@ let uiPractices: [Page] = [
     .chocolateView,
     .customLabelStyle,
     .textField,
-    .toast,
 ]
 
 /// Combined list of all pages for the search tab
