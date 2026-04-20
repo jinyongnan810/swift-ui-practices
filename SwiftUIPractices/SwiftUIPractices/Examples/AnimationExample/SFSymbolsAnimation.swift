@@ -14,6 +14,7 @@ struct SFSymbolsAnimation: View {
     @State private var section3 = false
     @State private var section4 = false
     @State private var section5 = false
+    @State private var speakerWaveValue = 0.5
     var body: some View {
         Form {
             Section("Enable and disable animations") {
@@ -43,6 +44,16 @@ struct SFSymbolsAnimation: View {
             }.onTapGesture {
                 section2.toggle()
             }
+            Section("Variable color") {
+                Image(systemName: "speaker.wave.3", variableValue: speakerWaveValue)
+                    .symbolVariableValueMode(.color)
+                    .font(.system(size: 48))
+                    .foregroundStyle(.blue)
+                    .frame(width: 72)
+
+                Slider(value: $speakerWaveValue, in: 0 ... 1)
+            }
+
             Section("Transition") {
                 HStack {
                     Image(systemName: section3 ? "eye" : "eye.slash")
