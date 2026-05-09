@@ -49,6 +49,7 @@ enum Page: String, Hashable {
     case appIntroduction = "App Introduction"
     case imageBackground = "Image Background"
     case swipeSidebar = "Swipe Sidebar"
+    case borderBeam = "Border Beam"
 }
 
 // MARK: - Page Collections
@@ -72,6 +73,7 @@ let featureDemos: [Page] = [
 
 /// Collection of pages showcasing practical UI component implementations
 let uiPractices: [Page] = [
+    .borderBeam,
     .toast,
     .imageBackground,
     .appIntroduction,
@@ -202,6 +204,8 @@ struct PageTab: View {
                         ImageBackgroundPractice()
                     case .swipeSidebar:
                         SwipeSidebarPractice(path: $path)
+                    case .borderBeam:
+                        BorderBeamPractice()
                     }
                 }
         }.onChange(of: path) { _, newValue in

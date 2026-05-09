@@ -3,6 +3,7 @@
 //  SwiftUIPractices
 //
 //  Created by Codex on 2026/05/09.
+//  Learned from Kavsoft: https://youtu.be/aJ3969UVDaI
 //
 
 import SwiftUI
@@ -84,6 +85,7 @@ struct SwipeSidebarWrapper<Sidebar: View, MainContent: View>: View {
                     }
                 }
                 .offset(x: xOffset)
+                .shadow(radius: 10)
                 .compositingGroup()
                 // During an active pan, UIKit is already providing continuous updates.
                 // Springs are restored for snap-open and snap-closed transitions.
