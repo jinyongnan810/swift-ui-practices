@@ -48,6 +48,7 @@ enum Page: String, Hashable {
     case customToolbar = "Custom Toolbar"
     case appIntroduction = "App Introduction"
     case imageBackground = "Image Background"
+    case swipeSidebar = "Swipe Sidebar"
 }
 
 // MARK: - Page Collections
@@ -75,6 +76,7 @@ let uiPractices: [Page] = [
     .imageBackground,
     .appIntroduction,
     .customToolbar,
+    .swipeSidebar,
     .onboardingView,
     .screenshotPrevent,
     .heroEffect,
@@ -197,6 +199,8 @@ struct PageTab: View {
                         AppIntroductionView()
                     case .imageBackground:
                         ImageBackgroundPractice()
+                    case .swipeSidebar:
+                        SwipeSidebarPractice(path: $path)
                     }
                 }
         }.onChange(of: path) { _, newValue in
