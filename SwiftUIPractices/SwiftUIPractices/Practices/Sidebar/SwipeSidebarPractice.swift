@@ -40,8 +40,8 @@ struct SwipeSidebarWrapper<Sidebar: View, MainContent: View>: View {
         @ViewBuilder sidebar: @escaping (CGFloat) -> Sidebar,
         @ViewBuilder mainContent: () -> MainContent
     ) {
-        self._isExpanded = isExpanded
-        self._isEnabled = isEnabled
+        _isExpanded = isExpanded
+        _isEnabled = isEnabled
         self.sidebar = sidebar
         self.mainContent = mainContent()
     }
@@ -115,7 +115,7 @@ struct SwipeSidebarWrapper<Sidebar: View, MainContent: View>: View {
                 dragStartOffset = xOffset
             },
             onChanged: { translationX in
-                let nextOffset = (dragStartOffset + translationX).clamped(to: 0...sidebarWidth)
+                let nextOffset = (dragStartOffset + translationX).clamped(to: 0 ... sidebarWidth)
                 setOffset(nextOffset)
             },
             onEnded: { translationX, velocityX in
@@ -160,7 +160,7 @@ struct SwipeSidebarWrapper<Sidebar: View, MainContent: View>: View {
 
     private func setOffset(_ offset: CGFloat) {
         xOffset = offset
-        progress = (offset / sidebarWidth).clamped(to: 0...1)
+        progress = (offset / sidebarWidth).clamped(to: 0 ... 1)
     }
 }
 
@@ -347,7 +347,7 @@ struct SwipeSidebarPractice: View {
     @Binding private var path: NavigationPath
 
     init(path: Binding<NavigationPath>) {
-        self._path = path
+        _path = path
     }
 
     var body: some View {
@@ -365,7 +365,7 @@ struct SwipeSidebarPractice: View {
                     .listRowBackground(Color.clear)
 
                 Section("Main Content") {
-                    ForEach(1...16, id: \.self) { index in
+                    ForEach(1 ... 16, id: \.self) { index in
                         NavigationLink(value: index) {
                             Label("Practice Row \(index)", systemImage: "doc.text")
                         }
@@ -447,7 +447,7 @@ private extension Comparable {
 }
 
 private extension UIView {
-    func nearestSuperview<T: UIView>(of type: T.Type) -> T? {
+    func nearestSuperview<T: UIView>(of _: T.Type) -> T? {
         var nextSuperview = superview
 
         while let current = nextSuperview {

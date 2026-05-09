@@ -108,6 +108,7 @@ var allPages: [Page] { featureDemos + uiPractices }
 struct PageTab: View {
     let pages: [Page]
     let title: String
+    @Binding var isAtRoot: Bool
     @State var searchQuery: String = ""
     @State private var path = NavigationPath()
 
@@ -205,7 +206,13 @@ struct PageTab: View {
                 }
         }.onChange(of: path) { _, newValue in
             print("path: \(newValue)")
+            isAtRoot = newValue.isEmpty
         }
+        .onAppear {
+            isAtRoot = path.isEmpty
+        }
+        .toolbar(isAtRoot ? .automatic : .hidden, for: .tabBar)
+        .animation(.easeOut, value: isAtRoot)
     }
 }
 
@@ -218,39 +225,60 @@ struct ContentView: View {
     @Namespace private var readmeAnimation
     @State private var searchQuery: String = ""
     @State private var extendReadme: Bool = false
+    @State private var isCurrentTabAtRoot: Bool = true
 
     var body: some View {
         TabView {
             // Tab for core SwiftUI feature demonstrations
             Tab("Feature Demos", systemImage: "house") {
-                PageTab(pages: featureDemos, title: "Feature Demos")
+                PageTab(
+                    pages: featureDemos,
+                    title: "Feature Demos",
+                    isAtRoot: $isCurrentTabAtRoot
+                )
             }
             // Tab for practical UI component examples
             Tab("User Interface Practices", systemImage: "person") {
-                PageTab(pages: uiPractices, title: "User Interface Practices")
+                PageTab(
+                    pages: uiPractices,
+                    title: "User Interface Practices",
+                    isAtRoot: $isCurrentTabAtRoot
+                )
             }
             // Search tab that includes all pages from both categories
             Tab("Search", systemImage: "magnifyingglass", role: .search) {
-                PageTab(pages: allPages, title: "Search")
+                PageTab(
+                    pages: allPages,
+                    title: "Search",
+                    isAtRoot: $isCurrentTabAtRoot
+                )
             }
         }
         // Bottom accessory shows "Made with SwiftUI" branding
-        .tabViewBottomAccessory(content: {
+        .tabViewBottomAccessory(isEnabled: isCurrentTabAtRoot, content: {
             Text("\(Image(systemName: "swift")) Made with SwiftUI")
                 .onTapGesture {
                     extendReadme.toggle()
                 }.matchedTransitionSource(id: "readme", in: readmeAnimation)
         })
-        .tabBarMinimizeBehavior(.onScrollDown) // Minimizes tab bar when scrolling down
-        .tabViewSearchActivation(.automatic) // Automatically activates search tab
-        .tabViewStyle(.sidebarAdaptable) // Adapts between sidebar and tab bar based on platform
+        .tabBarMinimizeBehavior(
+            .onScrollDown
+        ) // Minimizes tab bar when scrolling down
+        .tabViewSearchActivation(
+            .automatic
+        ) // Automatically activates search tab
+        .tabViewStyle(
+            .sidebarAdaptable
+        ) // Adapts between sidebar and tab bar based on platform
         // Full screen readme popup with zoom transition animation
         .fullScreenCover(isPresented: $extendReadme) {
             ScrollView {
                 Text("\(Image(systemName: "swift")) Made with SwiftUI")
                     .padding()
-                Text("If you interested in the full readme, you can check it out on [GitHub Repo](https://github.com/jinyongnan810/swift-ui-practices)!")
-                    .padding()
+                Text(
+                    "If you interested in the full readme, you can check it out on [GitHub Repo](https://github.com/jinyongnan810/swift-ui-practices)!"
+                )
+                .padding()
             }.safeAreaInset(edge: .top) {
                 Capsule().fill(.secondary).frame(width: 35, height: 3)
                     .navigationTransition(
