@@ -55,6 +55,30 @@ Comprehensive examples of SwiftUI animation techniques including SF Symbols, pha
 - Animate scale and rotation simultaneously
 - Different timing per track for complex effects
 
+## Spring Animation Properties
+
+### Which Spring Should You Choose?
+- **Perceptual spring** - the best default for most interface animation. Choose it when designers describe motion in terms of speed and bounce, such as buttons, cards, sheets, and state changes.
+- **Response-based spring** - choose it when maintaining or tuning code that already uses `response` and `dampingFraction`, or when you want direct control over critical damping behavior.
+- **Physical spring** - choose it for simulations, gesture handoffs, or motion that must represent a specific mass, stiffness, damping, and starting velocity. It is more precise but harder to tune.
+- Prefer the simplest model that expresses the intended motion. Different initializers are alternative ways to describe spring behavior, so combining all parameters is usually unnecessary.
+
+### Perceptual Spring
+- `duration` - controls the perceived pace of the spring
+- `bounce` - controls overshoot, from overdamped negative values to highly bouncy positive values
+- `blendDuration` - blends parameter changes when an active spring is replaced
+
+### Response-Based Spring
+- `response` - approximate duration that represents spring stiffness
+- `dampingFraction` - damping relative to critical damping
+- `blendDuration` - smooths changes between successive springs
+
+### Physical Spring
+- `mass` - weight attached to the spring
+- `stiffness` - strength of the restoring force
+- `damping` - friction that removes energy from the motion
+- `initialVelocity` - starting velocity relative to the animated distance
+
 ## Transitions
 
 ### Built-in Transitions

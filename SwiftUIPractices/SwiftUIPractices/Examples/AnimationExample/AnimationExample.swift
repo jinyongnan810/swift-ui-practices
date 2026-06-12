@@ -22,6 +22,10 @@ struct AnimationExample: View {
                 "Key Frame Animation",
                 destination: KeyFrameAnimationExample()
             )
+            NavigationLink(
+                "Spring Properties",
+                destination: SpringAnimationExample()
+            )
             NavigationLink("Transition", destination: TransitionExample())
         }
     }
