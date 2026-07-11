@@ -52,6 +52,7 @@ enum Page: String, Hashable {
     case borderBeam = "Border Beam"
     case morphingView = "Morphing View"
     case reorderContainer = "Reorder Container"
+    case weatherStickySection = "Weather Sticky Section"
 }
 
 // MARK: - Page Collections
@@ -75,6 +76,7 @@ let featureDemos: [Page] = [
 
 /// Collection of pages showcasing practical UI component implementations
 let uiPractices: [Page] = [
+    .weatherStickySection,
     .morphingView,
     .reorderContainer,
     .borderBeam,
@@ -214,6 +216,8 @@ struct PageTab: View {
                         MorphingViewPractice()
                     case .reorderContainer:
                         ReorderContainerPractice()
+                    case .weatherStickySection:
+                        WeatherStickySectionPractice()
                     }
                 }
         }.onChange(of: path) { _, newValue in
