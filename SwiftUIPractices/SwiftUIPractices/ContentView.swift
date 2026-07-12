@@ -50,6 +50,7 @@ enum Page: String, Hashable {
     case imageBackground = "Image Background"
     case swipeSidebar = "Swipe Sidebar"
     case borderBeam = "Border Beam"
+    case glassSlider = "Glass Slider"
     case morphingView = "Morphing View"
     case reorderContainer = "Reorder Container"
     case weatherStickySection = "Weather Sticky Section"
@@ -80,6 +81,7 @@ let uiPractices: [Page] = [
     .morphingView,
     .reorderContainer,
     .borderBeam,
+    .glassSlider,
     .toast,
     .imageBackground,
     .appIntroduction,
@@ -212,6 +214,8 @@ struct PageTab: View {
                         SwipeSidebarPractice(path: $path)
                     case .borderBeam:
                         BorderBeamPractice()
+                    case .glassSlider:
+                        GlassSliderPractice()
                     case .morphingView:
                         MorphingViewPractice()
                     case .reorderContainer:
