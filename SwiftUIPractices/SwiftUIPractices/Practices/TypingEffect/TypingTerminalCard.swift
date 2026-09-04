@@ -11,7 +11,6 @@ import SwiftUI
 
 struct TypingTerminalCard: View {
     let text: String
-    let cursorOpacity: Double
     let isTyping: Bool
     let isPaused: Bool
 
@@ -40,23 +39,8 @@ struct TypingTerminalCard: View {
 
             Divider()
 
-            // Typing Text Content Area with slowly blinking underscore
-            ZStack(alignment: .topLeading) {
-                // Invisible placeholder to reserve minimal vertical size
-                Text(" ")
-                    .font(.system(.body, design: .monospaced))
-                    .frame(minHeight: 140, alignment: .topLeading)
-
-                Text(text)
-                    .font(.system(.body, design: .monospaced))
-                    .foregroundColor(.primary)
-                + Text("_")
-                    .font(.system(.body, design: .monospaced))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.cyan.opacity(cursorOpacity))
-            }
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-            .textSelection(.enabled)
+            // Isolated Text Content Area with self-contained cursor animation
+            TypingTextStreamView(text: text, isTyping: isTyping)
         }
         .padding(18)
         .background(
@@ -105,5 +89,74 @@ struct TypingTerminalCard: View {
             Capsule()
                 .fill(Color.primary.opacity(0.05))
         )
+    }
+}
+
+// MARK: - Isolated Typing Text Stream View
+
+/// Container for the text area. The visible text is completely static and
+/// only re-renders when characters change. The indicator is an isolated subview.
+struct TypingTextStreamView: View {
+    let text: String
+    let isTyping: Bool
+
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            // Invisible placeholder to reserve minimal vertical size
+            Text(" ")
+                .font(.system(.body, design: .monospaced))
+                .frame(minHeight: 140, alignment: .topLeading)
+
+            // 1. Primary Visible Text
+            // Only re-renders when `text` changes (when characters stream in).
+            // It never re-renders on cursor blink ticks!
+            Text(text)
+                .font(.system(.body, design: .monospaced))
+                .foregroundColor(.primary)
+
+            // 2. Isolated Indicator
+            // Only this view handles blinking. Driven by CoreAnimation on the GPU.
+            TypingCursorIndicator(text: text, isTyping: isTyping)
+        }
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .textSelection(.enabled)
+    }
+}
+
+// MARK: - Isolated Cursor Indicator
+
+/// Isolated cursor indicator.
+/// Positions the underscore immediately following the last glyph using clear text metrics,
+/// and animates via CoreAnimation with 0 CPU timer overhead and zero text re-renders.
+struct TypingCursorIndicator: View {
+    let text: String
+    let isTyping: Bool
+
+    @State private var isBlinking: Bool = false
+
+    var body: some View {
+        Text("\(Text(text).foregroundColor(.clear))\(Text("_").fontWeight(.bold).foregroundColor(Color.cyan))")
+            .font(.system(.body, design: .monospaced))
+            .opacity(isTyping ? 1.0 : (isBlinking ? 0.08 : 1.0))
+            .animation(
+                isTyping
+                    ? .none
+                    : .easeInOut(duration: 0.6).repeatForever(autoreverses: true),
+                value: isBlinking
+            )
+            .onAppear {
+                if !isTyping {
+                    isBlinking = true
+                }
+            }
+            .onChange(of: isTyping) { _, typing in
+                if !typing {
+                    isBlinking = true
+                } else {
+                    isBlinking = false
+                }
+            }
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
     }
 }

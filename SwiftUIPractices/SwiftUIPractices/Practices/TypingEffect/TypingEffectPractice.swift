@@ -10,66 +10,38 @@ import SwiftUI
 // MARK: - TypingEffectPractice View
 
 struct TypingEffectPractice: View {
-    // Current sample & content
-    @State private var selectedSampleIndex: Int = 0
-    @State private var customText: String = ""
-    @State private var showCustomTextSheet: Bool = false
-    @State private var showSettingsSheet: Bool = false
-
-    // Typing State
-    @State private var displayedText: String = ""
-    @State private var isTyping: Bool = false
-    @State private var isPaused: Bool = false
-    @State private var typingTask: Task<Void, Never>?
-
-    // Cursor Blink State (Slow organic breathing indicator)
-    @State private var cursorOpacity: Double = 1.0
-    @State private var blinkTask: Task<Void, Never>?
-
-    // Configuration Settings (System Tock is default SE)
-    @State private var speedMode: TypingSpeedMode = .natural
-    @State private var enableSound: Bool = true
-    @State private var soundStyle: TypingSoundStyle = .systemClick
-    @State private var enableHaptics: Bool = true
-    @State private var hapticStyle: TypingHapticStyle = .rigid
-
-    // View-scoped audio/haptic feedback engine with automatic teardown on disappear
-    @State private var feedbackEngine = TypingFeedbackEngine()
-
-    private var activeFullText: String {
-        if !customText.isEmpty {
-            return customText
-        }
-        guard selectedSampleIndex < typingSamplePresets.count else { return "" }
-        return typingSamplePresets[selectedSampleIndex].text
-    }
-
-    private var progressRatio: Double {
-        let total = activeFullText.count
-        guard total > 0 else { return 0 }
-        return min(1.0, Double(displayedText.count) / Double(total))
-    }
+    @State private var viewModel = TypingEffectViewModel()
+    @State private var draftCustomText: String = ""
 
     var body: some View {
         // NavigationStack is provided by ContentView; only root ScrollView here
         ScrollView {
             VStack(spacing: 20) {
-                // macOS-inspired Terminal Window Card
+                // macOS-inspired Terminal Window Card (no longer receives cursorOpacity)
                 TypingTerminalCard(
-                    text: displayedText,
-                    cursorOpacity: cursorOpacity,
-                    isTyping: isTyping,
-                    isPaused: isPaused
+                    text: viewModel.displayedText,
+                    isTyping: viewModel.isTyping,
+                    isPaused: viewModel.isPaused
                 )
 
-                // Progress Bar
-                progressSection
+                // Progress Bar (updates only when progress/displayed count changes)
+                TypingProgressBar(
+                    displayedCount: viewModel.displayedText.count,
+                    totalCount: viewModel.activeFullText.count,
+                    progressRatio: viewModel.progressRatio
+                )
 
-                // Quick Playback Action Buttons
-                playbackControls
+                // Quick Playback Action Buttons (updates only when isTyping, isPaused, isCompleted change)
+                TypingPlaybackControls(viewModel: viewModel)
 
-                // Sample Text Presets Selector
-                sampleTextsSection
+                // Sample Text Presets Selector (updates only when preset selection changes)
+                TypingPresetSelector(
+                    viewModel: viewModel,
+                    onOpenCustomText: {
+                        draftCustomText = viewModel.customText
+                        viewModel.showCustomTextSheet = true
+                    }
+                )
             }
             .padding()
         }
@@ -78,8 +50,8 @@ struct TypingEffectPractice: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    feedbackEngine.playButtonTap()
-                    showSettingsSheet = true
+                    viewModel.feedbackEngine.playButtonTap()
+                    viewModel.showSettingsSheet = true
                 } label: {
                     Image(systemName: "gearshape")
                 }
@@ -87,37 +59,78 @@ struct TypingEffectPractice: View {
             }
         }
         .onAppear {
-            feedbackEngine.prepare()
-            startTyping()
-            startCursorAnimation()
+            viewModel.onAppear()
         }
         .onDisappear {
-            stopAllTasks()
-            feedbackEngine.tearDown()
+            viewModel.onDisappear()
         }
-        .sheet(isPresented: $showSettingsSheet) {
+        .sheet(isPresented: $viewModel.showSettingsSheet) {
             TypingSettingsSheet(
-                speedMode: $speedMode,
-                enableSound: $enableSound,
-                soundStyle: $soundStyle,
-                enableHaptics: $enableHaptics,
-                hapticStyle: $hapticStyle,
-                feedbackEngine: feedbackEngine
+                speedMode: $viewModel.speedMode,
+                enableSound: $viewModel.enableSound,
+                soundStyle: $viewModel.soundStyle,
+                enableHaptics: $viewModel.enableHaptics,
+                hapticStyle: $viewModel.hapticStyle,
+                feedbackEngine: viewModel.feedbackEngine
             )
             .presentationDetents([.medium, .large])
             .presentationDragIndicator(.visible)
         }
-        .sheet(isPresented: $showCustomTextSheet) {
+        .sheet(isPresented: $viewModel.showCustomTextSheet) {
             customTextInputSheet
         }
     }
 
-    // MARK: - Progress Section
+    // MARK: - Custom Text Input Sheet
 
-    private var progressSection: some View {
+    private var customTextInputSheet: some View {
+        NavigationStack {
+            VStack(alignment: .leading, spacing: 14) {
+                Text("Enter any text to watch it typed character by character:")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+
+                TextEditor(text: $draftCustomText)
+                    .font(.system(.body, design: .monospaced))
+                    .padding(8)
+                    .background(Color(.tertiarySystemBackground))
+                    .cornerRadius(10)
+                    .frame(minHeight: 180)
+
+                Spacer()
+            }
+            .padding()
+            .navigationTitle("Custom Text")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        viewModel.showCustomTextSheet = false
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Start Typing") {
+                        viewModel.showCustomTextSheet = false
+                        viewModel.submitCustomText(draftCustomText)
+                    }
+                    .disabled(draftCustomText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Progress Section
+
+private struct TypingProgressBar: View {
+    let displayedCount: Int
+    let totalCount: Int
+    let progressRatio: Double
+
+    var body: some View {
         VStack(spacing: 6) {
             HStack {
-                Text("Characters: \(displayedText.count) / \(activeFullText.count)")
+                Text("Characters: \(displayedCount) / \(totalCount)")
                     .font(.caption)
                     .foregroundColor(.secondary)
                 Spacer()
@@ -132,15 +145,18 @@ struct TypingEffectPractice: View {
         }
         .padding(.horizontal, 4)
     }
+}
 
-    // MARK: - Playback Controls
+// MARK: - Playback Controls
 
-    private var playbackControls: some View {
+private struct TypingPlaybackControls: View {
+    let viewModel: TypingEffectViewModel
+
+    var body: some View {
         HStack(spacing: 12) {
             // Replay Button
             Button {
-                feedbackEngine.playButtonTap()
-                startTyping()
+                viewModel.restartTyping()
             } label: {
                 Label("Restart", systemImage: "arrow.counterclockwise")
                     .font(.subheadline)
@@ -153,18 +169,17 @@ struct TypingEffectPractice: View {
 
             // Pause / Resume Button
             Button {
-                feedbackEngine.playButtonTap()
-                if isPaused {
-                    resumeTyping()
-                } else if isTyping {
-                    pauseTyping()
+                if viewModel.isPaused {
+                    viewModel.resumeTyping()
+                } else if viewModel.isTyping {
+                    viewModel.pauseTyping()
                 } else {
-                    startTyping()
+                    viewModel.startTyping()
                 }
             } label: {
                 Label(
-                    isPaused ? "Resume" : (isTyping ? "Pause" : "Type"),
-                    systemImage: isPaused ? "play.fill" : (isTyping ? "pause.fill" : "play.fill")
+                    viewModel.isPaused ? "Resume" : (viewModel.isTyping ? "Pause" : "Type"),
+                    systemImage: viewModel.isPaused ? "play.fill" : (viewModel.isTyping ? "pause.fill" : "play.fill")
                 )
                 .font(.subheadline)
                 .fontWeight(.medium)
@@ -172,12 +187,11 @@ struct TypingEffectPractice: View {
                 .padding(.vertical, 10)
             }
             .buttonStyle(.bordered)
-            .disabled(!isTyping && !isPaused && displayedText == activeFullText)
+            .disabled(viewModel.isCompleted)
 
-            // Skip / Complete Immediately Button
+            // Skip Button
             Button {
-                feedbackEngine.playButtonTap()
-                skipToEnd()
+                viewModel.skipToEnd()
             } label: {
                 Label("Skip", systemImage: "forward.end.fill")
                     .font(.subheadline)
@@ -186,21 +200,26 @@ struct TypingEffectPractice: View {
                     .padding(.vertical, 10)
             }
             .buttonStyle(.bordered)
-            .disabled(!isTyping && !isPaused)
+            .disabled(!viewModel.isTyping && !viewModel.isPaused)
         }
     }
+}
 
-    // MARK: - Sample Texts Section
+// MARK: - Sample Text Presets Selector
 
-    private var sampleTextsSection: some View {
+private struct TypingPresetSelector: View {
+    let viewModel: TypingEffectViewModel
+    let onOpenCustomText: () -> Void
+
+    var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text("Sample Texts")
                     .font(.headline)
                 Spacer()
                 Button {
-                    feedbackEngine.playButtonTap()
-                    showCustomTextSheet = true
+                    viewModel.feedbackEngine.playButtonTap()
+                    onOpenCustomText()
                 } label: {
                     Label("Custom Text", systemImage: "square.and.pencil")
                         .font(.caption)
@@ -212,13 +231,10 @@ struct TypingEffectPractice: View {
                 HStack(spacing: 10) {
                     ForEach(typingSamplePresets.indices, id: \.self) { index in
                         let sample = typingSamplePresets[index]
-                        let isSelected = customText.isEmpty && selectedSampleIndex == index
+                        let isSelected = viewModel.customText.isEmpty && viewModel.selectedSampleIndex == index
 
                         Button {
-                            feedbackEngine.playButtonTap()
-                            customText = ""
-                            selectedSampleIndex = index
-                            startTyping()
+                            viewModel.selectSample(at: index)
                         } label: {
                             HStack(spacing: 6) {
                                 Image(systemName: sample.icon)
@@ -248,130 +264,6 @@ struct TypingEffectPractice: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(Color(.secondarySystemBackground))
         )
-    }
-
-    // MARK: - Custom Text Input Sheet
-
-    private var customTextInputSheet: some View {
-        NavigationStack {
-            VStack(alignment: .leading, spacing: 14) {
-                Text("Enter any text to watch it typed character by character:")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-
-                TextEditor(text: $customText)
-                    .font(.system(.body, design: .monospaced))
-                    .padding(8)
-                    .background(Color(.tertiarySystemBackground))
-                    .cornerRadius(10)
-                    .frame(minHeight: 180)
-
-                Spacer()
-            }
-            .padding()
-            .navigationTitle("Custom Text")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        showCustomTextSheet = false
-                    }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Start Typing") {
-                        showCustomTextSheet = false
-                        startTyping()
-                    }
-                    .disabled(customText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                }
-            }
-        }
-    }
-
-    // MARK: - Typing Engine
-
-    private func startTyping() {
-        typingTask?.cancel()
-        displayedText = ""
-        isTyping = true
-        isPaused = false
-
-        let targetText = activeFullText
-        let characters = Array(targetText)
-
-        feedbackEngine.prepare()
-
-        typingTask = Task { @MainActor in
-            for index in characters.indices {
-                if Task.isCancelled { break }
-
-                // Handle pause loop
-                while isPaused {
-                    if Task.isCancelled { break }
-                    try? await Task.sleep(for: .milliseconds(100))
-                }
-
-                if Task.isCancelled { break }
-
-                let char = characters[index]
-                displayedText.append(char)
-
-                // Play both Sound Effect (SE) and Haptic Vibration
-                feedbackEngine.playKeystroke(
-                    soundEnabled: enableSound,
-                    soundStyle: soundStyle,
-                    hapticEnabled: enableHaptics,
-                    hapticStyle: hapticStyle
-                )
-
-                let sleepDelay = speedMode.delay(for: char)
-                try? await Task.sleep(for: .milliseconds(sleepDelay))
-            }
-
-            if !Task.isCancelled {
-                isTyping = false
-                isPaused = false
-            }
-        }
-    }
-
-    private func pauseTyping() {
-        isPaused = true
-    }
-
-    private func resumeTyping() {
-        isPaused = false
-    }
-
-    private func skipToEnd() {
-        typingTask?.cancel()
-        displayedText = activeFullText
-        isTyping = false
-        isPaused = false
-    }
-
-    // MARK: - Cursor Animation Engine
-
-    /// Slowly blinking underscore typing indicator at the end of the text.
-    /// Smooth organic sine-wave breathing oscillation with a ~1.2s period.
-    private func startCursorAnimation() {
-        blinkTask?.cancel()
-
-        blinkTask = Task { @MainActor in
-            var step: Double = 0
-            while !Task.isCancelled {
-                try? await Task.sleep(for: .milliseconds(33))
-                if Task.isCancelled { break }
-                step += 0.08
-                let sine = sin(step)
-                cursorOpacity = 0.05 + 0.95 * ((sine + 1.0) / 2.0)
-            }
-        }
-    }
-
-    private func stopAllTasks() {
-        typingTask?.cancel()
-        blinkTask?.cancel()
     }
 }
 
